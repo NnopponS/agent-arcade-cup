@@ -6,7 +6,7 @@ A research-style extension of [100 Games](https://github.com/NnopponS/100-games)
 
 ## Current tournament: FightingICE
 
-**Status: engine qualification in progress. No tournament matches or champion yet.** The new Cup uses the [official FightingICE engine](https://github.com/TeamFightingICE/FightingICE), pinned to v7.0. A calibration-only test recorded a full headless native fight with simultaneous, explicit two-seat control, verified a side mirror, and established that changing a command changed native HP. Calibration is not part of the 100-profile study.
+**Status: live qualification underway. No tournament champion yet.** The new Cup uses the [official FightingICE engine](https://github.com/TeamFightingICE/FightingICE), pinned to v7.0. A calibration-only test recorded a full headless native fight with simultaneous, explicit two-seat control, verified a side mirror, and established that changing a command changed native HP. Calibration is not part of the 100-profile study.
 
 The new experiment concerns what players do when an opponent changes tactics, and whether bounded strategy notes help them adapt. Wording, outcomes and uncertainty will be tied to observable native decisions, never to claimed hidden memory. The 50 opening heats and the 49 played knockouts are separate from the old puzzles below. Audio/voice and video production has its own evidence and release gate.
 
@@ -37,3 +37,5 @@ See [fresh-agent methodology](primary/README.md), [lifecycle protocol](lifecycle
 ## Tournament layer: open play
 
 The original paired answers are sealed first. The same 100 profiles then enter a separate [Cup bracket](cup/README.md): open dialogue in all 50 heats, then 49 played knockouts. The bracket code has been fixture-tested; no actual champion is declared. Byes and missing submissions never count as wins. Experimental tie scores are not silently forced into a result.
+
+The [FightingICE protocol](fighting-study/PROTOCOL.md), [engine bridge](fightingice/README.md) and [video production plan](edit/fighting/story-plan.json) are included. Early successful heats are not a complete dataset. Raw upstream game assets, internal tool paths, and native captures are intentionally excluded.

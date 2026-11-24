@@ -1,0 +1,121 @@
+{
+  "title": "Agent Arcade Cup",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 24,
+    "max_seconds": 180
+  },
+  "evidence_policy": "No dialogue, match claims, numbers or champion names without a matching event from the current FightingICE run. Calibration visuals are identified as calibration; practice does not count. Third-party source art is not included in the public package.",
+  "voice": {
+    "engine": "VoiceStudio native VoxCPM2",
+    "style": "natural connected one-take paragraphs",
+    "languages": [
+      "th",
+      "en"
+    ]
+  },
+  "music": {
+    "requested_engine": "ACE-Step 1.5",
+    "duck_under_voice": true,
+    "no_vocals": true
+  },
+  "beats": [
+    {
+      "id": "cold_open",
+      "max_seconds": 9,
+      "shot": "closeup",
+      "camera": "punch",
+      "transition": "cut",
+      "fact_ref": "real-first-decisive-exchange",
+      "cue": {
+        "fx": "impact",
+        "anchor": "actual_native_hit_frame"
+      }
+    },
+    {
+      "id": "title",
+      "max_seconds": 6,
+      "shot": "3d_standoff",
+      "camera": "push_in",
+      "transition": "whip",
+      "cue": {
+        "fx": "sting",
+        "anchor": "tournament_title_reveal"
+      }
+    },
+    {
+      "id": "rules",
+      "max_seconds": 20,
+      "shot": "animated_board",
+      "camera": "tilt_in",
+      "transition": "cut",
+      "fact_ref": "preregistered-match-rules",
+      "cue": {
+        "fx": "lock",
+        "anchor": "simultaneous_action_lock"
+      },
+      "verified_model_bug": {
+        "th": "ผู้เข้าแข่ง: GPT-6.2 Sol · Reasoning Low",
+        "en": "Contestants: GPT-6.2 Sol · Reasoning Low",
+        "manifest_field": "model=gpt-6.2-sol; effort=low",
+        "position": "rules card after cold open; not the video production team"
+      }
+    },
+    {
+      "id": "fight",
+      "max_seconds": 30,
+      "shot": "state_replay",
+      "camera": "cut_to_reaction",
+      "transition": "cut",
+      "fact_ref": "two_verified_lines_and_following_move",
+      "cue": {
+        "fx": "click",
+        "anchor": "actual_tactical_change_frame"
+      }
+    },
+    {
+      "id": "test",
+      "max_seconds": 29,
+      "shot": "two_phase_comparison",
+      "camera": "still",
+      "transition": "whip",
+      "fact_ref": "behavior_delta_and_HP_study",
+      "cue": {
+        "fx": "note",
+        "anchor": "explicit_strategy_note_reveal"
+      }
+    },
+    {
+      "id": "knockout",
+      "max_seconds": 37,
+      "shot": "bracket",
+      "camera": "animated_bracket_follow",
+      "transition": "cut",
+      "fact_ref": "verified_tournament_bracket",
+      "cue": {
+        "fx": "advance",
+        "anchor": "verified_advance"
+      }
+    },
+    {
+      "id": "end",
+      "max_seconds": 19,
+      "shot": "champion_card",
+      "camera": "slow_push",
+      "transition": "cut",
+      "fact_ref": "verified_champion",
+      "cue": {
+        "fx": "sting",
+        "anchor": "verified_champion_reveal"
+      }
+    }
+  ],
+  "quality_pass": [
+    "render two stills per beat before encoding",
+    "check captions/UI overlap at mobile safe area",
+    "validate framed originals and sound levels",
+    "decode both finished films and confirm length",
+    "review exact Thai/English voice timing and real dialogue labels"
+  ]
+}
