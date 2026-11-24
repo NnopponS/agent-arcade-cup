@@ -25,3 +25,5 @@ d0cb5d5ac3e1b61d636ab415dab9ef637feac4fe6ae088736622c17bcf07091d  lifecycle/pers
 ## Engineering pilot: two independently authored strategy bots
 
 A separate 100-round paired pilot debugged native game engines, result recording and the replay pipeline. Its fixed bots played 2048, Sliding Puzzle, Lights Out and Battleship. Recorded result: **Keystone 24 · Lantern 29 · Ties 47**. The run includes 11 rounds affected by an action watchdog; excluding those rounds gives 19 · 26 · 44 respectively. These are not fresh-agent outcomes or a model comparison.
+
+See [fresh-agent methodology](primary/README.md), [lifecycle protocol](lifecycle/protocol.md), and [pilot verification](arena/evidence/verified-summary.json).

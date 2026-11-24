@@ -1,0 +1,5 @@
+{
+  "design": "Exactly 25 a and 25 b retention seats, shuffled by HMAC-SHA-256 independently of handoff; commitment to assignments.json before challenge generation finishes",
+  "sha256": "ef408675eaabb4dcdf017d89a78b39856e0fa9a8190153e524c92a7631bb5ef6",
+  "createdAt": "2026-11-24T19:47:59.420Z"
+}

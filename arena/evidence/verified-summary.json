@@ -1,0 +1,244 @@
+{
+  "paired_matches": 100,
+  "native_game_runs": 200,
+  "verified_actions": 8325,
+  "seed": 1263424561,
+  "standings": {
+    "a": 24,
+    "b": 29,
+    "ties": 47
+  },
+  "by_game": {
+    "2048": {
+      "a": 7,
+      "b": 13,
+      "ties": 5
+    },
+    "sliding": {
+      "a": 3,
+      "b": 7,
+      "ties": 15
+    },
+    "lights": {
+      "a": 0,
+      "b": 0,
+      "ties": 25
+    },
+    "battleship": {
+      "a": 14,
+      "b": 9,
+      "ties": 2
+    }
+  },
+  "moves_by_game": {
+    "2048": 4306,
+    "sliding": 1474,
+    "lights": 350,
+    "battleship": 2195
+  },
+  "outcomes": {
+    "a": {
+      "move-limit": 25,
+      "solved": 44,
+      "victory": 23,
+      "fault": 6,
+      "defeat": 2
+    },
+    "b": {
+      "move-limit": 22,
+      "solved": 45,
+      "victory": 23,
+      "fault": 8,
+      "defeat": 2
+    }
+  },
+  "bot_faults": 14,
+  "bot_fault_list": [
+    {
+      "game": "sliding",
+      "round": 13,
+      "bot": "a",
+      "step": 4,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 13,
+      "bot": "b",
+      "step": 1,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 14,
+      "bot": "a",
+      "step": 1,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 14,
+      "bot": "b",
+      "step": 1,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 24,
+      "bot": "a",
+      "step": 6,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "2048",
+      "round": 36,
+      "bot": "b",
+      "step": 66,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 47,
+      "bot": "b",
+      "step": 15,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 53,
+      "bot": "a",
+      "step": 11,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 53,
+      "bot": "b",
+      "step": 3,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "2048",
+      "round": 62,
+      "bot": "b",
+      "step": 64,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 71,
+      "bot": "a",
+      "step": 1,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 77,
+      "bot": "a",
+      "step": 12,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "2048",
+      "round": 83,
+      "bot": "b",
+      "step": 43,
+      "error": "Script execution timed out after 250ms"
+    },
+    {
+      "game": "sliding",
+      "round": 86,
+      "bot": "b",
+      "step": 6,
+      "error": "Script execution timed out after 250ms"
+    }
+  ],
+  "highlights_first_scheduled_by_game": {
+    "2048": {
+      "round": 1,
+      "game": "2048",
+      "winner": "b",
+      "a": {
+        "moves": 88,
+        "rank": [
+          932,
+          128
+        ],
+        "outcome": "move-limit"
+      },
+      "b": {
+        "moves": 88,
+        "rank": [
+          940,
+          128
+        ],
+        "outcome": "move-limit"
+      }
+    },
+    "sliding": {
+      "round": 2,
+      "game": "sliding",
+      "winner": "b",
+      "a": {
+        "moves": 52,
+        "rank": [
+          1,
+          -52
+        ],
+        "outcome": "solved"
+      },
+      "b": {
+        "moves": 46,
+        "rank": [
+          1,
+          -46
+        ],
+        "outcome": "solved"
+      }
+    },
+    "lights": {
+      "round": 3,
+      "game": "lights",
+      "winner": "tie",
+      "a": {
+        "moves": 7,
+        "rank": [
+          1,
+          -7
+        ],
+        "outcome": "solved"
+      },
+      "b": {
+        "moves": 7,
+        "rank": [
+          1,
+          -7
+        ],
+        "outcome": "solved"
+      }
+    },
+    "battleship": {
+      "round": 6,
+      "game": "battleship",
+      "winner": "b",
+      "a": {
+        "moves": 45,
+        "rank": [
+          5,
+          17,
+          -45
+        ],
+        "outcome": "victory"
+      },
+      "b": {
+        "moves": 38,
+        "rank": [
+          5,
+          17,
+          -38
+        ],
+        "outcome": "victory"
+      }
+    }
+  }
+}
