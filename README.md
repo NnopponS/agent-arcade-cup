@@ -4,7 +4,13 @@
 
 A research-style extension of [100 Games](https://github.com/NnopponS/100-games), by Worapon Sangsasri. This repo is private while the study runs.
 
-## Primary study: fresh-agent tournament
+## Current tournament: FightingICE
+
+**Status: engine qualification in progress. No tournament matches or champion yet.** The new Cup uses the [official FightingICE engine](https://github.com/TeamFightingICE/FightingICE), pinned to v7.0. A calibration-only test recorded a full headless native fight with simultaneous, explicit two-seat control, verified a side mirror, and established that changing a command changed native HP. Calibration is not part of the 100-profile study.
+
+The new experiment concerns what players do when an opponent changes tactics, and whether bounded strategy notes help them adapt. Wording, outcomes and uncertainty will be tied to observable native decisions, never to claimed hidden memory. The 50 opening heats and the 49 played knockouts are separate from the old puzzles below. Audio/voice and video production has its own evidence and release gate.
+
+## Retired puzzle study: fresh-agent protocol
 
 **Status: retired.** This initial puzzle format was stopped before completion and is excluded from the next Cup. No winner was declared. The next game selection is pending. Original target: 50 sequential waves, two newly spawned agents per wave, 100 unique agent profiles. This is not the same as running two programs 100 times.
 
