@@ -6,7 +6,7 @@ A research-style extension of [100 Games](https://github.com/NnopponS/100-games)
 
 ## Primary study: fresh-agent tournament
 
-**Status: in progress.** Target: 50 sequential waves, two newly spawned agents per wave, 100 unique agent profiles. This is not the same as running two programs 100 times.
+**Status: retired.** This initial puzzle format was stopped before completion and is excluded from the next Cup. No winner was declared. The next game selection is pending. Original target: 50 sequential waves, two newly spawned agents per wave, 100 unique agent profiles. This is not the same as running two programs 100 times.
 
 - The agents themselves answer the same hard puzzle in each wave. The preset pool is Connect Four forced-win positions, shortest-path 4×4 Sliding Puzzle, and minimum-move 5×5 Lights Out.
 - Fresh runtimes do not inherit the parent conversation. One seat is assigned a narrowly scoped prior strategy note; the paired control receives a neutral note. Any first-title bootstrap or unusable note is logged.
