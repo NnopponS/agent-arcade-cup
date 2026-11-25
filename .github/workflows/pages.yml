@@ -13,9 +13,6 @@ concurrency:
   cancel-in-progress: true
 jobs:
   stage:
-    permissions:
-      contents: read
-      pages: read
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
@@ -27,16 +24,34 @@ jobs:
           python3 site/tests/verify_public.py
           python3 site/recompute-study.py | tee /tmp/cup-recomputed.txt
           grep -F 'estimate: +2.4423 HP.' /tmp/cup-recomputed.txt
+          python3 site/tests/verify_replays.py
           node --check site/app.js
-          mkdir -p _site/assets
-          for f in .nojekyll index.html style.css app.js data.json report.json report.md match-index.csv study-inputs.csv retired-puzzle-archive.csv recompute-study.py; do
+          node --check site/replay.js
+          node --test site/tests/replay.test.cjs
+          mkdir -p _site/assets _site/replays
+          for f in .nojekyll index.html style.css app.js replay.css replay.js data.json report.json report.md match-index.csv study-inputs.csv retired-puzzle-archive.csv recompute-study.py; do
             test ! -L "site/$f"
             cp "site/$f" "_site/$f"
+          done
+          for f in index.json pack-{01..10}.json; do
+            test ! -L "site/replays/$f"
+            cp "site/replays/$f" "_site/replays/$f"
           done
           for f in FONT-LICENSES.txt thai-bold.woff thai.woff serif.woff serif-italic.woff; do
             test ! -L "site/assets/$f"
             cp "site/assets/$f" "_site/assets/$f"
           done
+      - name: Test embedded replays at desktop and phone sizes
+        run: |
+          npm install --prefix "${RUNNER_TEMP}/cup-qa" playwright@1.62.1 --no-audit --no-fund
+          export NODE_PATH="${RUNNER_TEMP}/cup-qa/node_modules"
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium || true)"
+          if [ -z "${CHROME_PATH}" ]; then "${RUNNER_TEMP}/cup-qa/node_modules/.bin/playwright" install chromium; fi
+          python3 -m http.server 8781 --bind 127.0.0.1 -d _site &
+          server=$!
+          trap 'kill "${server}"' EXIT
+          for i in {1..20}; do curl -fsS http://127.0.0.1:8781/ >/dev/null && break; sleep 1; done
+          node site/tests/browser-replay.cjs
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

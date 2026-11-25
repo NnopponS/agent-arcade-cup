@@ -1,0 +1,54 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {chromium}=require('playwright');
+const base=process.argv[2] || 'http://127.0.0.1:8781/';
+(async()=>{
+ const browser=await chromium.launch({headless:true,...process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}});
+ try{
+  for(const [width,height] of [[320,845],[390,845],[844,390],[1360,900]]){
+   const p=await browser.newPage({viewport:{width,height}});
+   const errors=[];
+   p.on('pageerror',e=>errors.push(e.message));
+   const by=id=>p.locator('#replay-'+id);
+   await p.goto(base+'#match-K049');
+   await by('surface').waitFor();
+   assert.equal(await by('time').textContent(),'เฟรม 0 / 420 · 0.00 วิ / 7.00 วิ');
+   assert((await by('canvas').evaluate(c=>{const g=c.getContext('2d'), px=g.getImageData(0,0,4,4).data;return [...px].some(v=>v!==0);})));
+   await by('seek').press('End');
+   assert.equal(await by('a-score').textContent(),'367 / 400 HP');
+   assert.equal(await by('b-score').textContent(),'372 / 400 HP');
+   assert.match(await by('result').textContent(),/FI-005/);
+   await by('meta-order').locator('summary').click();
+   assert.equal(await by('a-order').textContent(),'STAND_FB');
+   assert.equal(await by('b-order').textContent(),'CROUCH_GUARD');
+   await by('prev').click();
+   assert.equal(await by('seek').inputValue(),'419');
+   await by('next').click();
+   assert.equal(await by('seek').inputValue(),'420');
+   await by('speed').selectOption('4');
+   await by('play').click();
+   await p.waitForFunction(()=>Number(document.getElementById('replay-seek').value)>15);
+   await by('play').click();
+   const stopped=await by('seek').inputValue();
+   await p.waitForTimeout(135);
+   assert.equal(await by('seek').inputValue(),stopped);
+   await by('restart').click();
+   assert.equal(await by('seek').inputValue(),'0');
+   assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   await p.goto(base+'#match-K003');
+   await by('status').waitFor();
+   await p.waitForFunction(()=>document.getElementById('replay-status').textContent.includes('แพ้ผ่าน'));
+   assert.equal(await by('surface').isVisible(),false);
+   await p.goto(base+'#match-B001');
+   await by('surface').waitFor();
+   await p.waitForFunction(()=>document.getElementById('replay-type').textContent.startsWith('PILOT'));
+   await by('seek').press('End');
+   assert.match(await by('result').textContent(),/B/);
+   assert.equal(await by('meta-order').isVisible(),false);
+   assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   assert.deepEqual(errors,[]);
+   console.log('Replay interaction verified at '+width+'×'+height+': native final, speed/pause/scrub, forfeit, recorded puzzle board.');
+   await p.close();
+  }
+ }finally{await browser.close();}
+})().catch(err=>{console.error(err);process.exitCode=1;});

@@ -235,6 +235,7 @@
     $('#copy-status').textContent = '';
     $('#fallback-link').hidden = true;
     panel.hidden = false;
+    void window.CupReplay?.show(m);
     renderList();
     if (useFocus) { $('#detail-title').focus({preventScroll:true}); panel.scrollIntoView({block:'start'}); }
   }
@@ -251,6 +252,7 @@
       const prior = selected;
       selected = null;
       $('#match-detail').hidden = true;
+      window.CupReplay?.clear();
       renderList();
       if (useFocus && hash === '#matches') {
         const visible = document.querySelector(`a.record[href="${route(prior)}"]`);

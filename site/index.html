@@ -13,7 +13,9 @@
   <meta property="og:description" content="สำรวจทุกแมตช์ที่บันทึกในชุดข้อมูลเผยแพร่ พร้อมผลการทดลองและข้อจำกัด">
   <link rel="icon" href="./assets/arcade-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
-  <script defer src="./app.js"></script>
+  <link rel="stylesheet" href="./replay.css">
+  <script defer src="./replay.js"></script>
+  <script defer src="./app.js?v=replay1"></script>
   <title>Agent Arcade Cup · คลังผลการแข่งขัน</title>
 </head>
 <body>
@@ -39,8 +41,8 @@
       <div class="hero-copy">
         <p class="kicker"><i></i><span lang="en">FIELD NOTES / 01</span> · คลังผลการทดลอง</p>
         <h1 id="page-title" lang="en">Agent<br>Arcade <em>Cup.</em></h1>
-        <p class="hero-sub">ย้อนดูแต่ละแมตช์ แล้วอ่านว่าผลการแข่งขันบอกอะไร และมีข้อไหนที่ข้อมูลยังตอบไม่ได้</p>
-        <div class="hero-actions"><a class="button button-dark" href="#matches">เปิดคลังแมตช์ <svg class="icon" aria-hidden="true"><use href="#i-down"></use></svg></a><a class="button button-plain" href="#report">อ่านรายงาน <svg class="icon" aria-hidden="true"><use href="#i-out"></use></svg></a></div>
+        <p class="hero-sub">เปิดรีเพลย์จากเกมที่เล่นจริง ปรับความเร็วหรือเลื่อนทีละเฟรม แล้วอ่านว่าผลการแข่งขันบอกอะไร และมีข้อไหนที่ข้อมูลยังตอบไม่ได้</p>
+        <div class="hero-actions"><a class="button button-dark" href="#match-K049">ดูรีเพลย์รอบชิง <svg class="icon" aria-hidden="true"><use href="#i-down"></use></svg></a><a class="button button-plain" href="#matches">เปิดคลังแมตช์</a><a class="button button-plain" href="#report">อ่านรายงาน <svg class="icon" aria-hidden="true"><use href="#i-out"></use></svg></a></div>
       </div>
       <div class="hero-board" aria-hidden="true">
         <div class="hero-board-label"><span>ARCADE CUP<br>RESULTS ARCHIVE</span><span>FIG. A<br>TOURNAMENT INDEX</span></div>
@@ -60,7 +62,7 @@
           <circle cx="227" cy="137" r="61" stroke="#2c291d" stroke-opacity=".30" stroke-dasharray="2 5"/>
           <g stroke="#2c291d" stroke-width="2"><path d="M223 43h8m-4-4v8m-4 185h8m-4-4v8"/></g>
         </svg>
-        <div class="hero-board-foot"><span><i></i> RECORDS, NOT REPLAYS</span><span>NOT TO SCALE</span></div>
+        <div class="hero-board-foot"><span><i></i> RECORDS + REPLAYS</span><span>NOT TO SCALE</span></div>
       </div>
     </section>
     <section class="wrap numbers" aria-label="ภาพรวมข้อมูล" hidden id="metrics">
@@ -71,7 +73,7 @@
     <section id="matches" class="wrap archive" aria-labelledby="archive-title">
       <p class="section-index"><span>01</span> MATCH LOG</p>
       <div class="section-head">
-        <div><h2 id="archive-title">คลังแมตช์</h2><p>ค้นหาจากเลขแมตช์ เกม หรือชื่อที่เผยแพร่ แล้วเปิดดูผลรายแมตช์</p></div>
+        <div><h2 id="archive-title">คลังแมตช์</h2><p>ค้นหาจากเลขแมตช์ เกม หรือชื่อที่เผยแพร่ แล้วเปิดดูรีเพลย์และผลรายแมตช์</p></div>
         <div class="archive-links" id="download-data" hidden><a class="button small button-line" href="./match-index.csv" download><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> ดัชนี CSV</a><a class="button small button-line" href="./data.json" download>ข้อมูล JSON</a></div>
       </div>
       <noscript><p class="state-block">เปิด JavaScript เพื่อใช้การค้นหาและตัวกรอง หรืออ่าน <a href="./data.json">ชุดข้อมูล</a> และ <a href="./report.json">รายงาน</a> โดยตรง</p></noscript>
@@ -83,12 +85,48 @@
           <label for="game-filter"><span>เกม</span><select id="game-filter"><option value="">ทุกเกม</option></select></label>
           <label for="sort"><span>เรียงตาม</span><select id="sort"><option value="asc">ลำดับแมตช์</option><option value="desc">ล่าสุดก่อน</option></select></label>
         </form>
-        <p class="archive-note">รอบนำร่องเป็นการทดสอบแยกจาก FightingICE ส่วนสถิติไฟต์ที่เล่นจริงไม่นับแพ้ผ่าน</p>
+        <p class="archive-note">กดแมตช์เพื่อเปิดรีเพลย์ 94 ไฟต์จริงและ 100 คู่รอบนำร่อง ส่วน 10 รายการแพ้ผ่านไม่มีไฟต์ให้เล่นย้อนหลัง</p>
         <div class="fold-status"><p id="list-status" aria-live="polite" aria-atomic="true"></p><button id="reset" type="button" class="low-key">ล้างตัวกรอง</button></div>
         <section id="match-detail" class="match-detail" aria-labelledby="detail-title" hidden>
           <div class="detail-top"><p class="detail-serial" id="detail-serial"></p><a class="button small button-line" id="detail-close" href="#matches">กลับไปที่รายการ</a></div>
           <h3 id="detail-title" tabindex="-1"></h3>
           <p id="detail-lead"></p>
+          <section id="match-replay" class="match-replay" aria-labelledby="replay-title" hidden>
+            <div class="replay-heading">
+              <div><p class="replay-eyebrow">ARCADE CUP / PLAYBACK</p><h4 id="replay-title">รีเพลย์การแข่งขัน</h4></div>
+              <p id="replay-type" class="replay-type"></p>
+            </div>
+            <p id="replay-status" class="state-block" role="status">กำลังโหลดรีเพลย์…</p>
+            <div id="replay-surface" hidden>
+              <p id="replay-description" class="replay-description"></p>
+              <div class="replay-hud" aria-label="คะแนนปัจจุบัน">
+                <div class="replay-hud-side"><div><strong id="replay-a-name"></strong><span id="replay-a-score"></span></div><progress id="replay-a-hp" max="400" value="400" aria-label="HP ผู้เล่น A"></progress></div>
+                <div class="replay-hud-side side-b"><div><strong id="replay-b-name"></strong><span id="replay-b-score"></span></div><progress id="replay-b-hp" max="400" value="400" aria-label="HP ผู้เล่น B"></progress></div>
+              </div>
+              <div class="replay-arena"><canvas id="replay-canvas" width="960" height="430" aria-hidden="true"></canvas></div>
+              <div class="replay-timeline"><label for="replay-seek">ตำแหน่งรีเพลย์</label><span id="replay-time"></span><input id="replay-seek" type="range" min="0" max="420" step="1" value="0"></div>
+              <div class="replay-controls">
+                <button id="replay-play" type="button" class="button button-dark" aria-pressed="false">▶ เล่น</button>
+                <button id="replay-prev" type="button" class="button button-line" title="ย้อนหนึ่งเฟรมหรือตา" aria-label="ย้อนหนึ่งเฟรมหรือตา">−1</button>
+                <button id="replay-next" type="button" class="button button-line" title="ไปหนึ่งเฟรมหรือตา" aria-label="ไปหนึ่งเฟรมหรือตา">+1</button>
+                <button id="replay-restart" type="button" class="button button-line">เริ่มใหม่</button>
+                <label for="replay-speed">ความเร็ว <select id="replay-speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+              </div>
+              <p id="replay-result" class="replay-result" role="status"></p>
+              <div class="replay-action-grid">
+                <dl class="replay-action"><div><dt>ผู้เล่น A · ท่าหรือตาปัจจุบัน</dt><dd id="replay-a-action">–</dd></div></dl>
+                <dl class="replay-action"><div><dt>ผู้เล่น B · ท่าหรือตาปัจจุบัน</dt><dd id="replay-b-action">–</dd></div></dl>
+              </div>
+              <details id="replay-meta-order" class="replay-commands">
+                <summary>ดูคำสั่งจากเอเจนต์และปุ่มจริงในเฟรมนี้</summary>
+                <p id="replay-caption-order">คำสั่งคือตัวเลือกที่ส่งในช่วงนี้ แต่จะกลายเป็นท่าเมื่อเอนจินอนุญาต ปุ่มคืออินพุตที่เอนจินได้รับในเฟรมที่เลือก</p>
+                <div class="replay-action-grid">
+                  <dl class="replay-action"><div><dt>A · คำสั่งที่ส่ง</dt><dd id="replay-a-order">–</dd></div><div><dt>ปุ่มในเฟรมนี้</dt><dd id="replay-a-keys">–</dd></div></dl>
+                  <dl class="replay-action"><div><dt>B · คำสั่งที่ส่ง</dt><dd id="replay-b-order">–</dd></div><div><dt>ปุ่มในเฟรมนี้</dt><dd id="replay-b-keys">–</dd></div></dl>
+                </div>
+              </details>
+            </div>
+          </section>
           <dl id="detail-fields"></dl>
           <div id="detail-chart" class="detail-chart" hidden></div>
           <div id="detail-notes" class="detail-notes" hidden><h4>บันทึกที่เผยแพร่</h4><ul id="detail-notes-list"></ul></div>
