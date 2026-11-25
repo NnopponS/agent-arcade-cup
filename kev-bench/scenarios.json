@@ -1,0 +1,27 @@
+{
+  "description": "Hand-labelled game micro-scenarios with only four allowed choices. This is an exploratory tactical benchmark, not a proof of match skill.",
+  "options": {
+    "DASH": "Close distance so attacks can reach the rival. Use when too far away.",
+    "THROW_A": "Throw a rival who is already guarding and within grab range.",
+    "STAND_GUARD": "Block an imminent standing attack when within range.",
+    "STAND_B": "Strike an exposed opponent who is within reach and recovering."
+  },
+  "cases": [
+    ["far-west", "Rival is idle 380 px away. Strike range 90 px. Your character is free to act.", "DASH"],
+    ["far-east", "Rival is idle at 260 px, far beyond strike range (90 px). Your character can act.", "DASH"],
+    ["far-retreat", "Rival backs away at 290 px. Strike range 90 px. You can act now.", "DASH"],
+    ["close-block-a", "Enemy 35 px away is grounded, holding a standing guard. A throw reaches 55 px. No incoming hit.", "THROW_A"],
+    ["close-block-b", "Enemy 40 px away is guarding, within 55 px grab range. No imminent hit.", "THROW_A"],
+    ["close-block-c", "Rival is stationary at 45 px in a standing block. You are free to act. Grab range 55 px.", "THROW_A"],
+    ["incoming-a", "Opponent will land a standing attack in 2 frames at 60 px. You can block on this frame.", "STAND_GUARD"],
+    ["incoming-b", "Rival in strike range at 68 px has started a standing attack that will land in 1 frame. You can guard.", "STAND_GUARD"],
+    ["incoming-c", "Opponent is 72 px away and a standing attack will connect in 3 frames. Your character can act immediately.", "STAND_GUARD"],
+    ["punish-a", "Rival 60 px away is not blocking and has 22 frames of recovery remaining. Your strike startup is 9 frames; range 90 px.", "STAND_B"],
+    ["punish-b", "Rival ended a missed attack and is exposed at 72 px for 18 frames. Your strike reaches 90 px and starts in 9 frames.", "STAND_B"],
+    ["punish-c", "Enemy is unguarded at 80 px and cannot act for 20 frames. Your strike starts in 9 frames and hits up to 90 px.", "STAND_B"]
+  ],
+  "counterfactuals": [
+    ["paired-guard", "Opponent 45 px away is already holding a standing guard. Your throw range is 55 px. Your strike range is 90 px and startup 9 frames.", "THROW_A"],
+    ["paired-recovery", "Opponent 45 px away is not guarding and will recover in 20 frames. Your throw range is 55 px. Your strike range is 90 px and startup 9 frames.", "STAND_B"]
+  ]
+}

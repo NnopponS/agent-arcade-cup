@@ -1,0 +1,40 @@
+name: Arcade decision models - CPU benchmark
+
+# Install at .github/workflows/kev-model-smoke.yml. Keep this file manual-only.
+on:
+  workflow_dispatch:
+    inputs:
+      included_minutes_checked:
+        description: "Private repo: at least 20 included Linux minutes remain, with paid overage disabled"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arcade-model-cpu-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    if: ${{ github.event.repository.private == false || inputs.included_minutes_checked }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Read benchmark code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Run benchmark sequentially
+        run: |
+          python3 kev-bench/hosted/benchmark.py --workdir "$RUNNER_TEMP/kev-bench" --output "$RUNNER_TEMP/kev-results/report.json"
+      - name: Upload measured results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: arcade-cpu-decision-benchmark
+          path: ${{ runner.temp }}/kev-results/report.json
+          if-no-files-found: warn
+          retention-days: 3

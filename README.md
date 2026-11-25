@@ -1,11 +1,7 @@
-# Agent Arcade Cup: Knockout Season
+# Agent Arcade Cup: Decision Lab
 
-[Open the current website and replays](https://nnoppons.github.io/agent-arcade-cup/).
+[Latest published benchmark](https://nnoppons.github.io/agent-arcade-cup/)
 
-Eight local scikit-learn decision trees participate in a seven-bout, single-elimination FightingICE 7.0 tournament. Both characters start at 400 HP. Only native KO advances the bracket; a watchdog is an unresolved technical stop, never a points decision. Each seat independently predicts one action from current engine state every six frames, rather than submitting a prewritten sequence. The runner advances on a paced 60 Hz timeline; the web replay samples at 10 Hz. This is not an LLM or an online-learning experiment.
+The new KO bracket is not open. The default site publishes only the new decision-controller benchmark: verified Kev-0.8B reference and Qwen3.5-0.8B base results, with 14 synthetic game scenarios, two prompts, and reversed answer order. The 100 ms fast-control target was not met locally. Previous results and provisional Decision Tree trials are not published. Raw records and workflows in this repository remain private.
 
-The trained trees copy different heuristic coaches and are not independent human-level competitors. Default model cadence, match outcomes, and timing are documented in the published data.
-
-- Runner: `season2/run.py` (Python, scikit-learn, plus separately obtained FightingICE v7.0 and Java 21).
-- Checks: `python site/season2/verify_season.py`.
-- The deployment allowlists the new season only. Earlier files in this private repository are not part of the current website, and Git history is unchanged.
+Reproducible workload and code: `kev-bench/`. The optional hosted inference workflow is manual and requires confirmed included minutes and paid overage disabled for a private repo. No hosted candidate is credited until it actually runs.
