@@ -1,6 +1,6 @@
 import unittest
 
-from cup100_report import action_agreement, summarize
+from cup100_report import action_agreement, summarize, winner_coverage
 
 
 class ReportTests(unittest.TestCase):
@@ -40,6 +40,22 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(action_agreement(data), {
             "m":{"DASH":{"correct":1,"trials":2},"THROW_A":{"correct":1,"trials":1}}
         })
+
+    def test_distinct_winner_coverage_ignores_same_model_and_repeated_winners(self):
+        roster = [
+            dict(id="A1",model="a",profile="steady",temperature=0),
+            dict(id="A2",model="a",profile="fast",temperature=0.2),
+            dict(id="A3",model="a",profile="steady",temperature=0.6),
+            dict(id="B1",model="b",profile="fast",temperature=0.2),
+        ]
+        bouts = [
+            dict(winner="A1",models=["a","b"]),
+            dict(winner="A1",models=["a","b"]),
+            dict(winner="A2",models=["b","a"]),
+            dict(winner="A3",models=["a","a"]),
+        ]
+        self.assertEqual(winner_coverage(roster,bouts)["a"],dict(entrants=2, profiles=2, temperatures=2))
+        self.assertEqual(winner_coverage(roster,bouts)["b"],dict(entrants=0, profiles=0, temperatures=0))
 
 
 if __name__ == "__main__":

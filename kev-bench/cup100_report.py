@@ -15,6 +15,22 @@ def action_agreement(comparison):
     return out
 
 
+def winner_coverage(roster, bouts):
+    """Count distinct settings represented among cross-model winners."""
+    entrants = {e["id"]: e for e in roster}
+    winners = {e["model"]: set() for e in roster}
+    for bout in bouts:
+        if bout["models"][0] != bout["models"][1]:
+            winner = entrants[bout["winner"]]
+            winners[winner["model"]].add(winner["id"])
+    return {
+        model: dict(entrants=len(ids),
+                    profiles=len({entrants[i]["profile"] for i in ids}),
+                    temperatures=len({entrants[i]["temperature"] for i in ids}))
+        for model, ids in winners.items()
+    }
+
+
 def summarize(bracket, bouts, checkpoints):
     counts = {m: dict(wins=0, losses=0, mirrors=0, byes=0) for m in checkpoints}
     h2h = {m: {n: 0 for n in checkpoints if m != n} for m in checkpoints}
