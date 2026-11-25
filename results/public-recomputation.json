@@ -1,0 +1,37 @@
+{
+  "scored_cells": [
+    {
+      "card": "method",
+      "instruction": "pivot",
+      "n": 13,
+      "average_HP": 0.5384615384615384,
+      "unavailable": 0
+    },
+    {
+      "card": "method",
+      "instruction": "stay",
+      "n": 12,
+      "average_HP": 0.0833333333333333,
+      "unavailable": 1
+    },
+    {
+      "card": "neutral",
+      "instruction": "pivot",
+      "n": 12,
+      "average_HP": -0.8333333333333329,
+      "unavailable": 0
+    },
+    {
+      "card": "neutral",
+      "instruction": "stay",
+      "n": 13,
+      "average_HP": 1.153846153846154,
+      "unavailable": 0
+    }
+  ],
+  "effect_HP": 2.442307692307692,
+  "interval_HP": [
+    -7.2628205128205146,
+    10.923076923076923
+  ]
+}

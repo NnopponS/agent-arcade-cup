@@ -1,0 +1,47 @@
+{
+  "source": "current FightingICE primary rounds only",
+  "completed_primary_heats": 50,
+  "recorded_fresh_played_profiles": 100,
+  "recorded_nonplayed": 0,
+  "bins": [
+    {
+      "assigned_card": "method",
+      "assigned_stimulus": "pivot",
+      "n": 13,
+      "method_card_unavailable_or_not_delivered": 0,
+      "mean_focal_net_phase2_hp_per400": 0.001346153846153846
+    },
+    {
+      "assigned_card": "method",
+      "assigned_stimulus": "stay",
+      "n": 12,
+      "method_card_unavailable_or_not_delivered": 1,
+      "mean_focal_net_phase2_hp_per400": 0.0002083333333333335
+    },
+    {
+      "assigned_card": "neutral",
+      "assigned_stimulus": "pivot",
+      "n": 12,
+      "method_card_unavailable_or_not_delivered": 0,
+      "mean_focal_net_phase2_hp_per400": -0.0020833333333333337
+    },
+    {
+      "assigned_card": "neutral",
+      "assigned_stimulus": "stay",
+      "n": 13,
+      "method_card_unavailable_or_not_delivered": 0,
+      "mean_focal_net_phase2_hp_per400": 0.0028846153846153843
+    }
+  ],
+  "hp_difference_in_differences": {
+    "fraction_of_initial_HP": 0.006105769230769231,
+    "in_HP": 2.442307692307692,
+    "bootstrap_percentile_95_hp": [
+      -7.262820512820513,
+      10.923076923076923
+    ],
+    "delivered_card_sensitivity_HP": 0.98018648018648,
+    "method": "Exploratory stratum bootstrap over primary heats; ignores note lineage dependence. No confirmatory p-value."
+  },
+  "limits": "Card assignment not receipt; treatment is tactic instruction, not perfectly controlled opponent behavior. No overarching causal claim. Behavioral family mapping is exploratory; no measurement from responses that never reached game."
+}

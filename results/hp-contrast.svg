@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 254" role="img" aria-labelledby="title desc">
+<title id="title">Estimated effect of the strategy note during a pivot</title>
+<desc id="desc">+2.44 HP; interval -7.26 to +10.92 HP. Includes zero; this pilot does not establish a benefit.</desc>
+<rect x="0" y="0" width="800" height="254" rx="14" fill="#f8fafc"/>
+<g font-family="system-ui, sans-serif" fill="#142b48">
+<text x="30" y="40" font-size="21" font-weight="750">Did the strategy note help against a pivot?</text>
+<text x="30" y="65" font-size="14">50 primary heats · 50 scored · phase-two net health contrast</text>
+<path d="M110 151H690" stroke="#738597" stroke-width="1"/>
+<path d="M400 93V151" stroke="#738597" stroke-dasharray="4 4"/>
+<path d="M259.6 119H611.2 M259.6 109v20 M611.2 109v20" stroke="#286e9d" stroke-width="3" stroke-linecap="round"/>
+<circle cx="447.2" cy="119" r="6" fill="#164a70"/>
+<text x="447.2" y="103" text-anchor="middle" font-size="16" font-weight="750">+2.4</text>
+<path d="M110.0 151v5" stroke="#738597"/><text x="110.0" y="174" text-anchor="middle" font-size="12">-15</text>
+<path d="M255.0 151v5" stroke="#738597"/><text x="255.0" y="174" text-anchor="middle" font-size="12">-7.5</text>
+<path d="M400.0 151v5" stroke="#738597"/><text x="400.0" y="174" text-anchor="middle" font-size="12">0</text>
+<path d="M545.0 151v5" stroke="#738597"/><text x="545.0" y="174" text-anchor="middle" font-size="12">7.5</text>
+<path d="M690.0 151v5" stroke="#738597"/><text x="690.0" y="174" text-anchor="middle" font-size="12">15</text>
+<text x="400" y="196" text-anchor="middle" font-size="13">Change in health-point advantage (HP)</text>
+<text x="30" y="228" font-size="14">Includes zero; this pilot does not establish a benefit.</text>
+</g></svg>

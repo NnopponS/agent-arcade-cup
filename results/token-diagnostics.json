@@ -1,0 +1,497 @@
+{
+  "status": "exploratory, not a frozen response-family measure",
+  "definition": "Token turnover = one minus fraction of tokens shared between unordered per-phase multisets; a permutation alone is not scored as a change.",
+  "counterpart_spacing_proxy": "(forward walk + dash + forward jump \u2212 backstep \u2212 guards) / four; neutral, attacks and projectiles contribute zero. Counts requested tokens, not physical receipts.",
+  "assignment_is_not_compliance": {
+    "stay": {
+      "scored": 25,
+      "observed_spacing_index_changed": 17
+    },
+    "pivot": {
+      "scored": 25,
+      "observed_spacing_index_changed": 24,
+      "observed_shift_toward_assigned_direction": 23
+    }
+  },
+  "primary_cells": {
+    "method/pivot": {
+      "n_heats": 13,
+      "mean_focal_token_turnover": 0.8076923076923077
+    },
+    "method/stay": {
+      "n_heats": 12,
+      "mean_focal_token_turnover": 0.7916666666666666
+    },
+    "neutral/pivot": {
+      "n_heats": 12,
+      "mean_focal_token_turnover": 0.8125
+    },
+    "neutral/stay": {
+      "n_heats": 13,
+      "mean_focal_token_turnover": 0.8653846153846154
+    }
+  },
+  "knockout_continuity": {
+    "rehydrated": {
+      "scored_seats": 75,
+      "mean_token_turnover": 0.7933333333333333
+    },
+    "retained": {
+      "scored_seats": 3,
+      "mean_token_turnover": 0.75
+    }
+  },
+  "continuity_limit": "Knockout continuity depends on runtime availability and progression, is not randomized, and repeated profile appearances are not independent; no causal or memory-recovery claim.",
+  "rows": [
+    {
+      "id": "F001",
+      "noteAssigned": "method",
+      "noteDelivered": "method-unavailable",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F002",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.5
+    },
+    {
+      "id": "F003",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F004",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F005",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F006",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F007",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F008",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F009",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F010",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F011",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F012",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F013",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": -0.75
+    },
+    {
+      "id": "F014",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F015",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.5
+    },
+    {
+      "id": "F016",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F017",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F018",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F019",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F020",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F021",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F022",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F023",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F024",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F025",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F026",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F027",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.5
+    },
+    {
+      "id": "F028",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F029",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F030",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F031",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.5
+    },
+    {
+      "id": "F032",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F033",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F034",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.5
+    },
+    {
+      "id": "F035",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F036",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F037",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.5
+    },
+    {
+      "id": "F038",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F039",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.75
+    },
+    {
+      "id": "F040",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.25,
+      "counterpartSpacingDelta": 0.5
+    },
+    {
+      "id": "F041",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F042",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F043",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F044",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F045",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": 0.0
+    },
+    {
+      "id": "F046",
+      "noteAssigned": "neutral",
+      "noteDelivered": "neutral",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.5
+    },
+    {
+      "id": "F047",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "pivot",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 1.0
+    },
+    {
+      "id": "F048",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 1.0,
+      "counterpartSpacingDelta": 0.25
+    },
+    {
+      "id": "F049",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "B",
+      "focalTokenTurnover": 0.75,
+      "counterpartSpacingDelta": -0.25
+    },
+    {
+      "id": "F050",
+      "noteAssigned": "method",
+      "noteDelivered": "method",
+      "opponentInstruction": "stay",
+      "focalSeat": "A",
+      "focalTokenTurnover": 0.5,
+      "counterpartSpacingDelta": 0.5
+    }
+  ]
+}
