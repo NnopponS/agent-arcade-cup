@@ -5,6 +5,7 @@ import gzip
 import html
 import json
 from pathlib import Path
+from cup100_report import summarize
 
 def read(p):
     return json.loads(p.read_text())
@@ -22,9 +23,12 @@ def snapshot(root,out):
         if row['status']!='verified':continue
         r=read(root/(row['id']+'-verified.json'))
         assert r['winner']==row['winner']['id'] and r['nativeKO'] and sum(x<=0 for x in r['hp'])==1
+        assert r['mode']=='untimed' and r['engineEnd']=='ko' and r['frames'][-1][1:3]==r['hp']
         results.append({k:r[k] for k in ('match','entrantIds','models','hp','winner','initial','frames','wallSeconds','attempt')})
     assert len(results)==progress['verified']
     assert not progress['champion'] or len(results)==99
+    report=summarize(progress['rows'],results,labels)
+    assert report['crossModel']+report['sameModel']==len(results)
     out.mkdir(parents=True,exist_ok=True)
 
     out_replays=out/'cup100-replay'
@@ -45,14 +49,23 @@ def snapshot(root,out):
     valid=lambda e:e.get('id','') if e else ''
     rows=''.join(f'<tr><th scope="row">{html.escape(row["id"])}</th><td>{html.escape(valid(row["a"]))}</td><td>{html.escape(valid(row["b"]))}</td><td>{html.escape(valid(row["winner"]) or row["status"])}</td></tr>' for row in progress['rows'])
     title=f'Champion: {progress["champion"]}' if progress['champion'] else f'{progress["verified"]} / 99 verified'
+    stats_rows=''.join(f'<tr><th scope="row">{labels[k]}</th><td>{v["wins"]} / {v["losses"]}</td><td>{v["mirrors"]}</td><td>{v["byes"]}</td></tr>' for k,v in report['models'].items())
+    duration=(f' Median recorded duration: {report["medianGameFrameSpan"]:,.0f} game frames.' if results else '')
+    final=results[-1] if progress['champion'] else None
+    final_line=''
+    if final:
+        assert final['winner']==progress['champion']
+        sides=' and '.join(f'{i}: {max(0,h)} HP' for i,h in zip(final['entrantIds'],final['hp'],strict=True))
+        final_line=f'<p><strong>Final:</strong> {html.escape(sides)}. Open <a href="#cup-replay">the replay</a> and select {html.escape(final["match"])} to see the knockout.</p>'
     (out/'cup100.html').write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fresh 100-agent Cup</title><style>body{{max-width:960px;margin:auto;padding:18px;font:16px/1.55 system-ui,sans-serif;background:#f5f0e4;color:#24241c}}a{{color:#8c4812}}h1{{font:700 clamp(2.4rem,8vw,5.5rem)/1 Georgia,serif;margin:.5em 0}}table{{width:100%;border-collapse:collapse}}th,td{{text-align:left;padding:.45em;border-bottom:1px solid #d1c5ad}}.scroll{{overflow:auto}}section{{background:#fffaf0;border:1px solid #d1c5ad;border-radius:12px;padding:14px;margin:14px 0}}</style>
-<main><a href="./">← Decision Lab</a><h1>Fresh 100-agent Cup</h1><strong>{html.escape(title)}</strong><p>Five local model checkpoints, each with the same twenty controller profiles. Both fighters choose from the same menu at the same frame; the engine waits for both before advancing. Matches have no round timer or timeout rematches. A player advances by a verified engine knockout, or by a bracket bye; a bye is not a win.</p>
+<main><a href="./">← Decision Lab</a><h1>Fresh 100-agent Cup</h1><strong>{html.escape(title)}</strong>{final_line}<p>Five local model checkpoints, each with the same twenty controller configurations. Both fighters choose from the same menu at the same frame; the engine waits for both before advancing. Matches have no round timer or timeout rematches. A player advances by a verified engine knockout, or by a bracket bye; a bye is not a win.</p>
+<section><h2>Tournament report</h2><p>{report['crossModel']} cross-model knockouts · {report['sameModel']} same-model knockouts · {report['byeTotal']} byes.{duration}</p><div class="scroll"><table><thead><tr><th scope="col">Checkpoint</th><th scope="col">Cross-model wins / losses</th><th scope="col">Same-model bouts</th><th scope="col">Byes</th></tr></thead><tbody>{stats_rows}</tbody></table></div><p><strong>How to read this:</strong> A champion is one controller configuration, not the average of a model family. Opponents and sample sizes differ across models, and winners play more often. Treat these bracket results as descriptive; the tactical benchmark below tests a different question.</p></section>
 <section><h2>Model comparison</h2><p>Fourteen scripted scenarios, two menu orders, one prompt. Agreement is with a tactical rubric, not match win rate. Latency is on the test CPU; typed decision heads and one-token constrained generation are different readouts.</p><div class="scroll"><table><thead><tr><th>Model</th><th>Agreement</th><th>Median reply</th><th>Same choice after reversing order</th><th>Correct in both orders</th></tr></thead><tbody>{score_rows}</tbody></table></div></section>
 {replay}
 <section><h2>Bracket</h2><p>100 entrants · 28 byes · 99 played advances needed</p><div class="scroll"><table><thead><tr><th>Match</th><th>Entrant A</th><th>Entrant B</th><th>Winner / status</th></tr></thead><tbody>{rows}</tbody></table></div></section>
 <p><a href="./cup100-data.json" download>Download the roster and match index</a></p></main></html>''')
-    (out/'cup100-data.json').write_text(json.dumps(dict(schema=1,comparison=score,roster=roster,champion=progress['champion'],planned=99,replayEncoding="gzip-base64-json",results=[{k:v for k,v in r.items() if k!="frames"}|{"replay":"cup100-replay/"+r["match"]+".json"} for r in results]),separators=(',',':')))
+    (out/'cup100-data.json').write_text(json.dumps(dict(schema=1,comparison=score,roster=roster,report=report,champion=progress['champion'],planned=99,replayEncoding="gzip-base64-json",results=[{k:v for k,v in r.items() if k!="frames"}|{"replay":"cup100-replay/"+r["match"]+".json"} for r in results]),separators=(',',':')))
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('out',type=Path);a=p.parse_args()
     snapshot(a.root,a.out)
