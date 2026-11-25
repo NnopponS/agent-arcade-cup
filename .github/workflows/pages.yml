@@ -40,10 +40,11 @@ jobs:
             test ! -L "site/replays/$f"
             cp "site/replays/$f" "_site/replays/$f"
           done
-          for f in FONT-LICENSES.txt thai-bold.woff thai.woff serif.woff serif-italic.woff; do
+          for f in arcade-mark.svg FONT-LICENSES.txt thai-bold.woff thai.woff serif.woff serif-italic.woff; do
             test ! -L "site/assets/$f"
             cp "site/assets/$f" "_site/assets/$f"
           done
+          python3 site/tests/verify_localization.py _site
       - name: Test embedded replays at desktop and phone sizes
         run: |
           npm install --prefix "${RUNNER_TEMP}/cup-qa" playwright@1.62.1 --no-audit --no-fund

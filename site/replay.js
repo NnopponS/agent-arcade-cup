@@ -32,14 +32,14 @@
   ];
   const boardTitles = {'2048':'2048', sliding:'Sliding Puzzle', lights:'Lights Out', battleship:'Battleship'};
   const actionWords = {
-    NEUTRAL:'ยืน', FORWARD_WALK:'เดินหน้า', STAND:'ยืน', BACK_STEP:'ถอย', DASH:'พุ่ง',
-    STAND_GUARD:'ยืนป้องกัน', CROUCH_GUARD:'ย่อป้องกัน', AIR_GUARD:'ป้องกันกลางอากาศ',
-    FOR_JUMP:'กระโดดไปหน้า', BACK_JUMP:'กระโดดถอย', JUMP:'กระโดด',
-    CROUCH_A:'โจมตีต่ำ A', CROUCH_B:'โจมตีต่ำ B', STAND_A:'โจมตี A', STAND_B:'โจมตี B',
-    STAND_FA:'โจมตีหน้า A', STAND_FB:'โจมตีหน้า B', THROW_A:'จับทุ่ม',
-    STAND_D_DF_FA:'ท่าพิเศษ A', STAND_F_D_DFB:'ท่าพิเศษ B',
-    STAND_RECOV:'ฟื้นจากการโจมตี', CROUCH_RECOV:'ฟื้นจากการโจมตี', AIR_RECOV:'ฟื้นกลางอากาศ',
-    CROUCH:'ย่อตัว', LANDING:'ลงพื้น', CHANGE_DOWN:'ล้ม', DOWN:'ล้ม', RISE:'ลุกขึ้น'
+    NEUTRAL:'Standing', FORWARD_WALK:'Walk forward', STAND:'Standing', BACK_STEP:'Backstep', DASH:'Dash',
+    STAND_GUARD:'Standing guard', CROUCH_GUARD:'Crouching guard', AIR_GUARD:'Air guard',
+    FOR_JUMP:'Forward jump', BACK_JUMP:'Back jump', JUMP:'Jump',
+    CROUCH_A:'Low attack A', CROUCH_B:'Low attack B', STAND_A:'Attack A', STAND_B:'Attack B',
+    STAND_FA:'Forward attack A', STAND_FB:'Forward attack B', THROW_A:'Throw',
+    STAND_D_DF_FA:'Special A', STAND_F_D_DFB:'Special B',
+    STAND_RECOV:'Recovering from a hit', CROUCH_RECOV:'Recovering from a hit', AIR_RECOV:'Recovering in the air',
+    CROUCH:'Crouch', LANDING:'Landing', CHANGE_DOWN:'Knocked down', DOWN:'Knocked down', RISE:'Getting up'
   };
   function status(text, show = true) {
     $('status').textContent = text;
@@ -218,17 +218,17 @@
     }
     line('#e8bf73',1,[[445,63],[445,352]]);
   }
-  function formatTime(frame) {return (frame/60).toFixed(2)+' วิ';}
+  function formatTime(frame) {return (frame/60).toFixed(2)+' s';}
   function poseLabel(name) {
     return name ? (actionWords[name] ? actionWords[name]+' · '+name : name.replaceAll('_',' ')+' · '+name) : '–';
   }
   function pilotMove(choice, mode, n) {
-    const direction={up:'↑ บน',down:'↓ ล่าง',left:'← ซ้าย',right:'→ ขวา'};
+    const direction={up:'↑ Up',down:'↓ Down',left:'← Left',right:'→ Right'};
     if(choice===undefined) return '–';
     if(Object.hasOwn(direction,choice)) return direction[choice];
     return mode==='battleship'
       ? String.fromCharCode(65+Math.floor(choice/n))+((choice%n)+1)
-      : 'แถว '+(Math.floor(choice/n)+1)+' · ช่อง '+((choice%n)+1);
+      : 'Row '+(Math.floor(choice/n)+1)+' · Column '+((choice%n)+1);
   }
   function details() {
     const isFight=match.series==='fighting';
@@ -246,20 +246,20 @@
         $(key+'-keys').textContent=keyLabel(p.keys);
       } else {
         const seq=data[key], step=Math.min(number,seq.s.length-1), [n,score,cells]=seq.s[step];
-        $(key+'-score').textContent=data.g==='2048'?score+' คะแนน'
-          :data.g==='battleship'?cells.filter(x=>x>=2).length+' โดนเป้า · '+score+' ลำจม'
-          :score+' ครั้ง';
+        $(key+'-score').textContent=data.g==='2048'?score+' points'
+          :data.g==='battleship'?cells.filter(x=>x>=2).length+' hits · '+score+' sunk'
+          :score+' moves';
         $(key+'-action').textContent=pilotMove(seq.i[step-1],data.g,n);
         $(key+'-order').textContent='–';
         $(key+'-keys').textContent='–';
       }
     }
     range.value=String(number);
-    const shown=isFight ? 'เฟรม '+number+' / '+max+' · '+formatTime(number)+' / '+formatTime(max) : 'ตา '+number+' / '+max;
+    const shown=isFight ? 'Frame '+number+' / '+max+' · '+formatTime(number)+' / '+formatTime(max) : 'Move '+number+' / '+max;
     $('time').textContent=shown;
     range.setAttribute('aria-valuetext',shown);
     $('prev').disabled=number===0; $('next').disabled=number===max;
-    $('result').textContent=number!==max?'':match.winner?'ผู้ชนะ: '+match.winner:'ผลเสมอ';
+    $('result').textContent=number!==max?'':match.winner?'Winner: '+match.winner:'Draw';
   }
   function render(force=false) {
     if(!data || !g || $('surface').hidden) return;
@@ -273,7 +273,7 @@
   }
   function stop() {
     playing=false; last=0; cancelAnimationFrame(frameHandle);
-    $('play').textContent='▶ เล่น';
+    $('play').textContent='▶ Play';
     $('play').setAttribute('aria-pressed','false');
   }
   function seek(value) {clock=Math.max(0,Math.min(max,value));last=0;render(true);}
@@ -291,7 +291,7 @@
     if(playing){stop();return;}
     if(clock>=max)seek(0);
     playing=true;last=0;
-    $('play').textContent='Ⅱ พัก';
+    $('play').textContent='Ⅱ Pause';
     $('play').setAttribute('aria-pressed','true');
     frameHandle=requestAnimationFrame(step);
   }
@@ -313,12 +313,12 @@
     clear();
     const run=revision;
     shell.hidden=false;
-    if(m.result==='forfeit') {status('แมตช์นี้ไม่มีรีเพลย์ เพราะเป็นผลแพ้ผ่าน ไม่ใช่ไฟต์ที่เล่นครบ');return;}
-    status('กำลังโหลดรีเพลย์…');
+    if(m.result==='forfeit') {status('No replay for this match. It was a forfeit, not a completed fight.');return;}
+    status('Loading replay…');
     try {
       const files=await catalog();
       if(run!==revision)return;
-      if(!Object.hasOwn(files,m.id)) {status('แมตช์นี้ไม่มีรีเพลย์ในคลังสาธารณะ');return;}
+      if(!Object.hasOwn(files,m.id)) {status('This match has no replay in the public archive.');return;}
       const packed=await pack(files[m.id]);
       const value=await unpack(packed[m.id]);
       if(run!==revision)return;
@@ -326,8 +326,8 @@
       const isFight=m.series==='fighting';
       $('type').textContent=isFight?'FIGHTINGICE 7.0 · NATIVE TRACE AT 60 FPS':'PILOT · RECORDED BOARD STATES';
       $('description').textContent=isFight
-        ?'ภาพสนามและหุ่นวาดใหม่จากตำแหน่ง ท่าที่เกิดจริง และปุ่มที่เอนจินอ่าน ไม่ใช่ฟุตเทจหรือตัวเกม FightingICE ต้นฉบับ'
-        :'ภาพกระดานวาดจากสถานะจริงหลังแต่ละตาของการทดสอบบอตรอบนำร่อง ความเร็วที่ 1× คือ 8 ตาต่อวินาทีเพื่อการรับชม ไม่ใช่เวลาที่บอตใช้แข่งจริง';
+        ?'The arena and fighters are original illustrations driven by recorded positions, moves and keys. This is not original FightingICE footage or a playable copy of the engine.'
+        :'Both boards show the recorded state after each move in the fixed-bot pilot. Playback at 1× uses eight moves per second for viewing, not the time the bots took to play.';
       $('caption-order').hidden=!isFight; $('meta-order').hidden=!isFight;
       range.max=String(max);
       status('',false);$('surface').hidden=false;
@@ -335,8 +335,8 @@
     }catch(error){
       if(run!==revision)return;
       status(error?.message==='browser compression support'
-        ?'เบราว์เซอร์นี้ยังอ่านรีเพลย์ไม่ได้ ลอง Chrome, Firefox หรือ Safari รุ่นล่าสุด ผลการแข่งขันยังอ่านได้ด้านล่าง'
-        :'โหลดรีเพลย์ไม่สำเร็จ ลองเปิดแมตช์นี้ใหม่ ผลการแข่งขันยังอ่านได้ด้านล่าง');
+        ?'This browser cannot decode the replay. Try a current version of Brave, Chrome, Firefox, or Safari. The match result is still available below.'
+        :'Could not load the replay. Reopen this match to try again. The result is still available below.');
     }
   }
   window.CupReplay=Object.freeze({show,clear});

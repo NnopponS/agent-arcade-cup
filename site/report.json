@@ -1,90 +1,90 @@
 {
-  "intro": "การทดลองนี้ถามว่าเอเจนต์ที่เริ่มเซสชันใหม่ใช้โน้ตกลยุทธ์ได้แค่ไหนเมื่ออีกฝั่งได้รับโจทย์ให้ปรับสไตล์ เราแยกหลักฐานเรื่องนี้ออกจากผลถ้วย: ชนะเกมหนึ่งคู่ ไม่ได้แปลว่าโน้ตช่วยโดยเฉลี่ย",
+  "intro": "The study asked how fresh-session agents use a strategy note when an opponent is instructed to change styles. A tournament win and an average benefit from the note are separate questions.",
   "takeaways": [
     {
-      "title": "FI-005 ชนะรอบชิง 5 HP",
-      "body": "K049 จบที่ 372–367 เมื่อหมดเวลา คู่ที่ตัดสินด้วยกติกาไม่นับเป็นไฟต์ที่เล่นครบ"
+      "title": "FI-005 won the final by 5 HP",
+      "body": "K049 ended 372–367 when time expired. Administrative forfeits do not count as completed bouts."
     },
     {
-      "title": "โน้ตยังไม่แสดงผลที่ชัดเจน",
-      "body": "ค่าประมาณปฏิสัมพันธ์ระหว่างโน้ตกับโจทย์เปลี่ยนสไตล์คือ +2.44 HP จาก 50 คู่ ช่วง bootstrap 95% −7.26 ถึง +10.92 HP คร่อมศูนย์"
+      "title": "No clear benefit from the strategy note",
+      "body": "The note-by-style-change interaction was estimated at +2.44 HP across 50 pairs. The exploratory 95% bootstrap interval of −7.26 to +10.92 HP includes zero."
     },
     {
-      "title": "ส่งต่อโน้ตได้ ไม่ได้พิสูจน์ว่าจำได้",
-      "body": "การคงรหัสโปรไฟล์และส่งโน้ตให้เซสชันใหม่ ไม่เท่ากับกู้ความจำภายในของเซสชันเดิม"
+      "title": "Passing on a note is not proof of memory",
+      "body": "Keeping a profile ID and supplying its note to a fresh session does not restore the previous session’s internal memory."
     },
     {
-      "title": "เล่นซ้ำแล้วตรวจได้ แต่ไม่ได้สุ่มใหม่",
-      "body": "ทวนรันคำสั่งเดิมครบ 94 ไฟต์ ตรง 1,034 แฮชสถานะ ณ จุดพัก และ 1,128 จุดตรวจเฟรม/HP"
+      "title": "Replaying the inputs verifies the engine, not the agents",
+      "body": "Running the original commands again reproduced all 94 completed bouts, matching 1,034 native state hashes and 1,128 frame/HP checks. The agents did not decide again."
     }
   ],
   "sections": [
     {
       "id": "count",
-      "title": "01 · วิธีนับและอ่านคลัง",
+      "title": "01 · How to read the archive",
       "body": [
-        "50 ผลคัดเลือก + 49 ผลรอบแพ้คัดออก = 99 ผลตัดสินในสาย มีเล่นสลับฝั่งเพิ่มอีก 5 ไฟต์เพื่อแก้ผลเสมอ จาก 104 ระเบียนรวม มี 94 ไฟต์เล่นจนจบและ 10 รายการปรับแพ้ (forfeit) ไม่มีสกอร์จบ",
-        "100 คู่สอบเทียบใช้บอตกำหนดกติกาในสี่เกมจาก 100 Games ไม่ใช่การรันเอเจนต์สด และแยกจากผล FightingICE"
+        "Fifty qualifying decisions plus forty-nine knockout-bracket decisions make 99 official decisions. Five side-swapped tie-break bouts bring the archive to 104 FightingICE records: 94 completed bouts and 10 forfeits with no final score.",
+        "The 100 calibration pairs used fixed bots across four games from 100 Games. They were not live model-agent matches and are separate from FightingICE."
       ],
       "bullets": [
-        "รอบแพ้คัดออก (knockout bracket) ไม่ได้หมายถึงชนะด้วยการน็อก ทั้ง 94 ไฟต์จบที่เฟรม 420",
-        "กราฟรายแมตช์แสดง HP ที่เอนจินบันทึก ณ จุดตรวจ ไม่ใช่คลิปหรือทุกเฟรม",
-        "คะแนนของบอต เช่น จำนวนตาเดินหรือจำนวนยิงโดน ไม่ได้กำหนดผู้ชนะลำพัง กติกายังใช้สถานะสำเร็จ จำนวนเรือจม หรือตัวตัดสินเมื่อคะแนนเท่ากัน"
+        "“Knockout bracket” describes single elimination, not how a bout ended. All 94 completed bouts reached frame 420.",
+        "The HP chart uses saved checkpoints. The separate browser replay shows frames from a verified rerun with original artwork, not FightingICE footage.",
+        "A bot’s move or hit count may not decide the winner by itself. Game-specific completion, ships sunk, or tie-break rules can also apply."
       ]
     },
     {
       "id": "setup",
-      "title": "02 · เอเจนต์ได้เห็นอะไร",
+      "title": "02 · What the agents saw",
       "body": [
-        "100 โปรไฟล์เริ่มใหม่ใช้ GPT-6.2 Sol, reasoning low เหมือนกันทั้งหมด เล่นตัวละคร ZEN ฝั่งละ 400 HP ใน DareFightingICE 7.0",
-        "ทั้งสองฝั่งล็อกคำสั่งก่อนเอนจินเล่นแต่ละครึ่ง ตอนพักที่เฟรม 232 จึงเห็นข้อความจริงและสถานะของคู่แข่ง แล้วส่งคำตอบและคำสั่งชุดต่อไป เก็บได้ 100 คำตอบกลับที่ผูกกับข้อความที่ส่งจริงจาก 50 คู่คัดเลือก"
+        "The 100 fresh profiles all used GPT-6.2 Sol at low reasoning effort. Both seats played ZEN with 400 starting HP in DareFightingICE 7.0.",
+        "Both sides committed their commands before the engine advanced each half. At the frame-232 break, they received their opponent’s real message and match state, then submitted a reply and a new command set. The 50 qualifiers produced 100 replies linked to the actual messages sent."
       ]
     },
     {
       "id": "analysis",
-      "title": "03 · ผลการทดลองอ่านอย่างไร",
+      "title": "03 · What the experiment found",
       "body": [
-        "วัดการเปลี่ยนของส่วนต่าง HP จากตอนพักถึงจบ แล้วหา (โน้ต/เปลี่ยน − โน้ต/คงเดิม) − (กลาง/เปลี่ยน − กลาง/คงเดิม) ตามการมอบหมายเดิม แม้มีหนึ่งคู่ที่ไม่ได้รับโน้ตตามที่จัดไว้",
-        "ช่วงความไม่แน่นอนกว้างและยังไม่คิดว่าโน้ตจากบางคู่มีที่มาร่วมกัน เมื่อวิเคราะห์เฉพาะคู่ที่ได้รับโน้ตตามมอบหมาย ค่าประมาณเปลี่ยนเป็น +0.98 HP ใช้เป็นการตรวจความไว ไม่ใช่ผลหลัก"
+        "The outcome was the change in HP margin between the break and the end. The interaction estimate was (note/pivot − note/stay) − (neutral/pivot − neutral/stay), grouped by original assignment, including one pair whose assigned note was not delivered.",
+        "The interval was wide and did not account for links between some notes with shared origins. Restricting the data to pairs that received their assigned note changes the estimate to +0.98 HP. That is a sensitivity check, not the primary result."
       ],
       "bullets": [
-        "โน้ต × เปลี่ยน: +0.54 HP (13 คู่) · โน้ต × คงเดิม: +0.08 HP (12 คู่)",
-        "กลาง × เปลี่ยน: −0.83 HP (12 คู่) · กลาง × คงเดิม: +1.15 HP (13 คู่)",
-        "ดูวิธีคำนวณซ้ำได้จาก CSV 50 คู่และสคริปต์ Python ด้านล่าง"
+        "Note × pivot: +0.54 HP (13 pairs). Note × stay: +0.08 HP (12 pairs).",
+        "Neutral × pivot: −0.83 HP (12 pairs). Neutral × stay: +1.15 HP (13 pairs).",
+        "Use the 50-pair CSV and Python script below to reproduce the estimates."
       ]
     },
     {
       "id": "memory",
-      "title": "04 · ความต่อเนื่องของโปรไฟล์และข้อจำกัด",
+      "title": "04 · Session continuity and limitations",
       "body": [
-        "ใน 98 ตำแหน่งผู้เล่นของรอบแพ้คัดออกหลัก ใช้เซสชันเดิมที่ยืนยันได้ 3 ตำแหน่ง เริ่มใหม่ภายใต้โปรไฟล์เดิม 95 ตำแหน่ง ไม่มีการสุ่มว่าจะคงหรือเริ่มเซสชัน จึงเทียบประสิทธิภาพสองวิธีนี้ไม่ได้",
-        "23/25 ในกลุ่มที่ได้โจทย์ให้เปลี่ยนสไตล์ ส่งคำสั่งไปในทิศทางที่โจทย์ตั้งไว้ แต่คำสั่งที่ขอไม่ใช่ผลการเคลื่อนไหวจริงเสมอ"
+        "Of 98 player seats in the main knockout bracket, 3 continued a verified existing session and 95 started a fresh session under the same profile. The assignment was not randomized, so it cannot tell us which approach performs better.",
+        "Twenty-three of 25 opponents assigned to change styles moved their requested commands in the intended direction. Requested commands do not always become executed moves."
       ],
       "bullets": [
-        "รอบหน้าแยกสุ่มการใช้เซสชันเดิมกับการให้โน้ตเป็นคนละปัจจัย",
-        "เพิ่มคู่แข่งและตัวละคร และล็อกตัววัดการปรับกลยุทธ์ก่อนเก็บข้อมูล"
+        "Randomize session continuity and access to a strategy note as separate factors in the next study.",
+        "Add opponents and characters, and define the measure of adaptation before collecting data."
       ]
     }
   ],
   "links": [
     {
-      "label": "รายงานฉบับเต็ม (Markdown)",
-      "href": "./report.md"
+      "label": "Full report (Markdown)",
+      "href": "./report.md?v=en1"
     },
     {
-      "label": "ดัชนีแมตช์ทั้งหมด (CSV)",
+      "label": "Complete match index (CSV)",
       "href": "./match-index.csv"
     },
     {
-      "label": "ข้อมูลคำนวณผลโน้ต 50 คู่ (CSV)",
+      "label": "50-pair strategy-note dataset (CSV)",
       "href": "./study-inputs.csv"
     },
     {
-      "label": "สคริปต์คำนวณซ้ำ (Python)",
+      "label": "Reproduction script (Python)",
       "href": "./recompute-study.py"
     },
     {
-      "label": "ผลรายคู่ของโจทย์นำร่องที่ยุติแล้ว (CSV)",
+      "label": "Retired puzzle pilot grades by pair (CSV)",
       "href": "./retired-puzzle-archive.csv"
     }
   ]

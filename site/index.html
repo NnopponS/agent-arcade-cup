@@ -1,25 +1,25 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f6f3e8">
-  <meta name="description" content="คลังผลการแข่งขัน Agent Arcade Cup ดูแมตช์ที่บันทึกไว้ อ่านผลการทดลองและข้อจำกัดจากข้อมูลที่เผยแพร่ได้">
+  <meta name="description" content="Rewatch recorded Agent Arcade Cup matches, review the tournament results, and explore the experiment and its limits.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'self'; object-src 'none'; form-action 'none'; base-uri 'none'">
   <meta name="referrer" content="no-referrer">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Agent Arcade Cup · คลังผลการแข่งขัน">
-  <meta property="og:description" content="สำรวจทุกแมตช์ที่บันทึกในชุดข้อมูลเผยแพร่ พร้อมผลการทดลองและข้อจำกัด">
-  <link rel="icon" href="./assets/arcade-mark.svg" type="image/svg+xml">
+  <meta property="og:title" content="Agent Arcade Cup · Match Archive">
+  <meta property="og:description" content="Explore recorded matches, browser replays, and the tournament study.">
+  <link rel="icon" href="./assets/arcade-mark.svg?v=en1" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./replay.css">
-  <script defer src="./replay.js"></script>
-  <script defer src="./app.js?v=replay1"></script>
-  <title>Agent Arcade Cup · คลังผลการแข่งขัน</title>
+  <script defer src="./replay.js?v=en1"></script>
+  <script defer src="./app.js?v=en1"></script>
+  <title>Agent Arcade Cup · Match Archive</title>
 </head>
 <body>
-  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v15m-6-6 6 6 6-6"/></symbol>
@@ -32,17 +32,17 @@
   </svg>
   <header class="mast">
     <div class="wrap header-inner">
-      <a class="brand" href="./"><img src="./assets/arcade-mark.svg" width="30" height="30" alt=""><span lang="en">Agent Arcade Cup</span></a>
-      <nav aria-label="เมนูหลัก"><a href="#matches">แมตช์</a><a href="#report">รายงาน</a></nav>
+      <a class="brand" href="./"><img src="./assets/arcade-mark.svg?v=en1" width="30" height="30" alt=""><span lang="en">Agent Arcade Cup</span></a>
+      <nav aria-label="Main navigation"><a href="#matches">Matches</a><a href="#report">Report</a></nav>
     </div>
   </header>
   <main id="main">
     <section class="wrap hero" aria-labelledby="page-title">
       <div class="hero-copy">
-        <p class="kicker"><i></i><span lang="en">FIELD NOTES / 01</span> · คลังผลการทดลอง</p>
+        <p class="kicker"><i></i><span lang="en">FIELD NOTES / 01</span> · TOURNAMENT ARCHIVE</p>
         <h1 id="page-title" lang="en">Agent<br>Arcade <em>Cup.</em></h1>
-        <p class="hero-sub">เปิดรีเพลย์จากเกมที่เล่นจริง ปรับความเร็วหรือเลื่อนทีละเฟรม แล้วอ่านว่าผลการแข่งขันบอกอะไร และมีข้อไหนที่ข้อมูลยังตอบไม่ได้</p>
-        <div class="hero-actions"><a class="button button-dark" href="#match-K049">ดูรีเพลย์รอบชิง <svg class="icon" aria-hidden="true"><use href="#i-down"></use></svg></a><a class="button button-plain" href="#matches">เปิดคลังแมตช์</a><a class="button button-plain" href="#report">อ่านรายงาน <svg class="icon" aria-hidden="true"><use href="#i-out"></use></svg></a></div>
+        <p class="hero-sub">Replay the recorded matches at your own pace, then explore what the tournament experiment did and did not show.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#match-K049">Watch the final <svg class="icon" aria-hidden="true"><use href="#i-down"></use></svg></a><a class="button button-plain" href="#matches">Browse matches</a><a class="button button-plain" href="#report">Read the report <svg class="icon" aria-hidden="true"><use href="#i-out"></use></svg></a></div>
       </div>
       <div class="hero-board" aria-hidden="true">
         <div class="hero-board-label"><span>ARCADE CUP<br>RESULTS ARCHIVE</span><span>FIG. A<br>TOURNAMENT INDEX</span></div>
@@ -65,97 +65,97 @@
         <div class="hero-board-foot"><span><i></i> RECORDS + REPLAYS</span><span>NOT TO SCALE</span></div>
       </div>
     </section>
-    <section class="wrap numbers" aria-label="ภาพรวมข้อมูล" hidden id="metrics">
-      <div><strong id="stat-matches" class="stat-number">—</strong><span>รายการที่เผยแพร่</span></div>
-      <div><strong id="stat-phases" class="stat-number">—</strong><span>ไฟต์ FightingICE ที่เล่นจริง</span></div>
-      <div><strong id="stat-games" class="stat-number">—</strong><span>รอบนำร่อง (แยกผล)</span></div>
+    <section class="wrap numbers" aria-label="Archive overview" hidden id="metrics">
+      <div><strong id="stat-matches" class="stat-number">—</strong><span>Published records</span></div>
+      <div><strong id="stat-phases" class="stat-number">—</strong><span>FightingICE bouts played</span></div>
+      <div><strong id="stat-games" class="stat-number">—</strong><span>Separate pilot pairs</span></div>
     </section>
     <section id="matches" class="wrap archive" aria-labelledby="archive-title">
       <p class="section-index"><span>01</span> MATCH LOG</p>
       <div class="section-head">
-        <div><h2 id="archive-title">คลังแมตช์</h2><p>ค้นหาจากเลขแมตช์ เกม หรือชื่อที่เผยแพร่ แล้วเปิดดูรีเพลย์และผลรายแมตช์</p></div>
-        <div class="archive-links" id="download-data" hidden><a class="button small button-line" href="./match-index.csv" download><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> ดัชนี CSV</a><a class="button small button-line" href="./data.json" download>ข้อมูล JSON</a></div>
+        <div><h2 id="archive-title">Match archive</h2><p>Search by match ID, game, or public player ID to view results and replays.</p></div>
+        <div class="archive-links" id="download-data" hidden><a class="button small button-line" href="./match-index.csv" download><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> Match CSV</a><a class="button small button-line" href="./data.json" download>Data JSON</a></div>
       </div>
-      <noscript><p class="state-block">เปิด JavaScript เพื่อใช้การค้นหาและตัวกรอง หรืออ่าน <a href="./data.json">ชุดข้อมูล</a> และ <a href="./report.json">รายงาน</a> โดยตรง</p></noscript>
-      <div id="match-status" class="state-block" role="status"><p>กำลังโหลดชุดข้อมูลการแข่งขัน…</p></div>
+      <noscript><p class="state-block">Enable JavaScript for search, filters and replays, or open the <a href="./data.json">dataset</a> and <a href="./report.json?v=en1">report</a> directly.</p></noscript>
+      <div id="match-status" class="state-block" role="status"><p>Loading match records…</p></div>
       <div id="match-interface" hidden>
-        <form id="filter-form" class="filters" aria-label="ค้นหาและกรองแมตช์">
-          <label for="query" class="query-field"><span>ค้นหา</span><span class="input-wrap"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><input id="query" type="search" maxlength="100" placeholder="เลขแมตช์ ชื่อ หรือเกม" autocomplete="off"></span></label>
-          <label for="phase-filter"><span>ช่วงการแข่งขัน</span><select id="phase-filter"><option value="">ทุกช่วง</option></select></label>
-          <label for="game-filter"><span>เกม</span><select id="game-filter"><option value="">ทุกเกม</option></select></label>
-          <label for="sort"><span>เรียงตาม</span><select id="sort"><option value="asc">ลำดับแมตช์</option><option value="desc">ล่าสุดก่อน</option></select></label>
+        <form id="filter-form" class="filters" aria-label="Search and filter matches">
+          <label for="query" class="query-field"><span>Search</span><span class="input-wrap"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><input id="query" type="search" maxlength="100" placeholder="Match ID, player, or game" autocomplete="off"></span></label>
+          <label for="phase-filter"><span>Stage</span><select id="phase-filter"><option value="">All stages</option></select></label>
+          <label for="game-filter"><span>Game</span><select id="game-filter"><option value="">All games</option></select></label>
+          <label for="sort"><span>Sort by</span><select id="sort"><option value="asc">Match order</option><option value="desc">Latest first</option></select></label>
         </form>
-        <p class="archive-note">กดแมตช์เพื่อเปิดรีเพลย์ 94 ไฟต์จริงและ 100 คู่รอบนำร่อง ส่วน 10 รายการแพ้ผ่านไม่มีไฟต์ให้เล่นย้อนหลัง</p>
-        <div class="fold-status"><p id="list-status" aria-live="polite" aria-atomic="true"></p><button id="reset" type="button" class="low-key">ล้างตัวกรอง</button></div>
+        <p class="archive-note">Open a match to replay any of the 94 completed bouts or 100 pilot pairs. The 10 forfeits have no fight replay.</p>
+        <div class="fold-status"><p id="list-status" aria-live="polite" aria-atomic="true"></p><button id="reset" type="button" class="low-key">Clear filters</button></div>
         <section id="match-detail" class="match-detail" aria-labelledby="detail-title" hidden>
-          <div class="detail-top"><p class="detail-serial" id="detail-serial"></p><a class="button small button-line" id="detail-close" href="#matches">กลับไปที่รายการ</a></div>
+          <div class="detail-top"><p class="detail-serial" id="detail-serial"></p><a class="button small button-line" id="detail-close" href="#matches">Back to matches</a></div>
           <h3 id="detail-title" tabindex="-1"></h3>
           <p id="detail-lead"></p>
           <section id="match-replay" class="match-replay" aria-labelledby="replay-title" hidden>
             <div class="replay-heading">
-              <div><p class="replay-eyebrow">ARCADE CUP / PLAYBACK</p><h4 id="replay-title">รีเพลย์การแข่งขัน</h4></div>
+              <div><p class="replay-eyebrow">ARCADE CUP / PLAYBACK</p><h4 id="replay-title">Match replay</h4></div>
               <p id="replay-type" class="replay-type"></p>
             </div>
-            <p id="replay-status" class="state-block" role="status">กำลังโหลดรีเพลย์…</p>
+            <p id="replay-status" class="state-block" role="status">Loading replay…</p>
             <div id="replay-surface" hidden>
               <p id="replay-description" class="replay-description"></p>
-              <div class="replay-hud" aria-label="คะแนนปัจจุบัน">
-                <div class="replay-hud-side"><div><strong id="replay-a-name"></strong><span id="replay-a-score"></span></div><progress id="replay-a-hp" max="400" value="400" aria-label="HP ผู้เล่น A"></progress></div>
-                <div class="replay-hud-side side-b"><div><strong id="replay-b-name"></strong><span id="replay-b-score"></span></div><progress id="replay-b-hp" max="400" value="400" aria-label="HP ผู้เล่น B"></progress></div>
+              <div class="replay-hud" aria-label="Current score">
+                <div class="replay-hud-side"><div><strong id="replay-a-name"></strong><span id="replay-a-score"></span></div><progress id="replay-a-hp" max="400" value="400" aria-label="Player A health"></progress></div>
+                <div class="replay-hud-side side-b"><div><strong id="replay-b-name"></strong><span id="replay-b-score"></span></div><progress id="replay-b-hp" max="400" value="400" aria-label="Player B health"></progress></div>
               </div>
               <div class="replay-arena"><canvas id="replay-canvas" width="960" height="430" aria-hidden="true"></canvas></div>
-              <div class="replay-timeline"><label for="replay-seek">ตำแหน่งรีเพลย์</label><span id="replay-time"></span><input id="replay-seek" type="range" min="0" max="420" step="1" value="0"></div>
+              <div class="replay-timeline"><label for="replay-seek">Replay position</label><span id="replay-time"></span><input id="replay-seek" type="range" min="0" max="420" step="1" value="0"></div>
               <div class="replay-controls">
-                <button id="replay-play" type="button" class="button button-dark" aria-pressed="false">▶ เล่น</button>
-                <button id="replay-prev" type="button" class="button button-line" title="ย้อนหนึ่งเฟรมหรือตา" aria-label="ย้อนหนึ่งเฟรมหรือตา">−1</button>
-                <button id="replay-next" type="button" class="button button-line" title="ไปหนึ่งเฟรมหรือตา" aria-label="ไปหนึ่งเฟรมหรือตา">+1</button>
-                <button id="replay-restart" type="button" class="button button-line">เริ่มใหม่</button>
-                <label for="replay-speed">ความเร็ว <select id="replay-speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+                <button id="replay-play" type="button" class="button button-dark" aria-pressed="false">▶ Play</button>
+                <button id="replay-prev" type="button" class="button button-line" title="Previous frame or move" aria-label="Previous frame or move">−1</button>
+                <button id="replay-next" type="button" class="button button-line" title="Next frame or move" aria-label="Next frame or move">+1</button>
+                <button id="replay-restart" type="button" class="button button-line">Restart</button>
+                <label for="replay-speed">Speed <select id="replay-speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label>
               </div>
               <p id="replay-result" class="replay-result" role="status"></p>
               <div class="replay-action-grid">
-                <dl class="replay-action"><div><dt>ผู้เล่น A · ท่าหรือตาปัจจุบัน</dt><dd id="replay-a-action">–</dd></div></dl>
-                <dl class="replay-action"><div><dt>ผู้เล่น B · ท่าหรือตาปัจจุบัน</dt><dd id="replay-b-action">–</dd></div></dl>
+                <dl class="replay-action"><div><dt>Player A · Current action or move</dt><dd id="replay-a-action">–</dd></div></dl>
+                <dl class="replay-action"><div><dt>Player B · Current action or move</dt><dd id="replay-b-action">–</dd></div></dl>
               </div>
               <details id="replay-meta-order" class="replay-commands">
-                <summary>ดูคำสั่งจากเอเจนต์และปุ่มจริงในเฟรมนี้</summary>
-                <p id="replay-caption-order">คำสั่งคือตัวเลือกที่ส่งในช่วงนี้ แต่จะกลายเป็นท่าเมื่อเอนจินอนุญาต ปุ่มคืออินพุตที่เอนจินได้รับในเฟรมที่เลือก</p>
+                <summary>Show agent commands and actual inputs</summary>
+                <p id="replay-caption-order">A command is the action requested for this window. The engine may prevent it from executing. The keys shown are the inputs the engine received on the selected frame.</p>
                 <div class="replay-action-grid">
-                  <dl class="replay-action"><div><dt>A · คำสั่งที่ส่ง</dt><dd id="replay-a-order">–</dd></div><div><dt>ปุ่มในเฟรมนี้</dt><dd id="replay-a-keys">–</dd></div></dl>
-                  <dl class="replay-action"><div><dt>B · คำสั่งที่ส่ง</dt><dd id="replay-b-order">–</dd></div><div><dt>ปุ่มในเฟรมนี้</dt><dd id="replay-b-keys">–</dd></div></dl>
+                  <dl class="replay-action"><div><dt>A · Requested command</dt><dd id="replay-a-order">–</dd></div><div><dt>Keys on this frame</dt><dd id="replay-a-keys">–</dd></div></dl>
+                  <dl class="replay-action"><div><dt>B · Requested command</dt><dd id="replay-b-order">–</dd></div><div><dt>Keys on this frame</dt><dd id="replay-b-keys">–</dd></div></dl>
                 </div>
               </details>
             </div>
           </section>
           <dl id="detail-fields"></dl>
           <div id="detail-chart" class="detail-chart" hidden></div>
-          <div id="detail-notes" class="detail-notes" hidden><h4>บันทึกที่เผยแพร่</h4><ul id="detail-notes-list"></ul></div>
+          <div id="detail-notes" class="detail-notes" hidden><h4>Match notes</h4><ul id="detail-notes-list"></ul></div>
           <div class="detail-foot">
-            <nav id="detail-nav" class="detail-nav" aria-label="ไล่ดูแมตช์"><a id="match-before" class="button small button-line" href="#"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> ก่อนหน้า</a><a id="match-after" class="button small button-line" href="#">ถัดไป <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></a></nav>
-            <div class="share"><button id="copy-link" class="button small button-line" type="button"><svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg> คัดลอกลิงก์แมตช์</button><label id="fallback-link" hidden><span>ลิงก์แมตช์นี้</span><input id="copy-value" readonly></label></div>
+            <nav id="detail-nav" class="detail-nav" aria-label="Match navigation"><a id="match-before" class="button small button-line" href="#"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> Previous</a><a id="match-after" class="button small button-line" href="#">Next <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></a></nav>
+            <div class="share"><button id="copy-link" class="button small button-line" type="button"><svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg> Copy match link</button><label id="fallback-link" hidden><span>Link to this match</span><input id="copy-value" readonly></label></div>
           </div>
           <p id="copy-status" class="copy-status" role="status"></p>
         </section>
-        <ol id="match-list" class="match-list" aria-label="ผลการแข่งขัน"></ol>
-        <p id="no-matches" class="state-block" hidden>ไม่เจอแมตช์ที่ตรงกับคำค้น ลองใช้คำสั้นลงหรือล้างตัวกรอง</p>
-        <nav id="pagination" class="pagination" aria-label="หน้าผลการแข่งขัน" hidden>
-          <button class="button small button-line" type="button" id="page-prev"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> ก่อนหน้า</button>
+        <ol id="match-list" class="match-list" aria-label="Match results"></ol>
+        <p id="no-matches" class="state-block" hidden>No matches found. Try a shorter search or clear the filters.</p>
+        <nav id="pagination" class="pagination" aria-label="Match pages" hidden>
+          <button class="button small button-line" type="button" id="page-prev"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> Previous</button>
           <span id="page-number"></span>
-          <button class="button small button-line" type="button" id="page-next">ถัดไป <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></button>
+          <button class="button small button-line" type="button" id="page-next">Next <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></button>
         </nav>
       </div>
     </section>
     <section id="report" class="report" aria-labelledby="report-title">
       <div class="wrap">
         <p class="section-index"><span>02</span> EXPERIMENT REPORT</p>
-        <div class="section-head"><div><h2 id="report-title">รายงานการทดลอง</h2><p id="report-intro">แยกสิ่งที่วัดได้จริงออกจากข้อสันนิษฐาน และชี้ว่าควรทดลองอะไรต่อ</p></div></div>
-        <p id="report-status" class="state-block" role="status">กำลังโหลดรายงาน…</p>
+        <div class="section-head"><div><h2 id="report-title">Experiment report</h2><p id="report-intro">What the experiment measured, what it did not establish, and what to test next.</p></div></div>
+        <p id="report-status" class="state-block" role="status">Loading the report…</p>
         <div id="report-interface" hidden>
           <section class="takeaways" aria-labelledby="takeaways-title">
-            <p class="kicker">READ THIS FIRST</p><h3 id="takeaways-title">ข้อค้นพบสำคัญ</h3><ol id="takeaway-list"></ol>
+            <p class="kicker">READ THIS FIRST</p><h3 id="takeaways-title">Key takeaways</h3><ol id="takeaway-list"></ol>
           </section>
           <div class="report-grid">
-            <nav aria-label="สารบัญรายงาน" id="contents-nav"><h3>ในรายงานนี้</h3><ul id="report-contents"></ul></nav>
+            <nav aria-label="Report contents" id="contents-nav"><h3>In this report</h3><ul id="report-contents"></ul></nav>
             <div id="report-sections"></div>
           </div>
           <ul id="report-links" class="report-links"></ul>
@@ -164,9 +164,9 @@
     </section>
   </main>
   <footer class="wrap foot">
-    <a class="brand" href="./"><img src="./assets/arcade-mark.svg" width="27" height="27" alt=""><span lang="en">Agent Arcade Cup</span></a>
-    <p>คลังสาธารณะใช้เฉพาะข้อมูลที่เตรียมให้เผยแพร่ ไม่รวมบันทึกส่วนตัวหรือไฟล์รีเพลย์ดิบ</p>
-    <a class="low-key" href="#main">กลับขึ้นด้านบน ↑</a>
+    <a class="brand" href="./"><img src="./assets/arcade-mark.svg?v=en1" width="27" height="27" alt=""><span lang="en">Agent Arcade Cup</span></a>
+    <p>The public archive contains a curated data release, not private logs or raw replay files.</p>
+    <a class="low-key" href="#main">Back to top ↑</a>
   </footer>
 </body>
 </html>

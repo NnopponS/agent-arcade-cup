@@ -1,90 +1,89 @@
 # Agent Arcade Cup Report
 
-**25 พฤศจิกายน 2026 · DareFightingICE v7.0 · GPT-6.2 Sol (Reasoning Low)**  
-ช่วงแข่งขันจริง: 24 พ.ย. 20:43 ถึง 25 พ.ย. 00:14 UTC (25 พ.ย. 03:43–07:14 เวลาไทย) · [เปิดคลังแมตช์](./#matches)
+**25 November 2026 · DareFightingICE v7.0 · GPT-6.2 Sol (low reasoning effort)**  
+Competition window: 24 November at 20:43 to 25 November at 00:14 UTC (25 November, 03:43–07:14 in Thailand). [Browse matches](./#matches) · [Replay the final](./#match-K049)
 
-## Key Takeaways
+## Key takeaways
 
-- **FI-005 เป็นแชมป์** ชนะ FI-052 ในรอบชิง K049 ด้วย HP **372–367** เมื่อหมดเวลา หลังจากตรวจสอบเส้นทางเข้ารอบครบทุกคู่
-- **99 ผลตัดสิน ≠ 99 ไฟต์ที่เล่นครบ**: มี 50 ผลรอบคัดเลือก + 49 ผลรอบแพ้คัดออก เมื่อรวมรอบสลับฝั่งตัดสินอีก 5 ไฟต์ มี **94 ไฟต์ที่เล่นครบในเอนจิน** และ **10 คู่ที่ตัดสินแพ้เพราะส่งคำตอบผิดรูปแบบก่อนเริ่มช่วงควบคุม** คลังจึงมี 104 ระเบียน
-- **โน้ตกลยุทธ์ยังไม่แสดงประโยชน์ที่ชัดเจน** ผลต่างของผลต่างจากการจัดกลุ่มโน้ตและคำสั่งเปลี่ยนสไตล์เท่ากับ **+2.44 HP** (ช่วง bootstrap 95% **−7.26 ถึง +10.92 HP**) จาก 50 คู่รอบคัดเลือก ช่วงคร่อมศูนย์ จึงยังแยกประโยชน์ โทษ และความผันผวนของตัวอย่างนี้ไม่ได้
-- **ตรวจผลเกมซ้ำได้ครบ 94 ไฟต์** โดยเล่นคำสั่งที่ล็อกไว้ใหม่บนเอนจินเวอร์ชันเดิม ตรงกับ **1,034 state hashes ณ จุดพัก** และ **1,128 จุดตรวจเฟรม/HP** การเล่นซ้ำตรวจว่าเอนจินให้ผลเดิม ไม่ได้ให้โมเดลตอบใหม่หรือทดสอบการกู้ความจำ
+- **FI-005 is the Cup champion.** FI-005 beat FI-052 in final K049 by **372–367 HP** when time expired. Every step on the bracket path was audited.
+- **99 bracket decisions are not 99 completed bouts.** There were 50 qualifying and 49 knockout-bracket decisions. Five additional tie-break bouts bring the archive to **104 FightingICE records: 94 completed bouts and 10 administrative forfeits** for invalid submissions before agent-controlled combat.
+- **No clear benefit from the strategy note.** The estimated interaction between the note and assignment to change styles was **+2.44 HP** across 50 qualifying pairs. The exploratory 95% bootstrap interval (**−7.26 to +10.92 HP**) includes zero, so the sample does not distinguish a benefit from a disadvantage or ordinary variation.
+- **All 94 completed bouts were reproducible on the original engine.** Re-running the committed actions on the same version matched **1,034 canonical engine-state hashes** and **1,128 frame/HP checks**. This verifies engine playback, not new model decisions or recovered internal memory.
 
-**English summary:** FI-005 won the final 372–367 HP. The archive separates 99 official fixture decisions from 94 completed native bouts (including five mirrored tie-breaks) and ten pre-combat forfeits. The estimated strategy-note-by-pivot interaction was +2.44 HP, with a wide exploratory 95% bootstrap interval of −7.26 to +10.92 HP. The study preserved explicit strategy notes across sessions; it did not measure hidden memory.
+## 1. How to count the tournament
 
-## 1. ตัวเลขการแข่งขันนับอย่างไร
-
-| กลุ่ม | ผลตัดสินในสาย | ไฟต์ที่เล่นครบ | แพ้โดยกติกา | ใช้คำนวณผลโน้ต |
+| Group | Bracket decisions | Completed bouts | Forfeits | Note study |
 |---|---:|---:|---:|---|
-| คัดเลือก F001–F050 | 50 | 50 | 0 | ใช้ 50 คู่เดิม |
-| แพ้คัดออก K001–K049 | 49 | 39 | 10 | ไม่ใช้ |
-| รอบสลับฝั่งตัดสิน (`-D`) | 0 เพิ่ม | 5 | 0 | ไม่ใช้ |
-| **รวม** | **99** | **94** | **10** | **50** |
+| Qualifiers F001–F050 | 50 | 50 | 0 | All 50 original pairs |
+| Knockout bracket K001–K049 | 49 | 39 | 10 | Excluded |
+| Side-swapped tie-breaks (`-D`) | 0 additional | 5 | 0 | Excluded |
+| **Total** | **99** | **94** | **10** | **50** |
 
-- **ผลตัดสินในสาย (fixture decision):** หนึ่งคู่มีผู้ผ่านเข้ารอบหนึ่งราย แม้ต้องเล่นเพิ่มเพื่อแยกคะแนนเสมอ รอบคัดเลือกที่เสมอ 4 คู่และรอบแพ้คัดออกที่เสมอ 1 คู่ใช้การสลับฝั่งเล่นอีกครั้งครบทั้ง 5 คู่ และตัดสินได้จาก HP ทุกคู่ ไม่ใช้การจับสลาก
-- **ไฟต์ที่เล่นครบ (completed native bout):** เอนจินเข้าสถานะจบเกมจริง ทั้ง 94 ไฟต์จบที่เฟรม **420** จึงไม่มีเกมที่จบด้วยการน็อกเอาต์ คำว่า *knockout* ในรายงานหมายถึง **รอบแพ้คัดออก** ไม่ใช่เหตุที่เกมจบ
-- **Forfeit:** อีกฝ่ายส่งคำตอบที่ตรวจรูปแบบผ่าน แต่คู่แข่งผิดรูปแบบ ระเบียนทั้ง 10 หยุดที่เฟรม 44 หลังช่วงวอร์มอัป ก่อนเริ่มช่วงที่เอเจนต์ควบคุม จึงไม่มี HP ตอนจบหรือผลชนะจากการต่อสู้ ไม่เติมสกอร์ให้
-- **Engine recovery:** F045 และ K032 กู้สถานะเอนจินโดยรักษาคำสั่งที่ล็อกไปแล้ว ทั้งสองระเบียนอยู่ใน 94 ไฟต์ ไม่ใช่ไฟต์เพิ่ม และไม่ใช่การเริ่มเกมใหม่เพื่อขอคำตอบจากเอเจนต์อีกรอบ
-- **Bye:** จาก 50 ผู้ผ่านรอบคัดเลือก มี 36 รายเล่น 18 คู่แรก และ 14 รายได้บายสู่รอบ 32 บายไม่ใช่ผลชนะหรือการเล่นจริง เส้นทางแชมป์รวมการผ่าน K027 ด้วย forfeit แต่ **รอบชิง K049 ชนะจากผลในเกม**
+- **Bracket decision:** one entrant advances from each fixture. Four qualifying ties and one knockout-bracket tie led to five new bouts with seats swapped. All five were decided by HP, not a draw of lots.
+- **Completed native bout:** the engine reached a terminal state. All 94 bouts ended at **frame 420**, so no fight ended by knockout. In this report, *knockout* describes the single-elimination bracket.
+- **Forfeit:** one entrant submitted a valid response while the opponent failed validation. All ten records stopped at frame 44 after warm-up, before agent-controlled combat. They have neither a final HP score nor a win decided inside the game.
+- **Engine recovery:** for F045 and K032, engine recovery preserved the committed commands. These are part of the 94 completed bouts, not extra bouts or fresh model runs.
+- **Bye:** of 50 qualifying entrants, 36 played 18 opening fixtures and 14 received byes to the round of 32. A bye adds no win or played bout. The champion advanced through K027 by forfeit but **won K049 in the engine**.
 
-## 2. เอเจนต์เล่นอย่างไร
+## 2. How the agents played
 
-1. รอบคัดเลือกใช้ **100 โปรไฟล์และ 100 เซสชันเริ่มใหม่ที่ไม่ซ้ำกัน** เปิดแข่งคู่ละสองเซสชัน ทุกตัวเป็น GPT-6.2 Sol ตั้ง reasoning effort เป็น Low ตัวละคร ZEN เหมือนกันทั้งสองฝั่ง เริ่มที่ 400 HP เท่ากัน
-2. ทั้งสองฝั่งส่งคำสั่งที่อนุญาตคนละ 4 คำสั่งต่อช่วง เอนจินหยุดรอจนล็อกทั้งคู่ แล้วจึงเดินเกม 4 ช่วงย่อย ช่วงละ 47 เฟรม ช่วงวอร์มอัป 44 เฟรม + ช่วงเล่น 376 เฟรม = 420 เฟรม หรือราว 7 วินาทีในเกม เวลารอเอเจนต์ไม่ใช่เวลาในเกม
-3. ตอนพักที่เฟรม 232 จึงส่งสถานะล่าสุดและข้อความจริงของอีกฝั่งให้แต่ละตัวเห็น แล้วทั้งคู่จึงส่งคำตอบกลับและล็อกชุดถัดไป มี **100 ข้อความเปิดและ 100 คำตอบกลับ** ใน 50 คู่คัดเลือก คำตอบกลับแต่ละรายการผูกด้วยแฮชกับข้อความที่ส่งถึงผู้รับจริง หากสลับหรือแก้ข้อความ แฮชจะไม่ตรงกับที่บันทึกไว้
-4. ตัวเชื่อมแปลงคำสั่งเป็นอินพุตของเอนจินตามกติกา ไม่เลือกท่าแทนผู้เล่น บางคำสั่งอาจไม่ออกจริงเมื่อโดนโจมตีหรืออยู่ในสถานะที่เกมไม่อนุญาต จึงแยก *คำสั่งที่ขอ* ออกจาก *การกระทำที่เอนจินบันทึก* และไม่ถือว่าเอเจนต์เล่นแบบตอบสนองทุกเฟรม
+1. The qualifiers used **100 profiles and 100 unique fresh sessions**, two per match. Each used GPT-6.2 Sol with low reasoning effort. Both seats played ZEN and started with 400 HP.
+2. Each seat submitted four allowed commands per half. The engine waited for both sets to be committed, then ran four 47-frame windows. The 44-frame warm-up plus 376 frames of play makes 420 frames, about seven seconds in the game. Time spent waiting for agents is not game time.
+3. At frame 232, each player received the updated state and their opponent’s real message. Each then replied and committed the second command set. Across 50 qualifiers, the record contains **100 opening messages and 100 replies**. Each reply links by hash to the exact message delivered to that player.
+4. The bridge translated the requests into engine inputs without choosing moves for the agents. A requested action can fail to execute if the character is hit or cannot act. The data therefore distinguishes *requested commands* from *moves the engine executed*. The agents did not make decisions on every frame.
 
-## 3. ผลของโน้ตกลยุทธ์เมื่ออีกฝั่งได้รับโจทย์ให้ปรับสไตล์
+## 3. Strategy notes and opponent style changes
 
-หนึ่งคู่มีผู้เล่นที่ใช้วิเคราะห์หลัก (*focal player*) หนึ่งราย ตารางจัดกลุ่มจาก **การมอบหมาย** ไม่ใช่คัดเฉพาะรายที่ทำตาม การทดลองตั้งให้มีโน้ตวิธีเล่นหนึ่งฝั่งและการ์ดข้อความกลางอีกฝั่ง: ถ้าฝั่งที่วัดได้โน้ต อีกฝั่งได้การ์ดกลาง และกลับกัน จึงอ่านผลได้ว่าเป็นการย้ายโน้ตระหว่างฝั่งในคู่ ไม่ใช่การทดสอบเพิ่มโน้ตให้คนเดียวโดยคงอีกฝั่งเดิมทุกอย่าง
+One *focal player* was designated per pair. Groups use the original assignment rather than selecting for compliance. The setup allocated one strategy note and one neutral card per pair. If the focal player was assigned the note, the other seat was assigned the neutral card, and vice versa. This tests which seat receives the one note, not adding a note to one seat while keeping the other seat’s exposure fixed.
 
-| การ์ดที่มอบหมายให้ฝั่งที่วัด | โจทย์สไตล์ของอีกฝั่ง | คู่ที่วัดได้ | เฉลี่ย: ผลต่าง HP ดีขึ้นในครึ่งหลัง | โน้ตที่มอบหมายแต่ส่งไม่ได้ |
+| Focal player’s assigned card | Opponent’s instruction | Measured pairs | Average second-half HP-margin change | Assigned notes not delivered |
 |---|---|---:|---:|---:|
-| โน้ตกลยุทธ์ | เปลี่ยน (pivot) | 13 | +0.54 HP | 0 |
-| โน้ตกลยุทธ์ | คงเดิม (stay) | 12 | +0.08 HP | 1 |
-| การ์ดกลาง | เปลี่ยน (pivot) | 12 | −0.83 HP | 0 |
-| การ์ดกลาง | คงเดิม (stay) | 13 | +1.15 HP | 0 |
+| Strategy note | Pivot | 13 | +0.54 HP | 0 |
+| Strategy note | Stay | 12 | +0.08 HP | 1 |
+| Neutral card | Pivot | 12 | −0.83 HP | 0 |
+| Neutral card | Stay | 13 | +1.15 HP | 0 |
 
-วัดว่า **HP ของฝั่งที่วัดลบ HP ของคู่แข่ง** เปลี่ยนไปเท่าไรจากตอนพักถึงจบเกม ค่าบวกหมายถึงผลต่างดีขึ้นในครึ่งหลัง ไม่ได้หมายถึงได้ HP คืน แต่ละค่า HP ถูกจำกัดในช่วง 0–400 ก่อนคำนวณ โค้ดหารด้วย HP เริ่มต้น 400 ในขั้นวิเคราะห์ แล้วแปลงกลับเป็นหน่วย HP ในตาราง
+The outcome is the change between the break and the end in **focal player HP minus opponent HP**. A positive change means a better margin, not recovered health. HP values were clipped to 0–400. The analysis normalized by 400 starting HP and converted the results back to HP for the table.
 
-ผล **+2.44 HP** มาจาก `(โน้ต/เปลี่ยน − โน้ต/คงเดิม) − (การ์ดกลาง/เปลี่ยน − การ์ดกลาง/คงเดิม)` โดยใช้ค่าเฉลี่ยที่ยังไม่ปัดเศษ ค่านี้ตอบคำถามเรื่อง *ปฏิสัมพันธ์* ระหว่างโน้ตกับโจทย์เปลี่ยนสไตล์ ไม่ใช่ผลของการให้โน้ตกับทุกเกม ใช้ bootstrap แยก 4 กลุ่ม 4,000 รอบเพื่อประเมินความไม่แน่นอนเบื้องต้น ถ้าตัดหนึ่งคู่ที่มอบหมายโน้ตแต่ไม่มีโน้ตที่ใช้ได้ เหลือ 49 คู่และได้ **+0.98 HP** เป็นการตรวจความไว ไม่ใช่ผลสุ่มที่มาแทนค่าหลัก
+The estimate **+2.44 HP** is `(note/pivot − note/stay) − (neutral/pivot − neutral/stay)`, using unrounded means. It estimates the note-by-pivot *interaction*, not the note’s overall benefit. Exploratory uncertainty came from 4,000 bootstrap resamples stratified by the four cells. Excluding the one pair where the assigned note could not be delivered gives **+0.98 HP** across 49 pairs. This is a sensitivity check, not a replacement for the assigned-group estimate.
 
-## 4. การเปลี่ยนท่าและการเริ่มเซสชันใหม่
+## 4. Changes in commands and session continuity
 
-- **พบการปรับท่าไปตามโจทย์ในคำสั่งที่ขอ โดยเอเจนต์ยังเลือกท่าเอง:** 24/25 คู่ในกลุ่ม pivot มีดัชนีการเข้าหา/ถอย/ป้องกันเปลี่ยนไป และ 23/25 เปลี่ยนไปทางที่ตั้งโจทย์ ในกลุ่ม stay ยังพบว่าดัชนีเปลี่ยน 17/25 จึงไม่ควรแทนคำว่า “ได้รับโจทย์” ด้วย “ทำตาม” ดัชนีนี้นับท่าที่ขอ ไม่ได้วัดระยะจริง หรือทุกมิติของสไตล์
-- **คำสั่งชุดหลังเปลี่ยนเยอะ ไม่ได้แปลว่าปรับเกมเก่งขึ้น:** โดยเฉลี่ย 82% ของรายการในชุด 4 คำสั่งของฝั่งที่วัดไม่ซ้ำกับช่วงก่อนเมื่อเทียบแบบนับท่าซ้ำ การสลับลำดับอย่างเดียวไม่นับว่าท่าเปลี่ยน หมวด “ท่าแก้ทาง” ตามแผนยังไม่ถูกล็อกก่อนเก็บข้อมูล จึงใช้ดัชนีนี้สำรวจภายหลัง ไม่สรุปผลเชิงยืนยัน
-- **โปรไฟล์คงเดิมได้ แม้เซสชันเปลี่ยน:** จาก 98 ตำแหน่งผู้เล่นในคู่แพ้คัดออกหลัก มี **3** ตำแหน่งใช้เซสชันเดิมที่พิสูจน์ว่าต่อเนื่อง และ **95** ตำแหน่งเริ่มเซสชันใหม่ภายใต้โปรไฟล์เดิม เพื่อส่งต่อเฉพาะข้อมูลที่บันทึกชัดเจน เช่น โน้ตจากรอบก่อนเมื่อมี ไม่ใช่กู้ความจำภายในของโมเดล
-- ในไฟต์แพ้คัดออกหลักที่เล่นครบ วัดสัดส่วนเปลี่ยนท่าได้ **79.3% ใน 75 ตำแหน่งที่เริ่มเซสชันใหม่** และ **75.0% ใน 3 ตำแหน่งที่ใช้เซสชันเดิม** กลุ่มไม่สมดุล ไม่ได้สุ่ม และบางโปรไฟล์เล่นหลายรอบ ตัวเลขนี้จึงไม่บอกว่าเริ่มใหม่หรือใช้เซสชันเดิมดีกว่ากัน
-- หลัง K006 ปรับถ้อยคำคำสั่งในรอบแพ้คัดออกให้ชัดว่าต้องเล่นและตอบเฉพาะ JSON ตามกำหนด หลังพบคำตอบผิดรูปแบบสองคู่ ไม่เปลี่ยนโมเดล เอนจิน หรือกติกาการไปต่อ และไม่ใช่หลักฐานว่าถ้อยคำใหม่เป็นสาเหตุให้ผลต่างเปลี่ยน
+- **Most pivot-assigned opponents changed requested style in the intended direction.** The approach/retreat/guard index changed in 24 of 25 pivot assignments and moved in the intended direction in 23. It also changed in 17 of 25 stay assignments. An assignment is not the same as compliance. The index measures requested commands, not distances covered or every aspect of style.
+- **New commands do not prove better adaptation.** On average, 82% of focal players’ four second-half commands differed from the first half on a multiset comparison. Merely reordering the same commands did not count. Counter-move categories were not locked before data collection, so this is exploratory.
+- **A profile can remain the same even when a session changes.** Of 98 seats in the main knockout bracket, **3** used a verified continuing session and **95** began a fresh session under the same profile. When available, selected information such as a prior note was passed in explicitly. That does not recover the model’s internal memory.
+- Among played main-bracket bouts, the command-change rate was **79.3% across 75 fresh-session seats** and **75.0% across 3 retained-session seats**. The groups were unbalanced, not randomized, and included profiles that played repeatedly. This is not a comparison of which approach performs better.
+- The knockout prompt was clarified after K006 following two invalid-format responses. It restated that the entrant must play and submit only the specified JSON. The model, engine and advancement rules did not change; the comparison cannot establish that wording caused a change in results.
 
-## 5. งานก่อนหน้าที่ไม่นับรวม
+## 5. Other work kept separate
 
-| งาน | เกิดขึ้นจริง | เหตุผลที่ไม่รวมกับ FightingICE |
+| Work | What happened | Why it is not counted as FightingICE |
 |---|---|---|
-| **Fixed-bot calibration** | 100 คู่การเทียบ, 200 การรันเกม, 8,325 การกระทำที่ตรวจแล้ว; มีความผิดพลาดของสคริปต์ 14 ครั้ง | เอเจนต์ช่วยออกแบบบอต แต่บอตเป็นผู้เล่นตอนรัน ไม่ใช่เอเจนต์ใหม่สองตัวต่อคู่ และใช้เกมคนละชุด |
-| **Retired fresh-agent puzzle pilot** | 20 คลื่นที่มีระเบียนจากแผน 50; 40 เซสชัน, 38 คำตอบ, สมบูรณ์ 19 คู่และไม่สมบูรณ์ 1 คู่; ทั้งสองฝั่งตอบถูกทุกคู่ที่สมบูรณ์ | เล่นโจทย์เดียวกันแบบแยกกัน ไม่ได้ต่อสู้กันโดยตรง ใช้ Reasoning Medium และความถูกต้องแตะเพดานในตัวอย่างนี้ |
-| **Connect Four exhibition** | มีการตั้งกระดานแยกไว้ แต่ไม่มีตาเดินที่บันทึกในระเบียนการแข่งขัน | ไม่สร้างผลที่ไม่มีหลักฐาน และไม่นำการสาธิตไปเติมจำนวนคู่ |
+| **Fixed-bot calibration** | 100 pairs, 200 game runs, and 8,325 verified actions; 14 scripting errors. | Agents helped design the bots, but fixed bots played the scored runs. This was not fresh agents competing directly, and the games were different. |
+| **Retired fresh-agent puzzle pilot** | 20 recorded waves from 50 planned; 40 sessions and 38 responses. There were 19 complete pairs and one incomplete pair. Both players were correct in every complete pair. | The players solved the same puzzle independently. The study used medium reasoning effort and reached a ceiling on correctness in this sample. |
+| **Connect Four exhibition** | A separate board was set up, but match evidence contains no recorded moves. | No result is claimed, and the exhibition does not fill missing fixtures. |
 
-[ดาวน์โหลดเกรดรายคู่ของโจทย์นำร่อง 20 คลื่น (CSV)](./retired-puzzle-archive.csv) ชุดนี้แยกจากดัชนีแมตช์ เพราะเป็นการตอบโจทย์แยกกัน ไม่ใช่การแข่งขันสด
+[Download the grades for the 20 retired puzzle waves (CSV).](./retired-puzzle-archive.csv) This dataset is separate from the match index because those were independent answers, not live head-to-head matches.
 
-คลัง FightingICE แยก 104 ระเบียนออกจากงานนำร่องเหล่านี้ ไม่มีการนับ 100 คู่ของบอตเป็น 100 เอเจนต์ หรือใช้คำตอบจากงานก่อนหน้าทดแทนเกมที่ขาด
+The FightingICE archive keeps its 104 records separate from these studies. It does not count the 100 bot pairs as model agents or replace missing evidence with earlier work.
 
-## 6. เปิดข้อมูลแล้วตรวจอะไรได้
+## 6. What readers can verify
 
-1. **ตรวจจำนวนและแชมป์จากคลัง:** แยกกลุ่ม F, K และรอบ `-D`; ตรวจว่า 10 รายการ forfeit ไม่มีสกอร์จบ ดูว่าคู่สลับฝั่งอ้างถึงคู่เดิม ไม่ใช่ผลตัดสินเพิ่ม และดู K049 ที่เฟรม 420
-2. **คำนวณผลโน้ตซ้ำ:** ใช้เฉพาะ 50 คู่หลัก เลือกหนึ่งฝั่งตาม `focalSeat` คำนวณผลต่าง HP ระหว่างเฟรม 232 กับ 420 แล้วเฉลี่ยตามการ์ด/โจทย์ที่มอบหมาย ดาวน์โหลด [study-inputs.csv](./study-inputs.csv) และ [recompute-study.py](./recompute-study.py) ไว้ในโฟลเดอร์เดียวกัน คอลัมน์ net_hp_change_after_break คือผลต่าง HP หลังพักที่คำนวณไว้แล้ว รันด้วย Python มาตรฐานโดยไม่ต้องเข้าถึงข้อมูลดิบ:
+1. **Counts and champion:** use the match index to separate qualifying, knockout-bracket, and `-D` ties. Check that the ten forfeits have no final score, that ties point to a separate bout, and that K049 lists both final HP values at frame 420.
+2. **Strategy-note calculation:** use the 50 original qualifying pairs, one seat per pair chosen by `focalSeat`, and compare the HP margin from frame 232 to frame 420. Download [study-inputs.csv](./study-inputs.csv) and [recompute-study.py](./recompute-study.py) into the same directory. The CSV’s `net_hp_change_after_break` column provides the resulting HP margin change:
 
    ```sh
    python recompute-study.py study-inputs.csv
    ```
 
-   สำหรับคำนวณใช้เพียงรหัสคู่แบบนามแฝง, สถานะ, ฝั่งที่วัด, การมอบหมาย, การ์ดที่ได้รับ, เฟรม และ HP ไม่ต้องใช้บทสนทนาดิบหรือโน้ตกลยุทธ์ฉบับเต็ม
-3. **แยกการตรวจซ้ำสองชั้น:** การคำนวณจากชุดข้อมูลสรุปตรวจตารางและค่าประมาณได้ การตรวจว่าอินพุตที่ยอมรับมาจากเอเจนต์จริงและแฮชสถานะตรงกับเอนจิน ต้องใช้การตรวจหลักฐานต้นทางที่ได้รับอนุญาต เอนจินทดสอบซ้ำทั้ง 94 ไฟต์ด้วยคำสั่งเดิมบนรุ่น v7.0 (commit `3780b5e`) รายงานนี้ไม่เผยแพร่รหัสเซสชันจริง ข้อความควบคุม ค่าลับของการจัดตาราง หรือไฟล์เอนจินที่ไม่ผ่านสิทธิ์เผยแพร่
+   The summary calculation uses only pseudonymous fixture IDs, the qualifying selection, assignment and delivery information, and audited frame and HP measurements. It does not require private dialogue or full strategy notes.
+3. **Browser replay:** the public player shows original artwork driven by the positions, HP, actions and actual inputs from the verified native rerun for all 94 completed FightingICE bouts. It also reproduces the recorded boards move by move for all 100 fixed-bot pairs. It is not original FightingICE footage, a copy of the game engine, or a live agent run. Forfeits have no fight replay.
+4. **Limits of independent verification:** the released table and script reproduce the estimates. Auditing original submissions and their linkage to engine hashes requires access to the underlying authorized evidence. All 94 completed bouts were rerun on v7.0 (commit `3780b5e`). The archive does not publish raw session IDs, control messages, private scheduling parameters or restricted engine assets.
 
-**หลักฐานตามหัวข้อ:** ผลตัดสินรายคู่และสรุปการตรวจสายรองรับ §1–2; ตาราง HP และการคำนวณซ้ำจากระเบียนรอบคัดเลือกรองรับ §3; รายการวัดท่าที่ขอและการต่อเซสชันรองรับ §4; ผลสอบเทียบและผลตรวจโจทย์ที่ยุติแล้วรองรับ §5; สรุปการทวนรันเอนจินรองรับ §6
+The fixture decisions and bracket audit support sections 1–2; qualifying HP records and reproduction data support section 3; requested-action and continuity audits support section 4; calibration and retired-pilot grades support section 5; native replay verification supports section 6.
 
-## 7. ถ้าทำรอบต่อไป ควรออกแบบอะไรเพิ่ม
+## 7. What to change next time
 
-- เพิ่มจำนวนคู่และทำซ้ำกับตัวละครหรือคู่ต่อสู้อื่น ล็อกหมวดท่าแก้ทางกับการให้คะแนนจากเอนจินก่อนเริ่มเก็บข้อมูล โดยยังแยกสิ่งที่เอเจนต์ขอออกจากสิ่งที่เกมทำจริง
-- สุ่มทดสอบ **คงเซสชันเดิม vs เริ่มใหม่** และ **มีโน้ต vs ไม่มีโน้ต** เป็นคนละปัจจัย เพื่อแยกผลของข้อความที่ส่งต่อออกจากการใช้เซสชันเดิม ถ้าต้องการวัดผลของโน้ตฝั่งเดียว ให้ตรึงการ์ดของอีกฝั่งไว้ด้วย
-- วางแผนวิเคราะห์เป็นกลุ่มตามสายที่มาของโน้ตหรือทดลองด้วยคลังโน้ตแยกอิสระ ช่วง bootstrap ปัจจุบันไม่ได้คิดความเชื่อมโยงระหว่างโน้ตที่ส่งต่อ และกลุ่มย่อยมีเพียง 12–13 คู่ ข้อสรุปจึงจำกัดอยู่ที่กติกา โมเดล และเกมนี้
+- Increase the sample and repeat with different characters or opponents. Define counter-moves and engine-level scoring before collecting data, while keeping requested commands separate from executed actions.
+- Randomize session continuity and whether a note is supplied as separate factors. To estimate a one-sided note effect, hold the opposing seat’s card fixed.
+- Plan the analysis around shared note origins, or draw from an independent note library. The current bootstrap does not account for dependence between notes. Each subgroup contains only 12–13 pairs, and the estimate applies to this setup, model and game.

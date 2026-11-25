@@ -19,12 +19,12 @@
     return svg;
   };
 
-  const phases = new Map([['qualifier','รอบคัดเลือก'], ['knockout','รอบแพ้คัดออก'], ['pilot','รอบนำร่อง'], ['exhibition','รอบสาธิต']]);
-  const results = new Map([['engine','เล่นจริง'], ['tie','เสมอ'], ['forfeit','แพ้ผ่าน'], ['pilot','รอบนำร่อง'], ['exhibition','รอบสาธิต']]);
-  const units = new Map([['hp','HP'], ['points','คะแนน'], ['moves','ครั้ง'], ['hits','ครั้งที่โดนเป้า']]);
-  const resultWord = match => results.get(match.result) || 'ผลที่บันทึก';
+  const phases = new Map([['qualifier','Qualifier'], ['knockout','Knockout bracket'], ['pilot','Pilot'], ['exhibition','Exhibition']]);
+  const results = new Map([['engine','Completed bout'], ['tie','Draw'], ['forfeit','Forfeit'], ['pilot','Pilot'], ['exhibition','Exhibition']]);
+  const units = new Map([['hp','HP'], ['points','points'], ['moves','moves'], ['hits','hits']]);
+  const resultWord = match => results.get(match.result) || 'Recorded result';
   const goodID = id => typeof id === 'string' && /^[A-Z][0-9]{2,4}(?:-[A-Z0-9]{1,4})?$/.test(id);
-  const nfmt = new Intl.NumberFormat('th-TH');
+  const nfmt = new Intl.NumberFormat('en-US');
   const count = n => nfmt.format(n);
   const normalize = text => String(text).normalize('NFKC').trim().toLowerCase();
   const number = n => typeof n === 'number' && Number.isFinite(n) && n >= 0;
@@ -32,8 +32,8 @@
   const textArray = x => Array.isArray(x) ? x.filter(item => typeof item === 'string' && item.trim()) : [];
   const route = id => '#match-' + id;
   const reasonPhrase = reason => ({
-    time: 'ครบเวลาตามกติกา',
-    'invalid-submission-forfeit': 'แพ้ผ่าน: คำสั่งที่ส่งไม่ผ่านการตรวจสอบ'
+    time: 'Time expired',
+    'invalid-submission-forfeit': 'Forfeit: the submitted commands did not pass validation'
   })[reason] || null;
   const pageSize = 15;
   let records = [];
@@ -105,8 +105,8 @@
     const main = e('span','record-main');
     main.append(e('strong','record-title',m.a + ' vs ' + m.b));
     const metadata = [m.game];
-    if (m.winner) metadata.push('ชนะ: ' + m.winner);
-    else if (m.result === 'tie') metadata.push('ผลเสมอ');
+    if (m.winner) metadata.push('Winner: ' + m.winner);
+    else if (m.result === 'tie') metadata.push('Draw');
     main.append(e('span','record-meta',metadata.join(' · ')), e('span','record-phase',phases.get(m.stage)));
     const result = e('span','record-result'); result.append(e('span','result-chip ' + m.result,resultWord(m)));
     const arrow = e('span','record-arrow'); arrow.append(icon('right'));
@@ -120,8 +120,8 @@
     const start = (page - 1) * pageSize;
     const end = Math.min(start + pageSize, filtered.length);
     const statusText = filtered.length
-      ? `แสดง ${count(start + 1)}–${count(end)} จาก ${count(filtered.length)} รายการ`
-      : 'ไม่พบแมตช์';
+      ? `Showing ${count(start + 1)}–${count(end)} of ${count(filtered.length)} records`
+      : 'No matches found';
     $('#list-status').textContent = statusText;
     $('#reset').disabled = !($('#query').value || $('#game-filter').value || $('#phase-filter').value || $('#sort').value !== 'asc');
     $('#match-list').replaceChildren(...filtered.slice(start,end).map(matchRow));
@@ -129,7 +129,7 @@
     $('#pagination').hidden = pages <= 1;
     $('#page-prev').disabled = page <= 1;
     $('#page-next').disabled = page >= pages;
-    $('#page-number').textContent = `หน้า ${count(page)} / ${count(pages)}`;
+    $('#page-number').textContent = `Page ${count(page)} of ${count(pages)}`;
   }
 
   function field(list,label,value) {
@@ -177,12 +177,12 @@
           : sv('circle',{cx:x(c.frame),cy:y(c[key]),r:3,fill:color}));
       }
     }
-    const description = `เส้นทึบ: ${m.a} · เส้นประ: ${m.b} · มี ${count(checkpoints.length)} จุดวัด ไม่ใช่ข้อมูลทุกเฟรม · แกน HP ซูมตามค่าที่วัดได้`;
+    const description = `Solid line: ${m.a} · Dashed line: ${m.b} · ${count(checkpoints.length)} checkpoints, not every frame · The HP axis is scaled to the observed range`;
     figure.append(ns,e('figcaption','',description));
-    const exact = e('details','checkpoint-details'); exact.append(e('summary','','ดูตัวเลข HP ตามเฟรม'));
+    const exact = e('details','checkpoint-details'); exact.append(e('summary','','View HP at each checkpoint'));
     const table = e('table','checkpoint-table'), header = e('thead'), body = e('tbody');
     const headerRow = e('tr');
-    for (const labelText of ['เฟรม',m.a + ' (HP)',m.b + ' (HP)']) {
+    for (const labelText of ['Frame',m.a + ' (HP)',m.b + ' (HP)']) {
       const cell = e('th','',labelText); cell.scope = 'col'; headerRow.append(cell);
     }
     header.append(headerRow);
@@ -190,7 +190,7 @@
       const row = e('tr'); row.append(...[c.frame,c.a,c.b].map(item => e('td','',count(item)))); body.append(row);
     }
     table.append(header,body); exact.append(table);
-    return [e('h4','','HP ที่บันทึกระหว่างไฟต์'),figure,exact];
+    return [e('h4','','HP checkpoints during the bout'),figure,exact];
   }
 
   function showMatch(m, useFocus) {
@@ -201,27 +201,27 @@
     $('#detail-title').textContent = m.a + ' vs ' + m.b;
     $('#detail-lead').textContent = m.game + ' · ' + resultWord(m);
     const fields = $('#detail-fields'); fields.replaceChildren();
-    field(fields,'ผู้ชนะที่บันทึก', m.winner || (m.result === 'tie' ? 'เสมอ' : 'ไม่มีผู้ชนะในผลที่เผยแพร่'));
-    if (m.result !== 'forfeit' && validPair(m.score)) field(fields,'ค่าที่บันทึก (A : B)',m.score.map(count).join(' : ') + ' ' + units.get(m.scoreUnit));
-    if (validPair(m.moves) && m.scoreUnit !== 'moves') field(fields,'จำนวนการเดิน (A : B)',m.moves.map(count).join(' : '));
-    if (number(m.frame)) field(fields,m.result === 'forfeit' ? 'เฟรมที่ยุติก่อนเล่นต่อ' : 'เฟรมสิ้นสุด',count(m.frame));
-    field(fields,'สาเหตุที่บันทึก',reasonPhrase(m.reason));
+    field(fields,'Recorded winner', m.winner || (m.result === 'tie' ? 'Draw' : 'No winner in the published result'));
+    if (m.result !== 'forfeit' && validPair(m.score)) field(fields,'Recorded score (A : B)',m.score.map(count).join(' : ') + ' ' + units.get(m.scoreUnit));
+    if (validPair(m.moves) && m.scoreUnit !== 'moves') field(fields,'Moves played (A : B)',m.moves.map(count).join(' : '));
+    if (number(m.frame)) field(fields,m.result === 'forfeit' ? 'Frame at forfeit' : 'Final frame',count(m.frame));
+    field(fields,'Recorded reason',reasonPhrase(m.reason));
     if (m.rematchOf && byID.has(m.rematchOf)) {
       const link = e('a','',m.rematchOf); link.href = route(m.rematchOf);
-      field(fields,'แข่งซ้ำจาก',link);
+      field(fields,'Tie-break for',link);
     }
     const rematches = records.filter(r => r.rematchOf === m.id);
     if (rematches.length) {
       const link = e('a','',rematches[0].id); link.href = route(rematches[0].id);
-      field(fields,'แมตช์ที่แข่งซ้ำ',link);
+      field(fields,'Tie-break match',link);
     }
     const notes = [];
     if (m.series === 'pilot') {
-      notes.push('รอบนำร่องใช้บอตคนละชุดกับ FightingICE และไม่รวมอยู่ในผลการแข่งขันชุดหลัก');
-      if (m.scoreUnit === 'moves' || m.scoreUnit === 'hits') notes.push('จำนวนการเดินหรือจำนวนครั้งที่โดนเป้าอย่างเดียวไม่จำเป็นต้องตัดสินผู้ชนะ ยังขึ้นอยู่กับความสำเร็จ อันดับ หรือกติกาตัดสินเสมอของเกม');
+      notes.push('The pilot used separate fixed bots and is not part of the FightingICE tournament results.');
+      if (m.scoreUnit === 'moves' || m.scoreUnit === 'hits') notes.push('Moves or hits alone do not necessarily decide the winner. Completion, ranking, or tie-break rules may also apply.');
     }
-    if (m.result === 'forfeit') notes.push('แมตช์นี้แพ้ผ่าน ไม่ใช่ไฟต์ที่เล่นจริง เฟรมที่แสดงเป็นจุดยุติ ไม่ใช่ระยะเวลาการต่อสู้ และไม่มีผล HP');
-    if (m.result === 'tie') notes.push('แมตช์นี้จบเสมอ หากแข่งซ้ำ ผลของแมตช์ใหม่แสดงเป็นอีกรายการหนึ่ง');
+    if (m.result === 'forfeit') notes.push('This is a forfeit, not a completed fight. The frame shown is the point at which play stopped. There is no final HP score.');
+    if (m.result === 'tie') notes.push('This bout ended in a draw. If a tie-break was played, it appears as a separate record.');
     $('#detail-notes').hidden = !notes.length;
     $('#detail-notes-list').replaceChildren(...notes.map(note => e('li','',note)));
     const chart = m.series === 'fighting' && m.result !== 'forfeit' ? makeHPChart(m) : null;
@@ -230,7 +230,7 @@
     const pos = records.indexOf(m);
     [['#match-before',records[pos-1]],['#match-after',records[pos+1]]].forEach(([id,adjacent]) => {
       const a = $(id); a.hidden = !adjacent;
-      if (adjacent) { a.href = route(adjacent.id); a.setAttribute('aria-label',(id.endsWith('before') ? 'แมตช์ก่อนหน้า ' : 'แมตช์ถัดไป ') + adjacent.id); }
+      if (adjacent) { a.href = route(adjacent.id); a.setAttribute('aria-label',(id.endsWith('before') ? 'Previous match ' : 'Next match ') + adjacent.id); }
     });
     $('#copy-status').textContent = '';
     $('#fallback-link').hidden = true;
@@ -245,7 +245,7 @@
     if (hash.startsWith('#match-')) {
       const id = hash.slice(7).toUpperCase();
       if (byID.has(id)) { showMatch(byID.get(id),useFocus); return; }
-      $('#match-status').textContent = 'ไม่พบแมตช์ตามลิงก์นี้ ลองค้นหาจากรายการด้านล่าง';
+      $('#match-status').textContent = 'This match link was not found. Try searching the list below.';
       $('#match-status').hidden = false;
     } else if (records.length) $('#match-status').hidden = true;
     if (selected) {
@@ -278,13 +278,13 @@
     link.hash = route(selected);
     try {
       await navigator.clipboard.writeText(link.href);
-      $('#copy-status').textContent = 'คัดลอกลิงก์แมตช์แล้ว';
+      $('#copy-status').textContent = 'Match link copied.';
     } catch {
       const input = $('#copy-value');
       input.value = link.href;
       $('#fallback-link').hidden = false;
       input.focus(); input.select();
-      $('#copy-status').textContent = 'เลือกและคัดลอกลิงก์จากช่องด้านบน';
+      $('#copy-status').textContent = 'Select and copy the link from the field above.';
     }
   });
   window.addEventListener('hashchange',() => selectHash(true));
@@ -315,13 +315,13 @@
       filterList();
       selectHash(location.hash.startsWith('#match-'));
     } catch {
-      defaultFailure('#match-status','โหลดข้อมูลแมตช์ไม่สำเร็จ ลองรีเฟรชหน้านี้อีกครั้ง');
+      defaultFailure('#match-status','Could not load match records. Try refreshing the page.');
     }
   }
 
   function reportLink(href) {
     if (typeof href !== 'string') return null;
-    if (/^\.\/[\w-]+\.(?:md|csv|json|py)$/i.test(href)) return href;
+    if (/^\.\/[\w-]+\.(?:md|csv|json|py)(?:\?v=[a-z0-9]+)?$/i.test(href)) return href;
     try {
       const url = new URL(href);
       return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
@@ -375,8 +375,8 @@
   }
 
   async function loadReport() {
-    try { renderReport(await getJson('./report.json')); }
-    catch { defaultFailure('#report-status','โหลดรายงานไม่สำเร็จ รายการแมตช์ยังเปิดดูแยกได้'); }
+    try { renderReport(await getJson('./report.json?v=en1')); }
+    catch { defaultFailure('#report-status','Could not load the report. You can still browse the match archive.'); }
   }
 
   void loadMatches();
