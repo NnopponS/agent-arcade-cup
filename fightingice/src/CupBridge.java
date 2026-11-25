@@ -68,7 +68,7 @@ public class CupBridge {
     private FrameData nativeData() { return fight.createFrameData(Math.max(0, frame - 1), 1); }
     private boolean ko(FrameData data) { return data.getCharacter(true).getHp()<=0 || data.getCharacter(false).getHp()<=0; }
     private void initialize(int maxFrames, int hp, String p1, String p2) throws Exception {
-        if(maxFrames<1||maxFrames>3600||hp<1||hp>400||!CHARS.contains(p1)||!CHARS.contains(p2))
+        if(maxFrames<0||maxFrames>3600||hp<1||hp>400||!CHARS.contains(p1)||!CHARS.contains(p2))
             throw new IllegalArgumentException("invalid match defaults");
         FlagSetting.limitHpFlag=true;
         FlagSetting.muteFlag=true;
@@ -80,7 +80,8 @@ public class CupBridge {
         LaunchSetting.maxHp=new int[]{hp,hp};
         LaunchSetting.characterNames=new String[]{p1,p2};
         LaunchSetting.aiNames=new String[]{"P1","P2"};
-        GameSetting.ROUND_FRAME_NUMBER=maxFrames;
+        // The direct physics loop excludes the scene timer in no-clock mode.
+        GameSetting.ROUND_FRAME_NUMBER=maxFrames==0?Integer.MAX_VALUE:maxFrames;
         GameSetting.ROUND_MAX=1;
         closeTrace();
         window="null";
@@ -105,27 +106,28 @@ public class CupBridge {
     private String describe() throws Exception {
         FrameData d=nativeData();
         var a=d.getCharacter(true);var b=d.getCharacter(false);
-        final boolean ended=frame>=frames||ko(d);
+        final boolean ended=clockExpired()||ko(d);
         final String win=!ended?"pending":a.getHp()==b.getHp()?"tie":a.getHp()>b.getHp()?"p1":"p2";
         final String by=!ended?"pending":ko(d)?"ko":"time";
         final String sha=nativeHash(d);
         final String raw=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(d.toProto().toByteArray()));
-        return "{\"ok\":true,\"frame\":"+frame+",\"framesLeft\":"+Math.max(0,frames-frame)+",\"nativeFrameSha256\":\""+sha+"\",\"rawNativeFrameSha256\":\""+raw+"\",\"p1\":"+fighter(a)+",\"p2\":"+fighter(b)+",\"terminated\":"+ended+",\"winner\":\""+win+"\",\"by\":\""+by+"\",\"lastWindow\":"+window+"}";
+        return "{\"ok\":true,\"frame\":"+frame+",\"framesLeft\":"+(frames==0?"null":Integer.toString(Math.max(0,frames-frame)))+",\"nativeFrameSha256\":\""+sha+"\",\"rawNativeFrameSha256\":\""+raw+"\",\"p1\":"+fighter(a)+",\"p2\":"+fighter(b)+",\"terminated\":"+ended+",\"winner\":\""+win+"\",\"by\":\""+by+"\",\"lastWindow\":"+window+"}";
     }
     private void snap() throws Exception {
         if(capture==null)return;
         final FrameData d=nativeData();
         var gm=GraphicManager.getInstance();gm.resetScreen();
         ResourceDrawer.getInstance().drawResource(fight.getCharacters(),fight.getProjectileDeque(),
-            fight.getHitEffectList(),Math.max(0, (int)(1000f*(frames-frame)/60)),1,true);
+            fight.getHitEffectList(),frames==0?0:Math.max(0, (int)(1000f*(frames-frame)/60)),1,true);
         ImageIO.write(gm.getScreenImage(),"png",capture.resolve(String.format("%06d.png",captured++)).toFile());
     }
+    private boolean clockExpired() { return frames!=0 && frame>=frames; }
     private void step(int count,String a,String b) throws Exception {
         if(count<1||count>600||!ALLOWED.contains(a)||!ALLOWED.contains(b))throw new IllegalArgumentException("invalid frame count or action");
         final String[] intents={a,b};
         final int start=frame;
         final int[] issued={0,0}, nonNeutral={0,0}, nativeAction={0,0};
-        for(int k=0;k<count&&frame<frames&&!ko(nativeData());k++) {
+        for(int k=0;k<count&&!clockExpired()&&!ko(nativeData());k++) {
             final FrameData d=nativeData();
             Key[] keys=new Key[2];
             for(int i=0;i<2;i++){
@@ -144,7 +146,7 @@ public class CupBridge {
             record(keys);
             if(capture!=null&&frame%recordEvery==0)snap();
         }
-        if(capture!=null&&frame>start&&(frame==frames||ko(nativeData()))&&frame%recordEvery!=0)snap();
+        if(capture!=null&&frame>start&&(clockExpired()||ko(nativeData()))&&frame%recordEvery!=0)snap();
         if(trace!=null)trace.flush();
         window=String.format(Locale.ROOT,
           "{\"fromFrame\":%d,\"requestedFrames\":%d,\"advancedFrames\":%d,\"tokens\":[\"%s\",\"%s\"],\"nativeQueuesIssued\":[%d,%d],\"nonNeutralInputFrames\":[%d,%d],\"matchingNativeActionFrames\":[%d,%d]}",

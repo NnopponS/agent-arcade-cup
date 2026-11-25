@@ -17,7 +17,6 @@ from lockstep_trial import sample
 MODELS={'julia':(18085,'systemone'),'kev':(18086,'systemone'),'laya':(18088,'systemone'),'qwen':(18089,'completion'),'smol':(18090,'completion')}
 PACE=24
 STARTS=(0,18,36,0)
-CAPS=(2444,2444,3000,3600)
 SEED=9252026
 LABELS='ABCDE'
 PROFILES=(
@@ -93,16 +92,48 @@ def simulate(mid, players, n, root, preflight=False):
     if n%2:players=players[::-1]
     rng=[random.Random(f'{SEED}/{mid}/{n}/{p["id"]}') for p in players]
     offset=random.Random(f'{SEED}/{mid}/{n}/menu').randrange(20)
-    receipts=[];samples=[];cap=700 if preflight else CAPS[n];started=time.monotonic()
+    receipts=[];samples=[];cap=700 if preflight else 0;started=time.monotonic()
+    ids=[p['id'] for p in players]
+    cp=root/f'{mid}-no-clock-{n}-checkpoint.json'
+    prefix=None
+    if not preflight:
+        for path in (cp,root/f'{mid}-attempt-0.json') if n==0 else (cp,):
+            if path.exists():
+                prefix=json.loads(path.read_text())
+                if prefix['entrantIds']!=ids:raise ValueError('Players changed during restoration')
+                break
     with cf.ThreadPoolExecutor(2) as pool,bridge(root/'engine.log') as engine:
         engine.start(cap,400)
         s=engine.step(44,'NEUTRAL','NEUTRAL')
-        if STARTS[n]:
-            s=engine.step(STARTS[n],'FORWARD_WALK','FORWARD_WALK')
+        walk=STARTS[n%len(STARTS)]
+        if walk:
+            s=engine.step(walk,'FORWARD_WALK','FORWARD_WALK')
             s=engine.step(12,'NEUTRAL','NEUTRAL')
         assert s['p1']['hp']==s['p2']['hp']==400
         initial=sample(s)
         samples.append(initial)
+        def advance(moves,end):
+            nonlocal s
+            while not s['terminated'] and s['frame']<end:
+                s=engine.step(min(6,end-s['frame']),*moves)
+                samples.append(sample(s))
+        def evidence():
+            hp=[s['p1']['hp'],s['p2']['hp']]
+            ko=s['by']=='ko' and sum(x<=0 for x in hp)==1
+            return dict(match=mid,attempt=n,entrantIds=ids,models=[p['model'] for p in players],
+                mode='timed-exhibition' if preflight else 'untimed',engineEnd=s['by'],nativeKO=ko,hp=hp,
+                initial=initial,wallSeconds=round(time.monotonic()-started,2),
+                winner=ids[0 if hp[1]<=0 else 1] if ko else None,receipts=receipts,frames=samples)
+        if prefix:
+            last=prefix['frames'][-1][0]
+            for row in prefix['receipts']:
+                if s['frame']!=row[0] or s['terminated']:raise ValueError('Checkpoint frame mismatch')
+                for i,p in enumerate(players):
+                    if p['temperature']:rng[i].random()
+                advance(row[1:3],min(row[0]+PACE,last))
+                receipts.append(row)
+            if samples!=prefix['frames']:raise ValueError('Checkpoint state replay mismatch; not advancing')
+            print('RESUMED',mid,s['frame'],s['p1']['hp'],s['p2']['hp'],flush=True)
         while not s['terminated']:
             texts=[observe(s,i) for i in range(2)]
             actions=allowed_at(texts[0][1]);j=(offset+len(receipts))%len(actions)
@@ -115,15 +146,9 @@ def simulate(mid, players, n, root, preflight=False):
             decisions=[f.result() for f in futures]
             moves=[d[0] for d in decisions]
             receipts.append([s['frame'],*moves,*[d[1] for d in decisions],list(menu)])
-            for _ in range(PACE//6):
-                s=engine.step(6,*moves)
-                samples.append(sample(s))
-                if s['terminated']:break
-    hp=[s['p1']['hp'],s['p2']['hp']]
-    ko=s['by']=='ko' and sum(x<=0 for x in hp)==1
-    return dict(match=mid,attempt=n,entrantIds=[p['id'] for p in players],models=[p['model'] for p in players],
-        engineEnd=s['by'],nativeKO=ko,hp=hp,initial=initial,wallSeconds=round(time.monotonic()-started,2),
-        winner=players[0 if hp[1]<=0 else 1]['id'] if ko else None,receipts=receipts,frames=samples)
+            advance(moves,s['frame']+PACE)
+            if not preflight and len(receipts)%8==0:write(cp,evidence())
+        return evidence()
 
 def compare(root):
     d=json.loads(Path(__file__).with_name('scenarios.json').read_text())
@@ -162,16 +187,18 @@ def main():
             if status['champion']:
                 assert len(results)==99
                 break
-            match=next((x for x in rows if x['status']=='ready' and not (root/(x['id']+'-unresolved.json')).exists()),None)
+            match=next((x for x in rows if x['status']=='ready'),None)
             if not match:break
-            mid=match['id'];print('START',mid,match['a']['id'],match['b']['id'],flush=True)
-            for n in range(len(STARTS)):
-                f=root/f'{mid}-attempt-{n}.json'
+            mid=match['id'];print('START_NO_CLOCK',mid,match['a']['id'],match['b']['id'],flush=True)
+            n=0
+            while True:
+                f=root/f'{mid}-no-clock-{n}-result.json'
                 v=json.loads(f.read_text()) if f.exists() else simulate(mid,[match['a'],match['b']],n,root)
                 if not f.exists():write(f,v)
                 if v['nativeKO']:
                     write(root/f'{mid}-verified.json',v);results[mid]=v
                     print('KO',mid,v['winner'],v['hp'],flush=True);break
-                print('CAP',mid,n,v['hp'],flush=True)
-            else:write(root/f'{mid}-unresolved.json',dict(reason='no native KO after four openings'))
+                if not (v['engineEnd']=='ko' and all(h<=0 for h in v['hp'])):
+                    raise RuntimeError('Untimed match unexpectedly stopped without a KO')
+                print('DOUBLE_KO',mid,n,flush=True);n+=1
 if __name__=='__main__':main()
