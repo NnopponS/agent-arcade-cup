@@ -2,6 +2,19 @@
 from statistics import median
 
 
+def action_agreement(comparison):
+    """Count agreement against the authored expected action, by model and action."""
+    out = {}
+    for model, scores in comparison.items():
+        actions = out[model] = {}
+        for row in scores["rows"]:
+            expected = row["expected"]
+            stats = actions.setdefault(expected, dict(correct=0, trials=0))
+            stats["trials"] += 1
+            stats["correct"] += row["choice"] == expected
+    return out
+
+
 def summarize(bracket, bouts, checkpoints):
     counts = {m: dict(wins=0, losses=0, mirrors=0, byes=0) for m in checkpoints}
     h2h = {m: {n: 0 for n in checkpoints if m != n} for m in checkpoints}

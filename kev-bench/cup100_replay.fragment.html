@@ -58,6 +58,9 @@ async function select(){
 }
 $('play').onclick=()=>{if(!m)return;if(active){stop();return}if(time>=m.elapsedFrames)time=0;active=true;$('play').textContent='Pause';raf=requestAnimationFrame(tick)};
 $('match').onchange=select;$('scrub').oninput=()=>{if(m){time=Number($('scrub').value);paint()}};
-if($('match').options.length)select();
-else $('outcome').textContent='No verified knockouts in this snapshot.';
+if($('match').options.length){
+ const requested=globalThis.location?.search ? new URLSearchParams(location.search).get('match') : null;
+ if(Array.from($('match').options,option=>option.value).includes(requested))$('match').value=requested;
+ select();
+}else $('outcome').textContent='No verified knockouts in this snapshot.';
 </script>

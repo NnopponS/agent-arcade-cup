@@ -1,6 +1,6 @@
 import unittest
 
-from cup100_report import summarize
+from cup100_report import action_agreement, summarize
 
 
 class ReportTests(unittest.TestCase):
@@ -30,6 +30,16 @@ class ReportTests(unittest.TestCase):
 
     def test_empty_snapshot_has_no_median(self):
         self.assertIsNone(summarize([], [], ["a","b"])["medianGameFrameSpan"])
+
+    def test_action_scores_use_expected_action_for_denominator(self):
+        data = {"m": {"rows": [
+            {"expected":"DASH", "choice":"DASH"},
+            {"expected":"DASH", "choice":"THROW_A"},
+            {"expected":"THROW_A", "choice":"THROW_A"},
+        ]}}
+        self.assertEqual(action_agreement(data), {
+            "m":{"DASH":{"correct":1,"trials":2},"THROW_A":{"correct":1,"trials":1}}
+        })
 
 
 if __name__ == "__main__":
