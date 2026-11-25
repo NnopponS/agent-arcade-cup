@@ -20,23 +20,27 @@ BUILD = "b11429"
 ARCHIVE = f"llama-{BUILD}-bin-ubuntu-x64.tar.gz"
 BIN_URL = f"https://github.com/ggml-org/llama.cpp/releases/download/{BUILD}/{ARCHIVE}"
 BIN_SHA = "f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392"
-# Model files are addressed by Xet SHA256, not a mutable name for integrity purposes.
+# Model files are addressed by immutable repository revision and SHA-256.
 MODELS = {
     "julia-1-q8": (
-        "Julia-1", "Q8_0", 185_000_000, 2 * GIB,
+        "Julia-1", "Q8_0", 168_166_400, 2 * GIB,
         "ff6cbbe856f1810a8b171528ea908d3b43b5742e73f0698689467559078f347d",
+        "28ada03933a77bd332c197dc86fc2cb24e43b8f9",
     ),
     "laya-q8": (
-        "Laya", "Q8_0", 475_000_000, 2 * GIB,
+        "Laya", "Q8_0", 449_397_728, 2 * GIB,
         "ac6a51fd7a7907bc9dd61e85f7e6b989f57a635e2232a8f0345f5c51ca6cb3ea",
+        "f9a697b4e5a39d085bded9576a592e6850d139e7",
     ),
     "kev-0.8b-q8": (
-        "Kev-0.8B", "Q8_0", 850_000_000, 3 * GIB,
+        "Kev-0.8B", "Q8_0", 812_406_304, 3 * GIB,
         "27278f34eb3273bceea4c053dc50dd61a5161da21a718c4aacdf8fd5830771d0",
+        "9231cb757e3320120077e42e52371971968f008d",
     ),
     "kev-4b-q4": (
-        "Kev-4B", "Q4_K_M", 3_200_000_000, 5 * GIB,
+        "Kev-4B", "Q4_K_M", 3_033_489_824, 5 * GIB,
         "33ae6b18926502b2209a1bf7d3b61a350d65938441515c686bb87d226a19eff9",
+        "f4624b6bb7072f1bab726a622c1cad3f96030b9e",
     ),
 }
 CORPUS = Path(__file__).resolve().parents[1] / "scenarios.json"
@@ -49,6 +53,10 @@ PROMPTS = {
 
 
 def download(url, path, limit, sha):
+    if path.is_file() and path.stat().st_size <= limit:
+        with path.open("rb") as existing:
+            if hashlib.file_digest(existing, "sha256").hexdigest() == sha:
+                return
     partial = path.with_suffix(path.suffix + ".part")
     try:
         subprocess.run(["curl", "--fail", "--silent", "--show-error", "--location",
@@ -161,24 +169,27 @@ def stop(server):
 
 
 def benchmark(binary, key, workdir, report, threads):
-    name, quant, limit, minimum_ram, sha = MODELS[key]
+    name, quant, limit, minimum_ram, sha, revision = MODELS[key]
     model_file = workdir / f"{name}-{quant}.gguf"
-    report.update(weight_sha256=sha, quantization=quant, memory_available=available_ram())
+    report.update(weight_sha256=sha, weight_revision=revision, quantization=quant,
+                  memory_available=available_ram())
     if report["memory_available"] < minimum_ram:
         report.update(status="skipped", reason="insufficient available RAM")
         return
     if shutil.disk_usage(workdir).free < limit + GIB:
         report.update(status="skipped", reason="insufficient available disk")
         return
-    url = f"https://huggingface.co/ggml-org/{name}-GGUF/resolve/main/{model_file.name}"
+    url = f"https://huggingface.co/ggml-org/{name}-GGUF/resolve/{revision}/{model_file.name}"
     port = 18084
     server = None
+    log_path = workdir / "server.log"
+    log_path.unlink(missing_ok=True)
     try:
         begun = time.perf_counter()
         download(url, model_file, limit, sha)
         report.update(download_seconds=round(time.perf_counter() - begun, 3),
                       weight_bytes=model_file.stat().st_size)
-        with (workdir / "server.log").open("w") as log:
+        with log_path.open("w") as log:
             started = time.perf_counter()
             server = subprocess.Popen(
                 [str(binary), "-m", str(model_file), "--host", "127.0.0.1",
@@ -228,7 +239,6 @@ def benchmark(binary, key, workdir, report, threads):
             report["status"] = "measured"
     except (OSError, subprocess.SubprocessError, ValueError, KeyError, TypeError, RuntimeError) as exc:
         report.update(status="error", reason=str(exc))
-        log_path = workdir / "server.log"
         if log_path.exists():
             report["log_tail"] = log_path.read_text(errors="replace").replace(str(workdir), "<workdir>").splitlines()[-10:]
     finally:

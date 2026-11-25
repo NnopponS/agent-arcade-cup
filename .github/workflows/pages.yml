@@ -24,11 +24,12 @@ jobs:
         run: |
           mkdir _site
           touch _site/.nojekyll
-          cp site/season2/decision-lab.html _site/index.html
+          cp site/season2/decision-lab-expanded.html _site/index.html
           cp site/season2/benchmark.json _site/benchmark.json
           cp kev-bench/scenarios.json _site/scenarios.json
           python3 -c "import json; d=json.load(open('_site/benchmark.json')); assert len(d['models'])==2 and all(len(x['rows'])==56 for x in d['models'].values())"
-          grep -F 'New bracket not started' _site/index.html
+          for f in systemone-results.json live-trial.json kev4-feasibility.json; do cp "site/season2/$f" "_site/$f"; done
+          python3 site/season2/verify-expanded.py _site
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
