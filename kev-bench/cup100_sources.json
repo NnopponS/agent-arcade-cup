@@ -1,0 +1,7 @@
+{
+  "julia": {"checkpoint": "ggml-org/Julia-1-GGUF", "revision": "28ada03933a77bd332c197dc86fc2cb24e43b8f9", "format": "Q8_0", "sha256": "ff6cbbe856f1810a8b171528ea908d3b43b5742e73f0698689467559078f347d"},
+  "kev": {"checkpoint": "jaredpalmer/kev-0.8b", "release": "kev-1.0", "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68", "runtime_commit": "65b1e763943ace53fd3a4aae00d8d08dbd849772", "format": "BF16"},
+  "laya": {"checkpoint": "ggml-org/Laya-GGUF", "revision": "f9a697b4e5a39d085bded9576a592e6850d139e7", "format": "Q8_0", "sha256": "ac6a51fd7a7907bc9dd61e85f7e6b989f57a635e2232a8f0345f5c51ca6cb3ea"},
+  "qwen": {"checkpoint": "Qwen/Qwen2.5-0.5B-Instruct-GGUF", "revision": "9217f5db79a29953eb74d5343926648285ec7e67", "format": "Q4_K_M", "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"},
+  "smol": {"checkpoint": "unsloth/SmolLM2-135M-Instruct-GGUF", "revision": "9e6855bc4be717fca1ef21360a1db4b29d5c559a", "format": "Q4_K_M", "sha256": "ed5fa30c487b282ec156c29062f1222e5c20875a944ac98289dbd242e947f747"}
+}

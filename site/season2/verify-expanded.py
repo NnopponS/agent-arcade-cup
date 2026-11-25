@@ -1,7 +1,7 @@
 import json,re,sys
 from pathlib import Path
 p=Path(sys.argv[1]);h=(p/'index.html').read_text()
-assert '<html lang="en">' in h and 'New bracket not started' in h
+assert '<html lang="en">' in h and 'Practice results only' in h
 assert all((p/ref).is_file() for ref in re.findall(r'href="\./([^"?#]+)',h))
 assert not any((p/n).exists() for n in ('data.json','report.md','knockout.json','replays'))
 report=json.loads((p/'systemone-results.json').read_text())['models']
