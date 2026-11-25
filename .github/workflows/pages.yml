@@ -32,6 +32,8 @@ jobs:
           cp site/season2/head-to-head{.html,-data.json} _site/
           cp site/season2/fair{.html,-data.json} _site/
           cp site/season2/cup100{.html,-data.json} _site/
+          cp -R site/season2/cup100-replay _site/
+          python3 -c "import json,pathlib; p=pathlib.Path('_site'); d=json.loads((p/'cup100-data.json').read_text()); assert all((p/r['replay']).is_file() for r in d['results'])"
           python3 site/season2/verify-expanded.py _site
           python3 -c "import json; d=json.load(open('_site/cup100-data.json')); assert len(d['roster'])==100 and len(d['comparison'])==5 and d['planned']==99; assert not d['champion'] or len(d['results'])==99"
           python3 -c "import json; d=json.load(open('_site/fair-data.json')); m=d['matches']; assert len(m)==4 and sum(x['protocol']=='lockstep' for x in m)==2 and all(x['stats'][0]['accepted']==x['stats'][1]['accepted'] for x in m if x['protocol']=='lockstep')"
