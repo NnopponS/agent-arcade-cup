@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Julia vs Kev | Agent Arcade Cup</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f0e4;color:#24241c;font:16px/1.5 system-ui,sans-serif}main{max-width:940px;margin:auto;padding:clamp(16px,4vw,44px)}a{color:#894612}h1{font:700 clamp(2.5rem,8vw,5.5rem)/.95 Georgia,serif;letter-spacing:-.05em;margin:.3em 0}.eyebrow{font-size:.75rem;letter-spacing:.17em;font-weight:800;color:#705233}p{max-width:70ch}.panel{border:1px solid #d1c5ad;border-radius:17px;background:#fffaf0;padding:clamp(12px,3vw,23px)}label{display:inline-flex;gap:.5em;align-items:center}select,button{font:inherit;padding:6px 9px;max-width:100%;color:inherit}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #e07b25}input[type=range]{width:100%;margin:12px 0}svg{display:block;width:100%;height:auto;margin:12px 0 3px;border-radius:12px;background:#edf3f2}.score{display:grid;grid-template-columns:1fr 1fr;gap:12px}.side{min-width:0;overflow-wrap:anywhere}.side:last-child{text-align:right}progress{width:100%;accent-color:#007170;height:13px}.side:last-child progress{accent-color:#a54525}.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.table{overflow:auto}td,th{text-align:left;white-space:nowrap;padding:.5rem;border-bottom:1px solid #d1c5ad}caption{text-align:left}.subtle{color:#654e36;font-size:.88rem}
+</style>
+<main><a href="./">← Decision Lab</a><p class="eyebrow">FIGHTINGICE / CROSS-MODEL QUALIFICATION</p><h1>Julia vs Kev</h1>
+<p>Julia-1 Q8 and Kev 0.8B BF16 each controlled one fighter in the same live FightingICE engine. Both models used the same move shortlist, which changes at different distances. We swapped sides and ran two response deadlines. The engine kept moving while each model decided.</p>
+<section class="panel" aria-label="Match replay">
+<label>Match <select id="match"></select></label>
+<div class="score"><div class="side"><strong id="n1"></strong> · <span id="h1"></span><progress max="400" id="p1" aria-label="Player one HP"></progress><div id="a1"></div></div><div class="side"><strong id="n2"></strong> · <span id="h2"></span><progress max="400" id="p2" aria-label="Player two HP"></progress><div id="a2"></div></div></div>
+<svg viewBox="0 0 960 270" role="img" aria-label="Telemetry reconstruction of the two fighters' positions and actions">
+<path d="M0 205H960M0 224H960M0 249H960" stroke="#bdcfcb" fill="none"/><path d="M0 204H960" stroke="#536966" stroke-width="2"/>
+<g id="f1" fill="none" stroke="#007170" stroke-width="12" stroke-linecap="round"><circle cx="0" cy="104" r="16"/><path d="M0 124v38m0 0-19 38m19-38 20 38"/><path id="arm1" d="M0 132l25 24"/></g>
+<g id="f2" fill="none" stroke="#a54525" stroke-width="12" stroke-linecap="round"><circle cx="0" cy="104" r="16"/><path d="M0 124v38m0 0-19 38m19-38 20 38"/><path id="arm2" d="M0 132l25 24"/></g>
+</svg>
+<div class="controls"><button id="play" type="button">Play</button><label>Speed <select id="rate"><option value=".25">0.25×</option><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label><output for="scrub" id="stamp"></output></div>
+<input type="range" id="scrub" aria-label="Seek match timeline" min="0" value="0" step="1">
+<p class="subtle" id="outcome"></p><p class="subtle">Vector replay reconstructed from engine telemetry sampled every six frames. This is not original game footage.</p></section>
+<h2>What happened</h2><div class="table"><table><thead><tr><th>Budget</th><th>Seats (P1 / P2)</th><th>Engine result</th><th>Final HP (P1 / P2)</th><th>Accepted / returned (P1; P2)</th></tr></thead><tbody id="results"></tbody></table></div>
+<p id="behavior"></p><p>The 300 ms and 1,500 ms budgets apply at the engine's next 100 ms polling tick. Replies can also be rejected for range drift or if the move is no longer on the current shortlist. These are two specific CPU/runtime configurations, not a controlled comparison of model weights. A timeout does not count as a knockout or tournament win.</p>
+<a href="head-to-head-data.json" download>Download match timeline and decision statistics</a>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let all, m, time=0, active=false, last, raf;
+const seconds=f=>(f/60).toFixed(1)+' s';
+function paint(){
+ const frame=44+Math.floor(time), samples=m.frames;
+ let lo=0, hi=samples.length;
+ while(lo+1<hi){const mid=(lo+hi)>>1;if(samples[mid][0]<=frame)lo=mid;else hi=mid}
+ const r=samples[lo];
+ for(let i=1;i<=2;i++){
+  const hp=Math.max(0,r[i]), action=r[4+i], x=Math.min(915,Math.max(45,r[2+i]));
+  $('p'+i).value=hp;$('h'+i).textContent=hp+' HP';$('a'+i).textContent=action.replaceAll('_',' ');
+  const other=r[i===1?4:3], face=x<=other?1:-1;
+  const el=$('f'+i);el.setAttribute('transform',hp===0?'translate('+x+' 192) scale(1 .3) translate(0 -158)':'translate('+x+' 0) scale('+face+' 1)');
+  $('arm'+i).setAttribute('d',action.includes('GUARD')?'M0 132l26 2 10 -22':/(THROW|_A$|_B$|_FB$)/.test(action)?'M0 132l45 -9':'M0 132l25 24');
+ }
+ $('stamp').textContent=seconds(time)+' / '+seconds(m.elapsedFrames);
+ $('scrub').value=Math.round(time);
+}
+function stop(){active=false;cancelAnimationFrame(raf);last=undefined;$('play').textContent='Play'}
+function tick(t){
+ if(!active)return;
+ if(last!==undefined)time=Math.min(m.elapsedFrames,time+(t-last)*.06*Number($('rate').value));
+ last=t;paint();
+ if(time<m.elapsedFrames)raf=requestAnimationFrame(tick);else stop();
+}
+function select(){
+ stop();m=all.matches[Number($('match').value)];time=0;$('scrub').max=m.elapsedFrames;
+ for(let i=1;i<=2;i++)$('n'+i).textContent=m.seats[i-1];
+ $('outcome').textContent=m.verdict;paint();
+}
+$('play').onclick=()=>{if(active){stop();return}if(time>=m.elapsedFrames)time=0;active=true;$('play').textContent='Pause';raf=requestAnimationFrame(tick)};
+$('match').onchange=select;$('scrub').oninput=()=>{time=Number($('scrub').value);paint()};
+$('play').disabled=true;
+fetch('head-to-head-data.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(a=>{
+ all=a;
+ for(const [i,v] of a.matches.entries()){
+  $('match').add(new Option(v.deadlineMs+' ms · '+v.seats.join(' / '),i));
+  const tr=$('results').insertRow();
+  for(const value of [v.deadlineMs+' ms',v.seats.join(' / '),v.verdict,v.hp.join(' / '),v.stats.map(s=>s.accepted+'/'+s.returned).join('; ')])tr.insertCell().textContent=value;
+ }
+ const strict=a.matches.filter(v=>v.deadlineMs===300);
+ const total=(name,field)=>strict.reduce((sum,v)=>sum+v.stats[v.seats.indexOf(name)][field],0);
+ $('behavior').textContent='Under the 300 ms budget, Julia had '+total('Julia-1','accepted')+'/'+total('Julia-1','returned')+' choices accepted and Kev had '+total('Kev 0.8B','accepted')+'/'+total('Kev 0.8B','returned')+'. An accepted choice is eligible to reach the engine; it may still not execute if the fighter is busy.';
+ $('play').disabled=false;select();
+}).catch(()=>$('outcome').textContent='Could not load the match data. Reload the page to try again.');
+</script>
+</main></html>

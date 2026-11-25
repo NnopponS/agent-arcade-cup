@@ -29,7 +29,9 @@ jobs:
           cp kev-bench/scenarios.json _site/scenarios.json
           python3 -c "import json; d=json.load(open('_site/benchmark.json')); assert len(d['models'])==2 and all(len(x['rows'])==56 for x in d['models'].values())"
           for f in systemone-results.json live-trial.json kev4-feasibility.json; do cp "site/season2/$f" "_site/$f"; done
+          cp site/season2/head-to-head{.html,-data.json} _site/
           python3 site/season2/verify-expanded.py _site
+          python3 -c "import json; d=json.load(open('_site/head-to-head-data.json')); assert len(d['matches'])==4 and all(len(set(m['seats']))==2 and m['frames'] for m in d['matches']); assert any(m['nativeKO'] for m in d['matches'])"
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
