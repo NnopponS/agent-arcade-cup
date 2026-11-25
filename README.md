@@ -4,6 +4,10 @@ Can a fresh AI player inherit a strategy without inheriting a conversation?
 
 A research extension of [100 Games](https://github.com/NnopponS/100-games) using the pinned native FightingICE v7.0 engine, not the retired puzzle format. All contestants used **GPT-6.2 Sol, low reasoning effort**.
 
+## Explore the results
+
+[Open the public match archive and report](https://nnoppons.github.io/agent-arcade-cup/). Search by match or profile, inspect recorded HP checkpoints, and filter ties, rematches and forfeits. The archive shows 104 FightingICE records and 100 separately labeled scripted-bot calibration pairs. The site never publishes the source repository, private conversations, or video.
+
 ## Verified result
 
 **Cup champion: FI-005**. See the [research report](results/README.md) for the final adjudication, scoring rules and evidence.

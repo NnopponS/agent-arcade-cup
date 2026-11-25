@@ -1,0 +1,51 @@
+name: Publish Agent Arcade Cup archive
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: agent-arcade-cup-pages
+  cancel-in-progress: true
+jobs:
+  stage:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/configure-pages@v5
+      - name: Allowlist the exact public files
+        run: |
+          python3 site/tests/verify_public.py
+          python3 site/recompute-study.py | tee /tmp/cup-recomputed.txt
+          grep -F 'estimate: +2.4423 HP.' /tmp/cup-recomputed.txt
+          node --check site/app.js
+          mkdir -p _site/assets
+          for f in .nojekyll index.html style.css app.js data.json report.json report.md match-index.csv study-inputs.csv retired-puzzle-archive.csv recompute-study.py; do
+            test ! -L "site/$f"
+            cp "site/$f" "_site/$f"
+          done
+          for f in FONT-LICENSES.txt thai-bold.woff thai.woff serif.woff serif-italic.woff; do
+            test ! -L "site/assets/$f"
+            cp "site/assets/$f" "_site/assets/$f"
+          done
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+  deploy:
+    needs: stage
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

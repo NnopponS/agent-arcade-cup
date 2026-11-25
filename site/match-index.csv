@@ -1,0 +1,205 @@
+match_id,series,stage,game,result,entrant_a,entrant_b,winner,score_a,score_b,unit,reason,rematch_of,final_or_abort_frame
+F001,fighting,qualifier,FightingICE,engine,FI-001,FI-002,FI-001,376,370,hp,time,,420
+F002,fighting,qualifier,FightingICE,engine,FI-003,FI-004,FI-004,372,385,hp,time,,420
+F003,fighting,qualifier,FightingICE,engine,FI-005,FI-006,FI-005,388,363,hp,time,,420
+F004,fighting,qualifier,FightingICE,engine,FI-007,FI-008,FI-008,362,365,hp,time,,420
+F005,fighting,qualifier,FightingICE,engine,FI-009,FI-010,FI-010,372,382,hp,time,,420
+F006,fighting,qualifier,FightingICE,engine,FI-011,FI-012,FI-012,377,385,hp,time,,420
+F007,fighting,qualifier,FightingICE,engine,FI-013,FI-014,FI-014,365,373,hp,time,,420
+F008,fighting,qualifier,FightingICE,engine,FI-015,FI-016,FI-015,388,362,hp,time,,420
+F009,fighting,qualifier,FightingICE,engine,FI-017,FI-018,FI-017,375,367,hp,time,,420
+F010,fighting,qualifier,FightingICE,tie,FI-019,FI-020,,372,372,hp,time,,420
+F010-D,fighting,qualifier,FightingICE,engine,FI-020,FI-019,FI-019,334,365,hp,time,F010,420
+F011,fighting,qualifier,FightingICE,engine,FI-021,FI-022,FI-022,373,377,hp,time,,420
+F012,fighting,qualifier,FightingICE,engine,FI-023,FI-024,FI-024,377,380,hp,time,,420
+F013,fighting,qualifier,FightingICE,engine,FI-025,FI-026,FI-026,358,370,hp,time,,420
+F014,fighting,qualifier,FightingICE,engine,FI-027,FI-028,FI-027,378,368,hp,time,,420
+F015,fighting,qualifier,FightingICE,engine,FI-029,FI-030,FI-029,380,357,hp,time,,420
+F016,fighting,qualifier,FightingICE,engine,FI-031,FI-032,FI-032,342,361,hp,time,,420
+F017,fighting,qualifier,FightingICE,engine,FI-033,FI-034,FI-034,367,380,hp,time,,420
+F018,fighting,qualifier,FightingICE,engine,FI-035,FI-036,FI-035,375,370,hp,time,,420
+F019,fighting,qualifier,FightingICE,engine,FI-037,FI-038,FI-037,375,367,hp,time,,420
+F020,fighting,qualifier,FightingICE,engine,FI-039,FI-040,FI-039,390,372,hp,time,,420
+F021,fighting,qualifier,FightingICE,engine,FI-041,FI-042,FI-042,357,385,hp,time,,420
+F022,fighting,qualifier,FightingICE,engine,FI-043,FI-044,FI-044,372,373,hp,time,,420
+F023,fighting,qualifier,FightingICE,engine,FI-045,FI-046,FI-046,357,373,hp,time,,420
+F024,fighting,qualifier,FightingICE,engine,FI-047,FI-048,FI-047,373,370,hp,time,,420
+F025,fighting,qualifier,FightingICE,tie,FI-049,FI-050,,375,375,hp,time,,420
+F025-D,fighting,qualifier,FightingICE,engine,FI-050,FI-049,FI-049,363,373,hp,time,F025,420
+F026,fighting,qualifier,FightingICE,tie,FI-051,FI-052,,385,385,hp,time,,420
+F026-D,fighting,qualifier,FightingICE,engine,FI-052,FI-051,FI-052,369,365,hp,time,F026,420
+F027,fighting,qualifier,FightingICE,engine,FI-053,FI-054,FI-054,375,385,hp,time,,420
+F028,fighting,qualifier,FightingICE,engine,FI-055,FI-056,FI-056,373,380,hp,time,,420
+F029,fighting,qualifier,FightingICE,engine,FI-057,FI-058,FI-058,373,377,hp,time,,420
+F030,fighting,qualifier,FightingICE,engine,FI-059,FI-060,FI-059,385,365,hp,time,,420
+F031,fighting,qualifier,FightingICE,engine,FI-061,FI-062,FI-061,388,375,hp,time,,420
+F032,fighting,qualifier,FightingICE,tie,FI-063,FI-064,,372,372,hp,time,,420
+F032-D,fighting,qualifier,FightingICE,engine,FI-064,FI-063,FI-063,347,382,hp,time,F032,420
+F033,fighting,qualifier,FightingICE,engine,FI-065,FI-066,FI-065,385,377,hp,time,,420
+F034,fighting,qualifier,FightingICE,engine,FI-067,FI-068,FI-067,377,373,hp,time,,420
+F035,fighting,qualifier,FightingICE,engine,FI-069,FI-070,FI-070,374,375,hp,time,,420
+F036,fighting,qualifier,FightingICE,engine,FI-071,FI-072,FI-072,375,390,hp,time,,420
+F037,fighting,qualifier,FightingICE,engine,FI-073,FI-074,FI-074,367,372,hp,time,,420
+F038,fighting,qualifier,FightingICE,engine,FI-075,FI-076,FI-075,382,365,hp,time,,420
+F039,fighting,qualifier,FightingICE,engine,FI-077,FI-078,FI-077,382,378,hp,time,,420
+F040,fighting,qualifier,FightingICE,engine,FI-079,FI-080,FI-079,357,354,hp,time,,420
+F041,fighting,qualifier,FightingICE,engine,FI-081,FI-082,FI-082,375,385,hp,time,,420
+F042,fighting,qualifier,FightingICE,engine,FI-083,FI-084,FI-083,385,360,hp,time,,420
+F043,fighting,qualifier,FightingICE,engine,FI-085,FI-086,FI-086,378,382,hp,time,,420
+F044,fighting,qualifier,FightingICE,engine,FI-087,FI-088,FI-088,385,392,hp,time,,420
+F045,fighting,qualifier,FightingICE,engine,FI-089,FI-090,FI-090,352,365,hp,time,,420
+F046,fighting,qualifier,FightingICE,engine,FI-091,FI-092,FI-092,372,377,hp,time,,420
+F047,fighting,qualifier,FightingICE,engine,FI-093,FI-094,FI-094,355,390,hp,time,,420
+F048,fighting,qualifier,FightingICE,engine,FI-095,FI-096,FI-096,361,375,hp,time,,420
+F049,fighting,qualifier,FightingICE,engine,FI-097,FI-098,FI-097,390,377,hp,time,,420
+F050,fighting,qualifier,FightingICE,engine,FI-099,FI-100,FI-099,372,367,hp,time,,420
+K001,fighting,knockout,FightingICE,engine,FI-052,FI-088,FI-052,363,350,hp,time,,420
+K002,fighting,knockout,FightingICE,engine,FI-083,FI-047,FI-047,375,385,hp,time,,420
+K003,fighting,knockout,FightingICE,forfeit,FI-075,FI-079,FI-079,,,,invalid-submission-forfeit,,44
+K004,fighting,knockout,FightingICE,engine,FI-049,FI-061,FI-049,375,368,hp,time,,420
+K005,fighting,knockout,FightingICE,forfeit,FI-065,FI-032,FI-065,,,,invalid-submission-forfeit,,44
+K006,fighting,knockout,FightingICE,engine,FI-001,FI-024,FI-001,392,370,hp,time,,420
+K007,fighting,knockout,FightingICE,tie,FI-029,FI-070,,372,372,hp,time,,420
+K007-D,fighting,knockout,FightingICE,engine,FI-070,FI-029,FI-070,375,372,hp,time,K007,420
+K008,fighting,knockout,FightingICE,engine,FI-058,FI-054,FI-058,380,373,hp,time,,420
+K009,fighting,knockout,FightingICE,engine,FI-072,FI-005,FI-005,367,373,hp,time,,420
+K010,fighting,knockout,FightingICE,engine,FI-017,FI-034,FI-034,346,390,hp,time,,420
+K011,fighting,knockout,FightingICE,forfeit,FI-059,FI-019,FI-059,,,,invalid-submission-forfeit,,44
+K012,fighting,knockout,FightingICE,engine,FI-037,FI-004,FI-037,375,351,hp,time,,420
+K013,fighting,knockout,FightingICE,engine,FI-008,FI-044,FI-044,343,383,hp,time,,420
+K014,fighting,knockout,FightingICE,engine,FI-012,FI-090,FI-090,377,380,hp,time,,420
+K015,fighting,knockout,FightingICE,engine,FI-010,FI-092,FI-010,388,365,hp,time,,420
+K016,fighting,knockout,FightingICE,engine,FI-015,FI-099,FI-015,375,367,hp,time,,420
+K017,fighting,knockout,FightingICE,engine,FI-042,FI-014,FI-042,387,351,hp,time,,420
+K018,fighting,knockout,FightingICE,engine,FI-082,FI-022,FI-082,375,340,hp,time,,420
+K019,fighting,knockout,FightingICE,forfeit,FI-058,FI-059,FI-059,,,,invalid-submission-forfeit,,44
+K020,fighting,knockout,FightingICE,engine,FI-079,FI-027,FI-079,395,345,hp,time,,420
+K021,fighting,knockout,FightingICE,engine,FI-056,FI-010,FI-010,372,375,hp,time,,420
+K022,fighting,knockout,FightingICE,forfeit,FI-001,FI-065,FI-065,,,,invalid-submission-forfeit,,44
+K023,fighting,knockout,FightingICE,engine,FI-086,FI-026,FI-026,377,388,hp,time,,420
+K024,fighting,knockout,FightingICE,engine,FI-015,FI-049,FI-049,332,383,hp,time,,420
+K025,fighting,knockout,FightingICE,engine,FI-052,FI-077,FI-052,377,373,hp,time,,420
+K026,fighting,knockout,FightingICE,forfeit,FI-096,FI-090,FI-090,,,,invalid-submission-forfeit,,44
+K027,fighting,knockout,FightingICE,forfeit,FI-047,FI-005,FI-005,,,,invalid-submission-forfeit,,44
+K028,fighting,knockout,FightingICE,forfeit,FI-035,FI-074,FI-035,,,,invalid-submission-forfeit,,44
+K029,fighting,knockout,FightingICE,engine,FI-037,FI-039,FI-039,357,383,hp,time,,420
+K030,fighting,knockout,FightingICE,engine,FI-046,FI-042,FI-042,372,390,hp,time,,420
+K031,fighting,knockout,FightingICE,engine,FI-044,FI-097,FI-097,372,390,hp,time,,420
+K032,fighting,knockout,FightingICE,engine,FI-034,FI-070,FI-070,365,387,hp,time,,420
+K033,fighting,knockout,FightingICE,engine,FI-094,FI-067,FI-067,365,388,hp,time,,420
+K034,fighting,knockout,FightingICE,forfeit,FI-082,FI-063,FI-082,,,,invalid-submission-forfeit,,44
+K035,fighting,knockout,FightingICE,engine,FI-059,FI-079,FI-059,383,372,hp,time,,420
+K036,fighting,knockout,FightingICE,engine,FI-010,FI-065,FI-065,345,357,hp,time,,420
+K037,fighting,knockout,FightingICE,engine,FI-026,FI-049,FI-026,390,367,hp,time,,420
+K038,fighting,knockout,FightingICE,engine,FI-052,FI-090,FI-052,380,367,hp,time,,420
+K039,fighting,knockout,FightingICE,engine,FI-005,FI-035,FI-005,375,367,hp,time,,420
+K040,fighting,knockout,FightingICE,engine,FI-039,FI-042,FI-039,390,385,hp,time,,420
+K041,fighting,knockout,FightingICE,engine,FI-097,FI-070,FI-070,375,383,hp,time,,420
+K042,fighting,knockout,FightingICE,engine,FI-067,FI-082,FI-067,400,343,hp,time,,420
+K043,fighting,knockout,FightingICE,forfeit,FI-059,FI-065,FI-065,,,,invalid-submission-forfeit,,44
+K044,fighting,knockout,FightingICE,engine,FI-026,FI-052,FI-052,372,385,hp,time,,420
+K045,fighting,knockout,FightingICE,engine,FI-005,FI-039,FI-005,375,365,hp,time,,420
+K046,fighting,knockout,FightingICE,engine,FI-070,FI-067,FI-070,390,365,hp,time,,420
+K047,fighting,knockout,FightingICE,engine,FI-065,FI-052,FI-052,365,372,hp,time,,420
+K048,fighting,knockout,FightingICE,engine,FI-005,FI-070,FI-005,380,367,hp,time,,420
+K049,fighting,knockout,FightingICE,engine,FI-052,FI-005,FI-005,367,372,hp,time,,420
+B001,pilot,pilot,2048,pilot,A,B,B,932,940,points,,,
+B002,pilot,pilot,Sliding Puzzle,pilot,A,B,B,52,46,moves,,,
+B003,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B004,pilot,pilot,Sliding Puzzle,pilot,A,B,,24,24,moves,,,
+B005,pilot,pilot,Sliding Puzzle,pilot,A,B,,34,34,moves,,,
+B006,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B007,pilot,pilot,Sliding Puzzle,pilot,A,B,,38,38,moves,,,
+B008,pilot,pilot,2048,pilot,A,B,B,900,940,points,,,
+B009,pilot,pilot,2048,pilot,A,B,A,948,944,points,,,
+B010,pilot,pilot,Sliding Puzzle,pilot,A,B,B,40,38,moves,,,
+B011,pilot,pilot,Sliding Puzzle,pilot,A,B,,36,36,moves,,,
+B012,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B013,pilot,pilot,Sliding Puzzle,pilot,A,B,,3,0,moves,,,
+B014,pilot,pilot,Sliding Puzzle,pilot,A,B,,0,0,moves,,,
+B015,pilot,pilot,2048,pilot,A,B,B,928,952,points,,,
+B016,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B017,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B018,pilot,pilot,2048,pilot,A,B,B,900,924,points,,,
+B019,pilot,pilot,Sliding Puzzle,pilot,A,B,B,44,42,moves,,,
+B020,pilot,pilot,Sliding Puzzle,pilot,A,B,,36,36,moves,,,
+B021,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B022,pilot,pilot,Lights Out,pilot,A,B,,9,9,moves,,,
+B023,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B024,pilot,pilot,Sliding Puzzle,pilot,A,B,B,5,42,moves,,,
+B025,pilot,pilot,2048,pilot,A,B,B,924,940,points,,,
+B026,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B027,pilot,pilot,Sliding Puzzle,pilot,A,B,,32,32,moves,,,
+B028,pilot,pilot,Lights Out,pilot,A,B,,6,6,moves,,,
+B029,pilot,pilot,Sliding Puzzle,pilot,A,B,,30,30,moves,,,
+B030,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B031,pilot,pilot,2048,pilot,A,B,B,912,1052,points,,,
+B032,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B033,pilot,pilot,Sliding Puzzle,pilot,A,B,,28,28,moves,,,
+B034,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B035,pilot,pilot,Battleship,pilot,A,B,,17,17,hits,,,
+B036,pilot,pilot,2048,pilot,A,B,A,912,516,points,,,
+B037,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B038,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B039,pilot,pilot,Lights Out,pilot,A,B,,8,8,moves,,,
+B040,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B041,pilot,pilot,2048,pilot,A,B,A,960,924,points,,,
+B042,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B043,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B044,pilot,pilot,2048,pilot,A,B,B,808,960,points,,,
+B045,pilot,pilot,Sliding Puzzle,pilot,A,B,,32,32,moves,,,
+B046,pilot,pilot,Sliding Puzzle,pilot,A,B,,34,34,moves,,,
+B047,pilot,pilot,Sliding Puzzle,pilot,A,B,A,44,14,moves,,,
+B048,pilot,pilot,Lights Out,pilot,A,B,,9,9,moves,,,
+B049,pilot,pilot,2048,pilot,A,B,B,932,936,points,,,
+B050,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B051,pilot,pilot,Lights Out,pilot,A,B,,6,6,moves,,,
+B052,pilot,pilot,Battleship,pilot,A,B,A,13,12,hits,,,
+B053,pilot,pilot,Sliding Puzzle,pilot,A,B,,10,2,moves,,,
+B054,pilot,pilot,2048,pilot,A,B,B,924,936,points,,,
+B055,pilot,pilot,Lights Out,pilot,A,B,,8,8,moves,,,
+B056,pilot,pilot,Sliding Puzzle,pilot,A,B,B,46,42,moves,,,
+B057,pilot,pilot,2048,pilot,A,B,,932,932,points,,,
+B058,pilot,pilot,Lights Out,pilot,A,B,,6,6,moves,,,
+B059,pilot,pilot,2048,pilot,A,B,B,900,928,points,,,
+B060,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B061,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B062,pilot,pilot,2048,pilot,A,B,A,940,508,points,,,
+B063,pilot,pilot,Lights Out,pilot,A,B,,8,8,moves,,,
+B064,pilot,pilot,Lights Out,pilot,A,B,,5,5,moves,,,
+B065,pilot,pilot,Lights Out,pilot,A,B,,4,4,moves,,,
+B066,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B067,pilot,pilot,Battleship,pilot,A,B,,15,15,hits,,,
+B068,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B069,pilot,pilot,2048,pilot,A,B,,936,936,points,,,
+B070,pilot,pilot,2048,pilot,A,B,B,876,936,points,,,
+B071,pilot,pilot,Sliding Puzzle,pilot,A,B,B,0,38,moves,,,
+B072,pilot,pilot,Battleship,pilot,A,B,B,17,17,hits,,,
+B073,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B074,pilot,pilot,Sliding Puzzle,pilot,A,B,,30,30,moves,,,
+B075,pilot,pilot,2048,pilot,A,B,,936,936,points,,,
+B076,pilot,pilot,Lights Out,pilot,A,B,,6,6,moves,,,
+B077,pilot,pilot,Sliding Puzzle,pilot,A,B,B,11,42,moves,,,
+B078,pilot,pilot,Sliding Puzzle,pilot,A,B,,30,30,moves,,,
+B079,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B080,pilot,pilot,Lights Out,pilot,A,B,,9,9,moves,,,
+B081,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B082,pilot,pilot,2048,pilot,A,B,A,924,744,points,,,
+B083,pilot,pilot,2048,pilot,A,B,A,876,340,points,,,
+B084,pilot,pilot,Lights Out,pilot,A,B,,10,10,moves,,,
+B085,pilot,pilot,2048,pilot,A,B,B,912,940,points,,,
+B086,pilot,pilot,Sliding Puzzle,pilot,A,B,A,54,5,moves,,,
+B087,pilot,pilot,Lights Out,pilot,A,B,,8,8,moves,,,
+B088,pilot,pilot,Lights Out,pilot,A,B,,5,5,moves,,,
+B089,pilot,pilot,2048,pilot,A,B,,988,988,points,,,
+B090,pilot,pilot,Lights Out,pilot,A,B,,5,5,moves,,,
+B091,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B092,pilot,pilot,Lights Out,pilot,A,B,,9,9,moves,,,
+B093,pilot,pilot,Lights Out,pilot,A,B,,4,4,moves,,,
+B094,pilot,pilot,Battleship,pilot,A,B,A,17,17,hits,,,
+B095,pilot,pilot,2048,pilot,A,B,B,708,932,points,,,
+B096,pilot,pilot,Lights Out,pilot,A,B,,8,8,moves,,,
+B097,pilot,pilot,Lights Out,pilot,A,B,,7,7,moves,,,
+B098,pilot,pilot,2048,pilot,A,B,,952,952,points,,,
+B099,pilot,pilot,Sliding Puzzle,pilot,A,B,A,42,44,moves,,,
+B100,pilot,pilot,2048,pilot,A,B,A,936,928,points,,,

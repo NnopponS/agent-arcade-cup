@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f6f3e8">
+  <meta name="description" content="คลังผลการแข่งขัน Agent Arcade Cup ดูแมตช์ที่บันทึกไว้ อ่านผลการทดลองและข้อจำกัดจากข้อมูลที่เผยแพร่ได้">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'self'; object-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Agent Arcade Cup · คลังผลการแข่งขัน">
+  <meta property="og:description" content="สำรวจทุกแมตช์ที่บันทึกในชุดข้อมูลเผยแพร่ พร้อมผลการทดลองและข้อจำกัด">
+  <link rel="icon" href="./assets/arcade-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+  <title>Agent Arcade Cup · คลังผลการแข่งขัน</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v15m-6-6 6 6 6-6"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="m9 15 6-6m-7 9-1 1a3 3 0 0 1-4-4l4-4a3 3 0 0 1 4 0m2 2a3 3 0 0 0 4 0l4-4a3 3 0 0 0-4-4l-1 1"/></symbol>
+  </svg>
+  <header class="mast">
+    <div class="wrap header-inner">
+      <a class="brand" href="./"><img src="./assets/arcade-mark.svg" width="30" height="30" alt=""><span lang="en">Agent Arcade Cup</span></a>
+      <nav aria-label="เมนูหลัก"><a href="#matches">แมตช์</a><a href="#report">รายงาน</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="kicker"><i></i><span lang="en">FIELD NOTES / 01</span> · คลังผลการทดลอง</p>
+        <h1 id="page-title" lang="en">Agent<br>Arcade <em>Cup.</em></h1>
+        <p class="hero-sub">ย้อนดูแต่ละแมตช์ แล้วอ่านว่าผลการแข่งขันบอกอะไร และมีข้อไหนที่ข้อมูลยังตอบไม่ได้</p>
+        <div class="hero-actions"><a class="button button-dark" href="#matches">เปิดคลังแมตช์ <svg class="icon" aria-hidden="true"><use href="#i-down"></use></svg></a><a class="button button-plain" href="#report">อ่านรายงาน <svg class="icon" aria-hidden="true"><use href="#i-out"></use></svg></a></div>
+      </div>
+      <div class="hero-board" aria-hidden="true">
+        <div class="hero-board-label"><span>ARCADE CUP<br>RESULTS ARCHIVE</span><span>FIG. A<br>TOURNAMENT INDEX</span></div>
+        <svg viewBox="0 0 454 274" fill="none" focusable="false">
+          <defs><pattern id="grid-points" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#4a402e" fill-opacity=".19"/></pattern></defs>
+          <rect width="454" height="274" fill="url(#grid-points)"/>
+          <g stroke="#2c291d" stroke-width="2.3" stroke-linejoin="round">
+            <path d="M81 54h54v48h44v35h39m-137 83h54v-48h44v-35m194-83h-54v48h-44v35h-38m136 83h-54v-48h-44v-35"/>
+            <path d="M39 54h21m-21 166h21m334-166h21m-21 166h21" stroke-opacity=".46"/>
+          </g>
+          <g fill="#fff7df" stroke="#2c291d" stroke-width="2.3">
+            <rect x="67" y="40" width="28" height="28" rx="2"/><rect x="67" y="206" width="28" height="28" rx="2"/><rect x="359" y="40" width="28" height="28" rx="2"/><rect x="359" y="206" width="28" height="28" rx="2"/>
+            <rect x="171" y="95" width="15" height="15" rx="2"/><rect x="171" y="164" width="15" height="15" rx="2"/><rect x="268" y="95" width="15" height="15" rx="2"/><rect x="268" y="164" width="15" height="15" rx="2"/>
+          </g>
+          <rect x="197" y="107" width="60" height="60" rx="5" transform="rotate(-45 227 137)" fill="#28251c" stroke="#1e1b14" stroke-width="2"/>
+          <path d="M219 119h16v7h7v7h-7v9h-5v7h7v5h-20v-5h7v-7h-5v-9h-7v-7h7v-7Zm-3 10v2h3v-2h-3Zm19 0v2h3v-2h-3Z" fill="#ffcf58"/>
+          <circle cx="227" cy="137" r="61" stroke="#2c291d" stroke-opacity=".30" stroke-dasharray="2 5"/>
+          <g stroke="#2c291d" stroke-width="2"><path d="M223 43h8m-4-4v8m-4 185h8m-4-4v8"/></g>
+        </svg>
+        <div class="hero-board-foot"><span><i></i> RECORDS, NOT REPLAYS</span><span>NOT TO SCALE</span></div>
+      </div>
+    </section>
+    <section class="wrap numbers" aria-label="ภาพรวมข้อมูล" hidden id="metrics">
+      <div><strong id="stat-matches" class="stat-number">—</strong><span>รายการที่เผยแพร่</span></div>
+      <div><strong id="stat-phases" class="stat-number">—</strong><span>ไฟต์ FightingICE ที่เล่นจริง</span></div>
+      <div><strong id="stat-games" class="stat-number">—</strong><span>รอบนำร่อง (แยกผล)</span></div>
+    </section>
+    <section id="matches" class="wrap archive" aria-labelledby="archive-title">
+      <p class="section-index"><span>01</span> MATCH LOG</p>
+      <div class="section-head">
+        <div><h2 id="archive-title">คลังแมตช์</h2><p>ค้นหาจากเลขแมตช์ เกม หรือชื่อที่เผยแพร่ แล้วเปิดดูผลรายแมตช์</p></div>
+        <div class="archive-links" id="download-data" hidden><a class="button small button-line" href="./match-index.csv" download><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> ดัชนี CSV</a><a class="button small button-line" href="./data.json" download>ข้อมูล JSON</a></div>
+      </div>
+      <noscript><p class="state-block">เปิด JavaScript เพื่อใช้การค้นหาและตัวกรอง หรืออ่าน <a href="./data.json">ชุดข้อมูล</a> และ <a href="./report.json">รายงาน</a> โดยตรง</p></noscript>
+      <div id="match-status" class="state-block" role="status"><p>กำลังโหลดชุดข้อมูลการแข่งขัน…</p></div>
+      <div id="match-interface" hidden>
+        <form id="filter-form" class="filters" aria-label="ค้นหาและกรองแมตช์">
+          <label for="query" class="query-field"><span>ค้นหา</span><span class="input-wrap"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><input id="query" type="search" maxlength="100" placeholder="เลขแมตช์ ชื่อ หรือเกม" autocomplete="off"></span></label>
+          <label for="phase-filter"><span>ช่วงการแข่งขัน</span><select id="phase-filter"><option value="">ทุกช่วง</option></select></label>
+          <label for="game-filter"><span>เกม</span><select id="game-filter"><option value="">ทุกเกม</option></select></label>
+          <label for="sort"><span>เรียงตาม</span><select id="sort"><option value="asc">ลำดับแมตช์</option><option value="desc">ล่าสุดก่อน</option></select></label>
+        </form>
+        <p class="archive-note">รอบนำร่องเป็นการทดสอบแยกจาก FightingICE ส่วนสถิติไฟต์ที่เล่นจริงไม่นับแพ้ผ่าน</p>
+        <div class="fold-status"><p id="list-status" aria-live="polite" aria-atomic="true"></p><button id="reset" type="button" class="low-key">ล้างตัวกรอง</button></div>
+        <section id="match-detail" class="match-detail" aria-labelledby="detail-title" hidden>
+          <div class="detail-top"><p class="detail-serial" id="detail-serial"></p><a class="button small button-line" id="detail-close" href="#matches">กลับไปที่รายการ</a></div>
+          <h3 id="detail-title" tabindex="-1"></h3>
+          <p id="detail-lead"></p>
+          <dl id="detail-fields"></dl>
+          <div id="detail-chart" class="detail-chart" hidden></div>
+          <div id="detail-notes" class="detail-notes" hidden><h4>บันทึกที่เผยแพร่</h4><ul id="detail-notes-list"></ul></div>
+          <div class="detail-foot">
+            <nav id="detail-nav" class="detail-nav" aria-label="ไล่ดูแมตช์"><a id="match-before" class="button small button-line" href="#"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> ก่อนหน้า</a><a id="match-after" class="button small button-line" href="#">ถัดไป <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></a></nav>
+            <div class="share"><button id="copy-link" class="button small button-line" type="button"><svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg> คัดลอกลิงก์แมตช์</button><label id="fallback-link" hidden><span>ลิงก์แมตช์นี้</span><input id="copy-value" readonly></label></div>
+          </div>
+          <p id="copy-status" class="copy-status" role="status"></p>
+        </section>
+        <ol id="match-list" class="match-list" aria-label="ผลการแข่งขัน"></ol>
+        <p id="no-matches" class="state-block" hidden>ไม่เจอแมตช์ที่ตรงกับคำค้น ลองใช้คำสั้นลงหรือล้างตัวกรอง</p>
+        <nav id="pagination" class="pagination" aria-label="หน้าผลการแข่งขัน" hidden>
+          <button class="button small button-line" type="button" id="page-prev"><svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg> ก่อนหน้า</button>
+          <span id="page-number"></span>
+          <button class="button small button-line" type="button" id="page-next">ถัดไป <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg></button>
+        </nav>
+      </div>
+    </section>
+    <section id="report" class="report" aria-labelledby="report-title">
+      <div class="wrap">
+        <p class="section-index"><span>02</span> EXPERIMENT REPORT</p>
+        <div class="section-head"><div><h2 id="report-title">รายงานการทดลอง</h2><p id="report-intro">แยกสิ่งที่วัดได้จริงออกจากข้อสันนิษฐาน และชี้ว่าควรทดลองอะไรต่อ</p></div></div>
+        <p id="report-status" class="state-block" role="status">กำลังโหลดรายงาน…</p>
+        <div id="report-interface" hidden>
+          <section class="takeaways" aria-labelledby="takeaways-title">
+            <p class="kicker">READ THIS FIRST</p><h3 id="takeaways-title">ข้อค้นพบสำคัญ</h3><ol id="takeaway-list"></ol>
+          </section>
+          <div class="report-grid">
+            <nav aria-label="สารบัญรายงาน" id="contents-nav"><h3>ในรายงานนี้</h3><ul id="report-contents"></ul></nav>
+            <div id="report-sections"></div>
+          </div>
+          <ul id="report-links" class="report-links"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap foot">
+    <a class="brand" href="./"><img src="./assets/arcade-mark.svg" width="27" height="27" alt=""><span lang="en">Agent Arcade Cup</span></a>
+    <p>คลังสาธารณะใช้เฉพาะข้อมูลที่เตรียมให้เผยแพร่ ไม่รวมบันทึกส่วนตัวหรือไฟล์รีเพลย์ดิบ</p>
+    <a class="low-key" href="#main">กลับขึ้นด้านบน ↑</a>
+  </footer>
+</body>
+</html>
