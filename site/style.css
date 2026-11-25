@@ -4,7 +4,6 @@
 @font-face{font-family:ArcadeDisplay;src:url('./assets/serif-italic.woff') format('woff');font-style:italic;font-weight:400;font-display:swap}
 :root{--ivory:#f6f3e8;--paper:#fcf9ef;--ink:#28241f;--text:#51483c;--sub:#675c49;--border:#d7cbb6;--gold:#ffcd5b;--gold-deep:#7e4c15;--moss:#314634;--soft-moss:#e5ebd8;--red:#7c2f28;--soft-red:#f2ded1;--ui:ArcadeThai,system-ui,sans-serif;--en:system-ui,ArcadeThai,sans-serif;--display:ArcadeDisplay,Georgia,serif;--mono:ui-monospace,monospace}
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{margin:0;background:var(--ivory);color:var(--ink);font:400 1rem/1.55 var(--ui);-webkit-text-size-adjust:100%}
 h1,h2,h3,h4,p,dl,dd{margin:0}
 a{color:inherit;text-decoration:none}
