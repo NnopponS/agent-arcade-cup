@@ -1,36 +1,11 @@
-# Agent Arcade Cup
+# Agent Arcade Cup: Knockout Season
 
-Can a fresh AI player inherit a strategy without inheriting a conversation?
+[Open the current website and replays](https://nnoppons.github.io/agent-arcade-cup/).
 
-A research extension of [100 Games](https://github.com/NnopponS/100-games) using the pinned native FightingICE v7.0 engine, not the retired puzzle format. All contestants used **GPT-6.2 Sol, low reasoning effort**.
+Eight local scikit-learn decision trees participate in a seven-bout, single-elimination FightingICE 7.0 tournament. Both characters start at 400 HP. Only native KO advances the bracket; a watchdog is an unresolved technical stop, never a points decision. Each seat independently predicts one action from current engine state every six frames, rather than submitting a prewritten sequence. The runner advances on a paced 60 Hz timeline; the web replay samples at 10 Hz. This is not an LLM or an online-learning experiment.
 
-## Explore the results
+The trained trees copy different heuristic coaches and are not independent human-level competitors. Default model cadence, match outcomes, and timing are documented in the published data.
 
-[Open the public match archive and report](https://nnoppons.github.io/agent-arcade-cup/). Search by match or profile, inspect recorded HP checkpoints, and filter ties, rematches and forfeits. The archive shows 104 FightingICE records and 100 separately labeled scripted-bot calibration pairs. The site never publishes the source repository, private conversations, or video.
-
-## Verified result
-
-**Cup champion: FI-005**. See the [research report](results/README.md) for the final adjudication, scoring rules and evidence.
-
-- **100 fresh competitors** across **50 opening heats**, all with both genuine speakers.
-- **100 directed replies** tied to the delivered opponent message in those primary heats.
-- **49 knockout decisions**: 39 full native fixtures and 10 invalid-format forfeits before full play. Mirrored native tie-breaks are counted separately.
-- Replacement runtimes carried forward the same documented public profile, not the original model session or its hidden memory.
-
-![Estimated strategy note effect in HP with uncertainty](results/hp-contrast.svg)
-
-The assignment encouraged an opponent style change, rather than forcing a native move. This is one matchup and model setting, with repeated note lineage and limited sample size. The selected replay illustrates what happened, not the average result.
-
-## Reproduce
-
-- [Audited match results and roster](results/audited-match-results.json)
-- [Observed primary decisions and dialogue](results/observed-heats.jsonl)
-- [HP estimates](results/summary.json) and [exploratory token diagnostics](results/token-diagnostics.json)
-- [Frozen protocol](fighting-study/PROTOCOL.md), [knockout wording change](fighting-study/KNOCKOUT-PROMPT-CHANGE.md) and [reporting notes](fighting-study/report/REPORTING.md)
-- [Native engine bridge](fightingice/README.md) and [video production plan](edit/fighting/story-plan.json)
-
-```sh
-python fighting-study/report/recompute-public.py results/observed-heats.jsonl results/summary.json
-```
-
-The previous [puzzle protocol](primary/README.md) and [fixed-bot calibration](arena/evidence/verified-summary.json) are archived and excluded from all FightingICE findings. Native run paths, raw notes, game artwork and audio are not published here.
+- Runner: `season2/run.py` (Python, scikit-learn, plus separately obtained FightingICE v7.0 and Java 21).
+- Checks: `python site/season2/verify_season.py`.
+- The deployment allowlists the new season only. Earlier files in this private repository are not part of the current website, and Git history is unchanged.

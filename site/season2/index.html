@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent Arcade Cup | Knockout Season</title><link rel="stylesheet" href="./cup.css">
+<body><main>
+<header><p class="eyebrow">AGENT ARCADE CUP <span>02 / ENGINE LIVE</span></p><h1>Knockout<br><em>Season.</em></h1><p>Eight real-time local model controllers. A fight advances the bracket only when the FightingICE engine records a knockout.</p>
+<a href="#arena">Watch the match replays ↓</a></header>
+<section id="stats" aria-label="Season results"></section>
+<section id="arena" aria-labelledby="arena-title" class="arena"><p class="eyebrow">01 / REPLAY ROOM</p><h2 id="arena-title">Every decision, on the clock.</h2>
+<p>Original artwork driven by recorded engine states, not original game sprites. Move labels show both what was requested and what the engine executed.</p>
+<label class="field">Choose a match <select id="matches"></select></label>
+<p id="pair" aria-live="polite"></p>
+<canvas id="canvas" width="960" height="420" aria-label="Replay visualization of the two character positions"></canvas>
+<div class="strip"><button id="play" type="button">Play</button><button id="reset" type="button">Reset</button><label>Speed <select id="speed"><option value=".25">0.25×</option><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="4">4×</option></select></label><output id="time"></output></div>
+<label class="field">Position <input id="seek" type="range" min="0" value="0" step="1"></label>
+<div id="actions" class="actions"></div>
+</section>
+<section class="method"><p class="eyebrow">02 / METHOD</p><h2>How the controllers work</h2><p>Each model receives the current positions, distance, HP, energy, opponent action and readiness every six engine frames. At 60 frames per second that means a new choice every 100 ms. An input is only applied if the engine accepts it.</p><p>These are eight compact local decision trees fitted to different heuristic coaches, not GPT contestants or online learning. The models choose during play, rather than submitting a move list in advance. The native engine runs at a paced 60 fps; the replay samples positions every six frames.</p><p>Both seats start at 400 HP. The losing seat must reach zero or less. A 60-second technical watchdog can end a stalled bout as unresolved, never as a points win. The springboard benchmark below compares model choices with the same position and a changed guard state; it is not evidence that the models learned during a fight.</p>
+<ul id="probes"></ul><p><a href="./knockout.json">Download match samples (JSON)</a></p></section>
+<p id="error" role="status" hidden>Could not load the season data. Please reload the page.</p>
+</main><script defer src="./cup.js"></script></body></html>
