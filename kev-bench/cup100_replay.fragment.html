@@ -14,7 +14,7 @@
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-let all, m, time=0, active=false, last, raf;
+let all, m, time=0, active=false, last, raf, selection=0;
 const seconds=f=>(f/60).toFixed(1)+' s';
 function paint(){
  const frame=m.start+Math.floor(time), samples=m.frames;
@@ -39,20 +39,22 @@ function tick(t){
  if(time<m.elapsedFrames)raf=requestAnimationFrame(tick);else stop();
 }
 async function select(){
- stop();m=null;$('play').disabled=true;const wanted=$('match').value;
+ stop();m=null;$('play').disabled=true;$('scrub').disabled=true;
+ const seq=++selection,wanted=$('match').value;
+ $('outcome').textContent='Loading replay…';
  try{
   const reply=await fetch('cup100-replay/'+wanted+'.json');
   if(!reply.ok)throw Error('missing');
   const file=await reply.json();
   const bytes=Uint8Array.from(atob(file),ch=>ch.charCodeAt(0));
   const data=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
-  if($('match').value!==wanted)return;
+  if(seq!==selection)return;
   m={frames:data.frames,seats:data.entrantIds,start:data.frames[0][0],
     elapsedFrames:data.frames.at(-1)[0]-data.frames[0][0],verdict:data.winner+' won by engine KO'};
   time=0;$('scrub').max=m.elapsedFrames;$('scrub').disabled=false;
   for(let i=1;i<=2;i++)$('n'+i).textContent=m.seats[i-1];
   $('outcome').textContent=m.verdict;paint();$('play').disabled=false;
- }catch{if($('match').value===wanted)$('outcome').textContent='Could not load this match.'}
+ }catch{if(seq===selection)$('outcome').textContent='Could not load this match.'}
 }
 $('play').onclick=()=>{if(!m)return;if(active){stop();return}if(time>=m.elapsedFrames)time=0;active=true;$('play').textContent='Pause';raf=requestAnimationFrame(tick)};
 $('match').onchange=select;$('scrub').oninput=()=>{if(m){time=Number($('scrub').value);paint()}};
