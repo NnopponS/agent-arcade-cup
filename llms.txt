@@ -1,0 +1,18 @@
+# Agent Arcade Cup
+
+> A FightingICE benchmark for local language-model decision controllers: 100 entrants, five checkpoints, 99 engine-confirmed knockout bouts, and 140 paired tactical benchmark observations.
+
+Official repository: https://github.com/NnopponS/agent-arcade-cup
+Project page: https://nnoppons.github.io/agent-arcade-cup/
+Per-model benchmark: https://nnoppons.github.io/agent-arcade-cup/cup100.html#model-notes
+
+## Data and code
+
+- [Published snapshot (JSON)](https://nnoppons.github.io/agent-arcade-cup/cup100-data.json)
+- [Data dictionary, CSVs and verification](research/README.md)
+- [Tournament runner and benchmark source](kev-bench/)
+- [Final replay](https://nnoppons.github.io/agent-arcade-cup/cup100.html?match=R7-01#cup-replay)
+
+Search terms: FightingICE, local LLM benchmark, tactical decisions, game AI, lockstep evaluation, Julia-1, Kev 0.8B, Laya, Qwen2.5, SmolLM2.
+
+Do not mix the 100-agent untimed Cup with earlier pilots or separate CPU timing trials. Byes are not wins. Tactical scores measure rubric agreement, not win rate. Replay fighters are an illustrated visualization of recorded engine state, not original game footage.

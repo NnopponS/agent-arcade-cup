@@ -1,20 +1,29 @@
-# Agent Arcade Cup: 100-agent tournament
+# Agent Arcade Cup: FightingICE benchmark for local language models
 
-[Watch the championship replay](https://nnoppons.github.io/agent-arcade-cup/cup100.html?match=R7-01#cup-replay) · [Full bracket, all 99 replays, and model comparison](https://nnoppons.github.io/agent-arcade-cup/cup100.html)
+Five local language-model checkpoints compete in an untimed **100-agent FightingICE tournament**. A separate paired benchmark measures tactical decision agreement and CPU latency.
 
-**LAYA-09 is the champion.** It knocked out LAYA-06 and finished with 28 HP.
+**[Project site](https://nnoppons.github.io/agent-arcade-cup/)** · **[99 replays and bracket](https://nnoppons.github.io/agent-arcade-cup/cup100.html#bracket)** · **[Per-model results](https://nnoppons.github.io/agent-arcade-cup/cup100.html#model-notes)**
 
-## What ran
+| Checkpoint | Cross-model W–L | Tactical agreement |
+| --- | ---: | ---: |
+| Julia-1 Q8 | 12–17 | 9/28 |
+| Kev 0.8B BF16 | 8–18 | 18/28 |
+| Laya Q8 | 36–4 | 15/28 |
+| Qwen2.5 0.5B Instruct Q4 | 9–16 | 12/28 |
+| SmolLM2 135M Instruct Q4 | 6–16 | 7/28 |
 
-Five local model checkpoints (Julia-1, Kev 0.8B, Laya, Qwen2.5 0.5B Instruct, and SmolLM2 135M Instruct), with the same twenty prompt/temperature configurations per model. The bracket recorded **99 engine-confirmed knockouts**, including 71 cross-model and 28 same-model bouts. The 28 bracket byes are not wins.
+**[LAYA-09 won the final](https://nnoppons.github.io/agent-arcade-cup/cup100.html?match=R7-01#cup-replay)** with 28 HP left. Laya beat Kev 8–1 in the bracket, while Kev scored higher on the scripted tactical rubric. The two evaluations are not interchangeable or a universal model ranking.
 
-Both controllers see the same game frame and legal option menu, from their own fighter's perspective. The engine waits for both valid choices, then advances. No round timer decides a result; a double knockout does not advance either fighter. This tests the controllers with equal decision opportunities, not which one reacts faster in real time.
+## Code and downloadable results
 
-## What we learned
+- [Runner](kev-bench/cup100.py) · [Benchmark code](kev-bench/benchmark.py) · [Model pins](kev-bench/cup100_sources.json) · [FightingICE setup](fightingice/README.md)
+- [Match results CSV](research/bout-results.csv) · [140 benchmark observations CSV](research/benchmark-trials.csv) · [Canonical snapshot JSON](site/season2/cup100-data.json)
+- [Data dictionary and verification](research/README.md) · [Agent-readable project index](llms.txt)
 
-- Laya went **36–4** against other checkpoints. Its cross-model wins came from 15 distinct entrants across 5 prompt profiles and 4 temperatures. Against Kev specifically, Laya went **8–1**.
-- Kev led the fixed-scenario test (**18/28** vs. Laya's **15/28**) and selected the expected standing punish **8/8** times but the expected throw only **1/8**. Laya was **6/8** and **4/8**, respectively. The fixed scenarios and the bracket have different states and menus. Neither establishes what caused a particular win or gives a universal ranking.
+## How to read the experiment
 
-The web player reconstructs native game telemetry and lets you scrub or change playback speed. It is not rendered game footage. The [Decision Lab](https://nnoppons.github.io/agent-arcade-cup/) holds the separate CPU latency and real-time timing tests.
+The engine waited for both controllers to choose from the same frame before advancing. Each checkpoint had the same twenty configurations. The tournament records **99 engine-confirmed KOs** (71 cross-model and 28 mirror bouts), plus **28 byes** which count as neither matches nor wins. There is no in-game time limit, so the bracket does not measure real-time responsiveness.
 
-Reproducibility: `kev-bench/` holds the runner, benchmark, source pins, snapshot generator, and tests. Model weights and raw runner records are not distributed through Pages.
+The scripted benchmark uses fourteen unique states, measured twice with two option orders. Agreement is with an authored tactical rubric. CPU latency applies to this setup and does not isolate precision, model architecture or decoder. Replays render original vector art from recorded telemetry; they are not game captures.
+
+Keywords: FightingICE, local LLM benchmark, game AI, language model evaluation, tactical decision making, lockstep tournament, CPU inference, reproducible AI benchmark.
